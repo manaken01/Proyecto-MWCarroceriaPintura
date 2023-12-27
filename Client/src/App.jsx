@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import Navbar from './components/Navbar';
+import Card from './components/Card';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return <div><Navbar /></div>;
+  return <div><Card /></div>;
 }
 
 export default App
