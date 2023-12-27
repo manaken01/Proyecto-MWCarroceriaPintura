@@ -5,21 +5,21 @@ import HeartButton from './HeartButton';
 import Divider from './Divider';
 
 //set parapmetersd from function
-function Card() {
-
+function Card({nombre}) {
+    console.log(nombre)
     return (
-        <div class="card mb-3" style={{ maxWidth: '500px', backgroundColor: "#F9F9F9" }}>
+        <div class="card mb-3" style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px"}}>
             <div class="row g-0">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <img src="https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg" style={{
                         objectFit: 'cover',
                         height: '100%'
                     }} class="img-fluid rounded-start" alt="..." />
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title" style={{ color: '#000000' }}>Repuesto nombre </h5>
+                    <h5 class="card-title" style={{ color: '#000000' }}>{nombre}</h5>
                     <HeartButton />
                     
                 </div>
