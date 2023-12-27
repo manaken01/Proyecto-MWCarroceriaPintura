@@ -7,8 +7,11 @@ function Navbar() {
              <a class="navbar-brand" style={{ marginLeft:'1%' }} href="#">
                 <img src={logo} alt="Logo" height="30" class="d-inline-block align-top" />  {/* Aquí agregamos la imagen */}
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav" style={{ marginLeft: 'auto' }}>
+                <ul class="navbar-nav" style={{ marginLeft: 'auto', marginRight: '1%' }}>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
                     </li>
@@ -25,10 +28,10 @@ function Navbar() {
                         <a class="nav-link" href="#">Agendar</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" style={{ marginRight:'100px'}} href="#">Usuario</a>
+                    <a class="nav-link"  style={{ marginRight: '100px' }} href="#">Usuario</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-danger " style={{ backgroundColor: '#C80B16', marginRight:'10px'}}>Contáctenos</button>
+                        <button type="button" class="btn btn-danger " style={{ backgroundColor: '#C80B16'}}>Contáctenos</button>
                     </li>
                 </ul>
             </div>
