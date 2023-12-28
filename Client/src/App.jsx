@@ -6,14 +6,14 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Divider from './components/Divider';
 import InformationSecond from './components/InformationSecond';
+import SearchFilters from './components/SearchFilters';
 
 function App() {
   return (
     <div>
       <Navbar/>
-      <InformationFirst />
-      <Divider/>
-      <InformationSecond/>
+      <SearchFilters />
+      <Cards/>
     </div>
   );
 }
