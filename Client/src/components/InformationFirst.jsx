@@ -24,7 +24,6 @@ function InformationFirst() {
                     ¿Quiénes somos?
                 </div>
             </div>
-           
             <div class="card mb-3" style={{ maxWidth: '100%', backgroundColor: "transparent", boxShadow: "none", marginTop: '3%', border: 'none'}}>
                 <div class="row g-0">
                     <div class="col-md-6 order-md-2"> {/* En dispositivos medianos, la imagen está a la derecha */}
