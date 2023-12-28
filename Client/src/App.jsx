@@ -4,12 +4,15 @@ import Cards from './components/Cards';
 
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './components/Navbar';
+import SearchFilters from './components/SearchFilters';
 
 function App() {
   return (
     <div>
-      
-      <Cards />
+      <Navbar/>
+      <SearchFilters />
+      <Cards/>
     </div>
   );
 }
