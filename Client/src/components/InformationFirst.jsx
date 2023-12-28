@@ -15,7 +15,7 @@ function InformationFirst() {
                 marginTop: '2%'
             }}>
                 <div style={{ 
-                    fontSize: '5.5em', 
+                    fontSize: '5em', 
                     fontWeight: '600', 
                     color: '#FAFAFA',
                     textAlign: 'center',
@@ -48,8 +48,6 @@ function InformationFirst() {
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 }
