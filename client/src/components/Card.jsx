@@ -7,13 +7,13 @@ import Divider from './decoration/Divider';
 
 function Card({ nombre, carro, precio, categoria, stock, bodyshape, version, imagenes }) {
     return (
-        <div className="card mb-3" style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
-            <div className="row g-0">
-                <div className="col-md-6">
-                    <Carousel style={{ boxSizing: 'content-box', objectFit: 'cover', height: '100%' }}>
+        <div className="card mb-3 " style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
+            <div className="row g-0 ">
+                <div className="col-md-6 " > 
+                    <Carousel style={{ boxSizing: 'content-box', objectFit: 'cover', height: '100%' , alignItems: 'center'}}>
                         {imagenes.map((imagen, index) => (
                             <CarouselItem key={index} >
-                                <img src={imagen} alt={`Slide ${index + 1}`} className="img-fluid rounded-start"  />
+                                <img src={imagen} alt={`Slide ${index + 1}`} style={{minWidth: '100%',maxHeight:'350px'}}class="d-block h-100"  />
                             </CarouselItem>
                         ))}
                     </Carousel>
