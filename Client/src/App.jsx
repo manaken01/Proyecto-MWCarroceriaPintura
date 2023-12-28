@@ -1,10 +1,18 @@
 import { useState } from 'react'
-import StarRating from './components/decoration/StarRating';
+
+import InformationFirst from './components/InformationFirst';
+import Navbar from './components/Navbar';
+
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return <div><StarRating /></div>;
+  return (
+    <div>
+      <Navbar/>
+      <InformationFirst />
+    </div>
+  );
 }
 
 export default App
