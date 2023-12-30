@@ -33,7 +33,7 @@ const LogIn = () => {
                     <div className="col-12 d-flex justify-content-center">
                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
-                                <p style={{ color: 'red' }}>¿Olvidaste la contraseña?</p>
+                                <p style={{ color: 'red', marginBottom: '15%' }}>¿Olvidaste la contraseña?</p>
                             </div>
                             <div>
                                 <button className="btn btn-outline-secondary" style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Iniciar sesión</button>
@@ -41,7 +41,7 @@ const LogIn = () => {
                         </div>
                     </div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3.5%', marginBottom: '0%' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2%', marginBottom: '-2%' }}>
                     <hr style={{ borderColor: '#9C9C9C', borderWidth: '2px', width: '40%' }}/>
                 </div>
                 <div className="row mt-3 mb-3" style={{ paddingBottom: '5%' }}>
