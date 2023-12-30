@@ -7,13 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Divider from './components/Divider';
 import InformationSecond from './components/InformationSecond';
 import SearchFilters from './components/SearchFilters';
+import LogIn from './components/LogIn';
 
 function App() {
   return (
     <div>
       <Navbar/>
-      <SearchFilters />
-      <Cards/>
+      <LogIn/>
     </div>
   );
 }
