@@ -11,15 +11,15 @@ import cheimg from '../../assets/brands/chevroletIMG.png';
 import mazimg from '../../assets/brands/mazdaIMG.png';
 import susimg from '../../assets/brands/susukiIMG.png';
 
-const brands = [{ id: 1, marca: "TOYOTA", imag: toyimg },
-{ id: 2, marca: "HYUNDAI", imag: hyuimg },
-{ id: 3, marca: "NISSAN", imag: nisimg },
-{ id: 4, marca: "HONDA", imag: honimg },
-{ id: 5, marca: "KIA", imag: kiaimg },
-{ id: 6, marca: "MITSUBISHI", imag: mitimg },
-{ id: 7, marca: "CHEVROLET", imag: cheimg },
-{ id: 8, marca: "MAZDA", imag: mazimg },
-{ id: 9, marca: "SUSUKI", imag: susimg }
+const brands = [{ id: 1, brand: "TOYOTA", pic: toyimg },
+{ id: 2, brand: "HYUNDAI", pic: hyuimg },
+{ id: 3, brand: "NISSAN", pic: nisimg },
+{ id: 4, brand: "HONDA", pic: honimg },
+{ id: 5, brand: "KIA", pic: kiaimg },
+{ id: 6, brand: "MITSUBISHI", pic: mitimg },
+{ id: 7, brand: "CHEVROLET", pic: cheimg },
+{ id: 8, brand: "MAZDA", pic: mazimg },
+{ id: 9, brand: "SUSUKI", pic: susimg }
 ]
 function Brands() {
     return (
@@ -27,7 +27,7 @@ function Brands() {
             <div className='row'>{
                 brands.map(brand => (
                     <div className='col-md-4' key={brand.id}>
-                        <Brand marca={brand.marca} imag={brand.imag} />
+                        <Brand brand={brand.brand} pic={brand.pic} />
                     </div>
                 ))
             }

@@ -5,13 +5,13 @@ import whatsapp from '../../assets/whatsapp.png';
 import HeartButton from '../decoration/HeartButton';
 import Divider from '../decoration/Divider';
 
-function Card({ nombre, carro, precio, categoria, stock, bodyshape, version, imagenes }) {
+function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
     return (
         <div className="card mb-3 " style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
                 <div className="col-md-6 " > 
                     <Carousel style={{ boxSizing: 'content-box', objectFit: 'cover', height: '100%' , alignItems: 'center'}}>
-                        {imagenes.map((imagen, index) => (
+                        {pic.map((imagen, index) => (
                             <CarouselItem key={index} >
                                 <img src={imagen} alt={`Slide ${index + 1}`} style={{minWidth: '100%',maxHeight:'350px'}}class="d-block h-100"  />
                             </CarouselItem>
@@ -21,13 +21,13 @@ function Card({ nombre, carro, precio, categoria, stock, bodyshape, version, ima
                 <div className="col-md-6">
                     <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
-                            <h5 className="card-title" style={{ color: '#000000' }}>{nombre}</h5>
+                            <h5 className="card-title" style={{ color: '#000000' }}>{name}</h5>
                             <HeartButton />
                         </div>
                         <Divider />
-                        <p className="card-text"><strong>Carro: {carro}(B15)</strong></p>
-                        <p className="card-text" style={{ marginBottom: '0', color: '#C80B16' }}><strong>Precio: </strong> {precio}</p>
-                        <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Categoría: </strong>{categoria}</p>
+                        <p className="card-text"><strong>Carro: {car}(B15)</strong></p>
+                        <p className="card-text" style={{ marginBottom: '0', color: '#C80B16' }}><strong>Precio: </strong> {price}</p>
+                        <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Categoría: </strong>{category}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Stock: </strong>{stock}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Body Shape: </strong>{bodyshape}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Versión: </strong>{version}</p>

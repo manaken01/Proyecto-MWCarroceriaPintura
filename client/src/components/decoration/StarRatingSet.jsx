@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 
-const StarRating = ({rating}) => {
-  
+const StarRatingSet = () => {
+  const [rating, setRating] = useState(0);
+
+  const handleStarClick = (index) => {
+    setRating(index + 1);
+  };
 
   return (
     <div>
@@ -12,6 +16,7 @@ const StarRating = ({rating}) => {
           onClick={() => handleStarClick(index)}
           color={index < rating ? '#C80B16' : '#9C9C9C'}
           size={24}
+          style={{ cursor: 'pointer' }}
         />
       ))}
       <p>Calificación: {rating}</p>
@@ -19,4 +24,4 @@ const StarRating = ({rating}) => {
   );
 };
 
-export default StarRating;
+export default StarRatingSet;
