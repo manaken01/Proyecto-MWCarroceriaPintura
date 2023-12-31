@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/LogoTallerMW.png';
+import logo from '../../assets/LogoTallerMW.png';
 
 function Navbar() {
     const linkStyle = { color: '#F9F9F9' };

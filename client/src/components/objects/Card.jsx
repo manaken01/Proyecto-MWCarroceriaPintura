@@ -1,9 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel, CarouselItem } from 'react-bootstrap';
-import whatsapp from '../assets/whatsapp.png';
-import HeartButton from './decoration/HeartButton';
-import Divider from './decoration/Divider';
+import whatsapp from '../../assets/whatsapp.png';
+import HeartButton from '../decoration/HeartButton';
+import Divider from '../decoration/Divider';
 
 function Card({ nombre, carro, precio, categoria, stock, bodyshape, version, imagenes }) {
     return (

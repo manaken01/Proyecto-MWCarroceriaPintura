@@ -1,15 +1,15 @@
 import React from 'react';
 import Brand from './Brand';
 
-import toyimg from '../assets/brands/toyotaIMG.png';
-import hyuimg from '../assets/brands/hyundaiIMG.png';
-import nisimg from '../assets/brands/nissanIMG.png';
-import honimg from '../assets/brands/hondaIMG.png';
-import kiaimg from '../assets/brands/kiaIMG.png';
-import mitimg from '../assets/brands/mitsubishiIMG.png';
-import cheimg from '../assets/brands/chevroletIMG.png';
-import mazimg from '../assets/brands/mazdaIMG.png';
-import susimg from '../assets/brands/susukiIMG.png';
+import toyimg from '../../assets/brands/toyotaIMG.png';
+import hyuimg from '../../assets/brands/hyundaiIMG.png';
+import nisimg from '../../assets/brands/nissanIMG.png';
+import honimg from '../../assets/brands/hondaIMG.png';
+import kiaimg from '../../assets/brands/kiaIMG.png';
+import mitimg from '../../assets/brands/mitsubishiIMG.png';
+import cheimg from '../../assets/brands/chevroletIMG.png';
+import mazimg from '../../assets/brands/mazdaIMG.png';
+import susimg from '../../assets/brands/susukiIMG.png';
 
 const brands = [{ id: 1, marca: "TOYOTA", imag: toyimg },
 { id: 2, marca: "HYUNDAI", imag: hyuimg },

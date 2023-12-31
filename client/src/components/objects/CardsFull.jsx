@@ -9,7 +9,7 @@ const cards = [
     { id: 5, nombre: "Repuesto nombre 5", carro: "NISSAN SENTRA 2000-2006 (B15)", precio: "₡ 40000", categoria: "Dash", stock: "2 disponibles", bodyshape: "Sedan", version: "Japón", imagenes: ["https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg", "https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg"] },
 ]
 
-function Cards() {
+function CardsFull() {
     //falta cambiar la paginacion
     return (
         <div>
@@ -50,4 +50,4 @@ function Cards() {
     );
 }
 
-export default Cards;
+export default CardsFull;

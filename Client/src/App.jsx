@@ -1,16 +1,12 @@
 import { useState } from 'react'
-import Navbar from './components/Navbar';
-import Brands from './components/Brands';
-import Cards from './components/Cards';
+import StartScreen from './components/full screens MCV/StartScreen';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div>
-      <Navbar/>
-      <Brands/>
-      <Cards/>
+      <StartScreen/>
       
     </div>
   );
