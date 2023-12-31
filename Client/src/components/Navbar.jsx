@@ -1,37 +1,39 @@
 import React from 'react';
-import logo from '../assets/LogoTallerMW.png'
+import logo from '../assets/LogoTallerMW.png';
 
 function Navbar() {
+    const linkStyle = { color: '#F9F9F9' };
+
     return (
-        <nav class="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#9C9C9C' }}>
-             <a class="navbar-brand" style={{ marginLeft:'1%' }} href="#">
-                <img src={logo} alt="Logo" height="30" class="d-inline-block align-top" />  {/* Aquí agregamos la imagen */}
+        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#9C9C9C' ,boxShadow: "#E3E3E3 5px 5px 3px"}}>
+            <a className="navbar-brand" style={{ marginLeft: '1%' }} href="#">
+                <img src={logo} alt="Logo" height="30" className="d-inline-block align-top" />
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav" style={{ marginLeft: 'auto', marginRight: '1%' }}>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul className="navbar-nav" style={{ marginLeft: 'auto', marginRight: '1%' }}>
+                    <li className="nav-item active">
+                        <a className="nav-link" style={linkStyle} href="#">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Repuestos</a>
+                    <li className="nav-item">
+                        <a className="nav-link" style={linkStyle} href="#">Repuestos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Carros</a>
+                    <li className="nav-item">
+                        <a className="nav-link" style={linkStyle} href="#">Carros</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Información</a>
+                    <li className="nav-item">
+                        <a className="nav-link" style={linkStyle} href="#">Información</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Agendar</a>
+                    <li className="nav-item">
+                        <a className="nav-link" style={linkStyle} href="#">Agendar</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link"  style={{ marginRight: '100px' }} href="#">Usuario</a>
+                    <li className="nav-item">
+                        <a className="nav-link" style={{ ...linkStyle, marginRight: '100px' }} href="#">Usuario</a>
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-danger " style={{ backgroundColor: '#C80B16'}}>Contáctenos</button>
+                    <li className="nav-item">
+                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16' }}>Contáctenos</button>
                     </li>
                 </ul>
             </div>
