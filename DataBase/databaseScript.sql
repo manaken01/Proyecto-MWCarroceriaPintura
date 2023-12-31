@@ -18,7 +18,7 @@ USE `mydb` ;
 -- Table `mydb`.`UserType`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`UserType` (
-  `idUserType` INT NOT NULL,
+  `idUserType` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idUserType`))
 ENGINE = InnoDB;
@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`User`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`User` (
-  `idUser` INT NOT NULL,
+  `idUser` INT NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(200) NOT NULL,
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`brand`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`brand` (
-  `idBrand` INT NOT NULL,
+  `idBrand` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `active` TINYINT NOT NULL,
   PRIMARY KEY (`idBrand`))
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`carSell`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`carSell` (
-  `idCarSell` INT NOT NULL,
+  `idCarSell` INT NOT NULL AUTO_INCREMENT,
   `year` VARCHAR(4) NOT NULL,
   `color` VARCHAR(20) NOT NULL,
   `transmission` INT NOT NULL,
@@ -87,9 +87,9 @@ ENGINE = InnoDB;
 -- Table `mydb`.`carPhoto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`carPhoto` (
-  `idCarPhoto` INT NOT NULL,
+  `idCarPhoto` INT NOT NULL AUTO_INCREMENT,
   `photo` BLOB NOT NULL,
-  `idCarSell` INT NOT NULL AUTO_INCREMENT,
+  `idCarSell` INT NOT NULL,
   PRIMARY KEY (`idCarPhoto`),
   INDEX `fk_carPhoto_carSell1_idx` (`idCarSell` ASC) VISIBLE,
   CONSTRAINT `fk_carPhoto_carSell1`
@@ -104,7 +104,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`part`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`part` (
-  `idPart` INT NOT NULL,
+  `idPart` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `car` VARCHAR(50) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
@@ -128,7 +128,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`partPhoto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`partPhoto` (
-  `idPartPhoto` INT NOT NULL,
+  `idPartPhoto` INT NOT NULL AUTO_INCREMENT,
   `photo` BLOB NOT NULL,
   `idPart` INT NOT NULL,
   PRIMARY KEY (`idPartPhoto`),
@@ -145,7 +145,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`review`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`review` (
-  `idReview` INT NOT NULL,
+  `idReview` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(100) NOT NULL,
   `stars` TINYINT(1) NOT NULL,
   `idUser` INT NOT NULL,
@@ -163,7 +163,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`carUser`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`carUser` (
-  `idCarUser` INT NOT NULL,
+  `idCarUser` INT NOT NULL AUTO_INCREMENT,
   `year` VARCHAR(4) NOT NULL,
   `licensePlate` VARCHAR(15) NOT NULL,
   `active` TINYINT NOT NULL,
@@ -189,7 +189,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`service`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`service` (
-  `idService` INT NOT NULL,
+  `idService` INT NOT NULL AUTO_INCREMENT,
   `service` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idService`))
 ENGINE = InnoDB;
@@ -199,7 +199,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`appointment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`appointment` (
-  `idAppointment` INT NOT NULL,
+  `idAppointment` INT NOT NULL AUTO_INCREMENT,
   `start` DATE NOT NULL,
   `finish` DATE NOT NULL,
   `active` TINYINT NOT NULL,
@@ -276,7 +276,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`repairCar`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`repairCar` (
-  `idRepairCar` INT NOT NULL,
+  `idRepairCar` INT NOT NULL AUTO_INCREMENT,
   `idAppointment` INT NOT NULL,
   `idCarUser` INT NOT NULL,
   PRIMARY KEY (`idRepairCar`),
