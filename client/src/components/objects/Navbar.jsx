@@ -5,7 +5,7 @@ function Navbar() {
     const linkStyle = { color: '#F9F9F9' };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#9C9C9C' ,boxShadow: "#E3E3E3 5px 5px 3px"}}>
+        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#9C9C9C', boxShadow: "#E3E3E3 5px 5px 3px", position: 'fixed', width: '100%', zIndex: 1000 }}>
             <a className="navbar-brand" style={{ marginLeft: '1%' }} href="#">
                 <img src={logo} alt="Logo" height="30" className="d-inline-block align-top" />
             </a>
