@@ -5,7 +5,7 @@ function PartsForm() {
     /*brands = ['Toyota', 'Honda', 'Ford', 'Chevrolet'];*/
     return (
         <div className="d-flex justify-content-center align-items-center">
-            <div className="card mb-3" style={{ maxWidth: '40%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
+            <div className="card mb-3" style={{ maxWidth: '50%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
                 <div className="row g-0">
                     <div className="card-body">
 
@@ -62,7 +62,7 @@ function PartsForm() {
                         </div>
 
                         <ImageUploader/>
-                        
+
                         <div className="col d-flex justify-content-end">
 
                             <button className="btn btn-outline-secondary" style={{ marginRight:'1%',marginTop: '1%',height: 'auto%', width: 'auto%', backgroundColor: 'transparent', borderColor: '#C80B16', color: '#C80B16' }}>Salir</button>
