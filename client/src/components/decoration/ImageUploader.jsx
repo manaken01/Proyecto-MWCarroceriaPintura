@@ -23,16 +23,16 @@ const imageUploader = ({ onUpload }) => {
 
   return (
     <div>
-      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
+      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`} style={{color: '#C80B16' }}>
         <input {...getInputProps()} />
-        <p>Selecciona imagenes para subir</p>
+        <p>Presiona aquí para subir imágenes</p>
       </div>
-      <div>
-        <h4>Uploaded Images:</h4>
+      <div >
+        <h4>Imagenes subidas: </h4>
         {uploadedImages.map((image, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
             <img src={URL.createObjectURL(image)} alt={`uploaded-${index}`} style={{ maxWidth: '100px', maxHeight: '100px', margin: '5px' }} />
-            <button onClick={() => handleDelete(index)} style={{ marginLeft: '10px' }}>
+            <button onClick={() => handleDelete(index)} style={{ marginLeft: '10px' , color: '#C80B16', border: '1px', borderColor:'#C80B16', backgroundColor:'transparent'}}>
               X
             </button>
           </div>
