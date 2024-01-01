@@ -1,8 +1,18 @@
 import { useState } from 'react' 
 import ImageUploader from '../decoration/ImageUploader'
 import Divider from '../decoration/Divider'
+import Dropdown from 'react-bootstrap/Dropdown';
+
 function PartsForm() {
-    /*brands = ['Toyota', 'Honda', 'Ford', 'Chevrolet'];*/
+    const dropdowns = [
+        { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
+    ];
+    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
+    const handleSelect = (index, value) => {
+        const newSelectedItems = [...selectedItems];
+        newSelectedItems[index] = value;
+        setSelectedItems(newSelectedItems);
+    }
     return (
         <div className="d-flex justify-content-center align-items-center">
             <div className="card mb-3" style={{ maxWidth: '50%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
@@ -60,7 +70,24 @@ function PartsForm() {
                                 <input type="text" id="generacion" className="form-control" aria-label="generacion" aria-describedby="basic-addon1" />
                             </div>
                         </div>
+                        <div className="row ">
+                            {dropdowns.map((dropdown, index) => (
+                                <div className="col" key={index}>
+                                    <p style={{ fontWeight: 'bold', marginBottom: '1%' }}>{dropdown.label}</p>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
+                                            {selectedItems[index]}
+                                        </Dropdown.Toggle>
 
+                                        <Dropdown.Menu>
+                                            {dropdown.items.map((item, itemIndex) => (
+                                                <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item)}>{item}</Dropdown.Item>
+                                            ))}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </div>
+                            ))}
+                        </div>
                         <ImageUploader/>
 
                         <div className="col d-flex justify-content-end">
@@ -71,9 +98,6 @@ function PartsForm() {
                                 Agregar
                             </button>
                         </div>
-
-
-                        
                     </div>
                 </div>
             </div>

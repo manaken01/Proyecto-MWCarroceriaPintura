@@ -8,7 +8,12 @@ const SearchFilters = () => {
         { label: 'Body Shape:', items: ['Sedan', 'SUV', 'Coupe', 'Hatchback'] },
         { label: 'Transmisión:', items: ['Manual', 'Automático', 'CVT', 'Dual-Clutch'] },
     ];
-
+    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
+    const handleSelect = (index, value) => {
+        const newSelectedItems = [...selectedItems];
+        newSelectedItems[index] = value;
+        setSelectedItems(newSelectedItems);
+    }
     return (
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row align-items-center">
@@ -30,18 +35,18 @@ const SearchFilters = () => {
                         <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>{dropdown.label}</p>
                         <Dropdown>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
-                                Seleccione
+                                {selectedItems[index]}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 {dropdown.items.map((item, itemIndex) => (
-                                    <Dropdown.Item href="#" key={itemIndex}>{item}</Dropdown.Item>
+                                    <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item)}>{item}</Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
                 ))}
-            </div>
+                        </div>
             <div className="row mt-3 mb-3" style={{ paddingBottom: '2%' }}>
     <div className="col d-flex justify-content-start">
         <button className="btn btn-outline-secondary" style={{width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px'}}>Filtrar</button>
