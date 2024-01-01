@@ -25,7 +25,7 @@ const imageUploader = ({ onUpload }) => {
     <div>
       <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
         <input {...getInputProps()} />
-        <p>Drag & drop some images here, or click to select files</p>
+        <p>Selecciona imagenes para subir</p>
       </div>
       <div>
         <h4>Uploaded Images:</h4>

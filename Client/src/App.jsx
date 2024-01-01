@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import StartScreen from './components/full screens MCV/StartScreen';
+import PartsForm from './components/forms/PartsForm';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <div>
-      <StartScreen />
+      <PartsForm />
       
     </div>
   );
