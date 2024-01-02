@@ -73,12 +73,11 @@ async def getCellphones():
     })
 
 @app.route("/userName",methods=['GET'])
-def getUserNames():
+async def getUserNames():
     cursor = connection.cursor(dictionary=True)
     cellphone = request.args.get('userName')
-    result = mainController.getUserNames(cellphone,cursor)
+    result = await mainController.getUserNames(cellphone,cursor)
     cursor.close()
-    cursor = connection.cursor(dictionary=True)
     return jsonify({
         'Result': result
     })
