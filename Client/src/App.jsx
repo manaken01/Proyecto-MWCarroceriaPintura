@@ -13,8 +13,7 @@ import Contact from './components/full screens MCV/Contact';
 function App() {
   return (
     <div>
-      <Navbar/>
-      <Contact />
+      <Register />
     </div>
   );
 }

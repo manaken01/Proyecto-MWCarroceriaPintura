@@ -12,10 +12,10 @@ app = Flask(__name__)
 CORS(app)
 
 connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306')
-cursor = connection.cursor(dictionary=True)
 
 @app.route("/brand",methods=['POST'])
 def createBrand():
+    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     name = data['name']
     active = data['active']
@@ -28,6 +28,7 @@ def createBrand():
 #User
 @app.route("/user",methods=['POST'])
 def createUser():
+    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     userName = data['userName']
     email = data['email']
@@ -41,6 +42,7 @@ def createUser():
 
 @app.route("/user",methods=['GET'])
 def logIn():
+    cursor = connection.cursor(dictionary=True)
     email = request.args.get('email')
     password = request.args.get('password')
     result = mainController.logIn(email,password,cursor)
@@ -49,32 +51,39 @@ def logIn():
     })
 
 @app.route("/email",methods=['GET'])
-def getEmails():
+async def getEmails():
+    cursor = connection.cursor(dictionary=True)
     email = request.args.get('email')
-    result = mainController.getEmails(email,cursor)
+    result = await mainController.getEmails(email,cursor)
+    cursor.close()
     return jsonify({
         'Result': result
     })
 
 @app.route("/cellphone",methods=['GET'])
-def getCellphones():
+async def getCellphones():
+    cursor = connection.cursor(dictionary=True)
     cellphone = request.args.get('cellphone')
-    result = mainController.getCellphones(cellphone,cursor)
+    result = await mainController.getCellphones(cellphone,cursor)
+    cursor.close()
     return jsonify({
         'Result': result
     })
 
 @app.route("/userName",methods=['GET'])
 def getUserNames():
+    cursor = connection.cursor(dictionary=True)
     cellphone = request.args.get('userName')
     result = mainController.getUserNames(cellphone,cursor)
+    cursor.close()
+    cursor = connection.cursor(dictionary=True)
     return jsonify({
         'Result': result
     })
 
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
-    result = mainController.getUserTypes(cursor)
+    result = mainController.getUserTypes(connection,cursor)
     print(result)
     return jsonify({
         'Result': result

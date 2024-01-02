@@ -30,75 +30,81 @@ const Register = () => {
         setPasswordRepeated(event.target.value);
     }
 
-    const getEmails = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/email', {
-                params: {
-                    email: email
-                }
-            });
-            setResponseMessage(response.data);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-    };
-
-    const getCellphones = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/cellphone', {
-                params: {
-                    cellphone: phone
-                }
-            });
-            setResponseMessage(response.data);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-    };
-
-    const getUserNames = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/userName', {
-                params: {
-                    userName: username
-                }
-            });
-            setResponseMessage(response.data);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-    };
-
-    const handleRegister = () => {
+    const handleRegister = async () => {
         console.log('Username:', username);
         console.log('Email:', email);
         console.log('Phone:', phone);
         console.log('Password:', password);
         console.log('Repeated Password:', passwordRepeated);
 
-        const hashedPassword = SHA256(password).toString();
-
-        getEmails();
-        console.log(responseMessage)
-        getCellphones();
-
-        const postData = async () => {
+        const getEmails = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/user', {
-                    userName: username,
-                    email: email,
-                    cellphone: phone,
-                    password: hashedPassword
+                const response = await axios.get('http://localhost:8080/email', {
+                    params: {
+                        email: email
+                    }
                 });
-                setResponseMessage(response.data);
+                return response.data; // Retornar solo los datos
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
+                return null;
             }
         };
+    
+        const getCellphones = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/cellphone', {
+                    params: {
+                        cellphone: phone
+                    }
+                });
+                return response.data; // Retornar solo los datos
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+                return null;
+            }
+        };
+    
+        const getUserNames = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/userName', {
+                    params: {
+                        userName: username
+                    }
+                });
+                return response.data; // Retornar solo los datos
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+                return null;
+            }
+        };
+    
+        // Utilizar Promise.all() para esperar a todas las llamadas
+        const [emailResult, cellphoneResult, userNameResult] = await Promise.all([
+            getEmails(),
+            getCellphones(),
+            //getUserNames()
+        ]);
+    
+        console.log("Resultado de Email:", emailResult);
+        console.log("Resultado de Celular:", cellphoneResult);
+        //console.log("Resultado de Usuario:", userNameResult);
+        // Convertir la contraseña a SHA-256
+        const hashedPassword = SHA256(password).toString();
 
-        //postData();
-    }
-
+        // Llamar a la API para registrar al usuario
+        /*try {
+            const response = await axios.post('http://localhost:8080/user', {
+                userName: username,
+                email: email,
+                cellphone: phone,
+                password: hashedPassword
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }*/
+    };
   
 
     return (
