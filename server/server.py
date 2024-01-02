@@ -11,16 +11,24 @@ app = Flask(__name__)
 connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306')
 cursor = connection.cursor()
 
-@app.route("/brand",methods=['GET','POST'])
+#Brand
+@app.route("/brand",methods=['POST'])
 def createBrand():
     data = request.get_json()
     name = data['name']
-    active = data['active']
-    brand = Brand(name=name, active=active)
+    brand = Brand(name=name, active=1)
     result = mainController.createBrand(brand,connection,cursor)
     return jsonify({
         'Result': result
     })
+
+def readBrand():
+    result = mainController.readBrand(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

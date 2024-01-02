@@ -28,7 +28,7 @@ const imageUploader = ({ onUpload }) => {
         <p>Presiona aquí para subir imágenes</p>
       </div>
       <div >
-        <h4>Imagenes subidas: </h4>
+        <h4>Imágenes subidas: </h4>
         {uploadedImages.map((image, index) => (
           <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
             <img src={URL.createObjectURL(image)} alt={`uploaded-${index}`} style={{ maxWidth: '100px', maxHeight: '100px', margin: '5px' }} />
