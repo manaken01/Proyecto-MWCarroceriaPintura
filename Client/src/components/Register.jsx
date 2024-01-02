@@ -80,8 +80,12 @@ const Register = () => {
         };
     
         // Utilizar Promise.all() para esperar a todas las llamadas
-        const [emailResult, cellphoneResult, userNameResult] = await Promise.all([
+        const [emailResult] = await Promise.all([
             getEmails(),
+            //getUserNames()
+        ]);
+
+        const [cellphoneResult,] = await Promise.all([
             getCellphones(),
             //getUserNames()
         ]);
