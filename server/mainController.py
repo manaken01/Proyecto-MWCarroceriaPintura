@@ -10,6 +10,19 @@ class mainController:
     def readBrand(cursor):
         return (adminBrand.readBrand(cursor))
 
+    #User
+    def createUser(user,connection,cursor):
+        return (adminUser.registerUser(user,connection,cursor))
+    
     def getUserTypes(cursor):
         return (adminUser.getUserTypes(cursor))
+    
+    def logIn(email,password,cursor):
+        return (adminUser.logIn(email,cursor))
+    
+    def getEmails(cellphone,cursor):
+        return (adminUser.getEmails(cellphone,cursor))
+
+    def getCellphones(cellphone,cursor):
+        return (adminUser.getCellphones(cellphone,cursor))
         
