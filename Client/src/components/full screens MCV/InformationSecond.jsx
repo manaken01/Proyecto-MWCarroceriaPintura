@@ -1,5 +1,5 @@
 import React from 'react';
-import car from '../assets/informationCar.png';
+import car from '../../assets/informationCar.png';
 
 function InformationSecond() {
     return (

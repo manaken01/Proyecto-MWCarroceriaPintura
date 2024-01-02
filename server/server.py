@@ -24,6 +24,10 @@ def createBrand():
 
 def readBrand():
     result = mainController.readBrand(connection,cursor)
+@app.route("/userType",methods=['GET'])
+def getUserTypes():
+    result = mainController.getUserTypes(cursor)
+    print(result)
     return jsonify({
         'Result': result
     })

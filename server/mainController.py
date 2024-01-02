@@ -1,4 +1,5 @@
 from controller.adminBrand import *
+from controller.adminUser import *
 from model.Brand import *
 
 class mainController:
@@ -8,4 +9,7 @@ class mainController:
     
     def readBrand(brand,connection,cursor):
         return (adminBrand.readBrand(connection,cursor))
+
+    def getUserTypes(cursor):
+        return (adminUser.getUserTypes(cursor))
         

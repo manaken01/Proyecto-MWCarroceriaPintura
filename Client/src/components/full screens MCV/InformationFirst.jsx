@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './objects/Navbar';
-import car from '../assets/informationCar.png';
+import Navbar from '../objects/Navbar';
+import car from '../../assets/informationCar.png';
 
 function InformationFirst() {
     return (
