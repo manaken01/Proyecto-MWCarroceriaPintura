@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import logo from '../../assets/LogoTallerMW.png';
+import { Link } from "react-router-dom";
 
 function Navbar() {
 
@@ -19,7 +20,7 @@ function Navbar() {
                         <a className="nav-link" style={linkStyle} href="#">Inicio</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={linkStyle} href="#">Repuestos</a>
+                        <Link className="nav-link" to="/parts" style={linkStyle}>Repuestos</Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" style={linkStyle} href="#">Carros</a>
@@ -31,7 +32,7 @@ function Navbar() {
                         <a className="nav-link" style={linkStyle} href="#">Agendar</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={{ ...linkStyle, marginRight: '100px' }} href="#">Usuario</a>
+                        <Link className="nav-link" to="/register" style={{ ...linkStyle, marginRight: '100px' }} href="#">Usuario</Link>
                     </li>
                     <li className="nav-item">
                         <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16' }}>Contáctenos</button>
