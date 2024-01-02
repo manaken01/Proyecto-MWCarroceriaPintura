@@ -10,7 +10,7 @@ import Navbar from './components/objects/Navbar';
 function App() {
   return (
     <div>
-      <Navbar />
+      <Register />
       
     </div>
   );
