@@ -5,11 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchFilters from './components/objects/SearchFilters';
 import Calendar from './components/objects/Calendar';
 import Register from './components/Register';
+import Navbar from './components/objects/Navbar';
 
 function App() {
   return (
     <div>
-      <Register />
+      <Navbar />
       
     </div>
   );
