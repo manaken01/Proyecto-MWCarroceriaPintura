@@ -7,6 +7,7 @@ import mysql.connector
 from mysql.connector import Error
 from mainController import *
 from model.Brand import *
+from model.CarPart import *
 
 app = Flask(__name__)
 CORS(app)
@@ -19,15 +20,41 @@ cursor = connection.cursor()
 def createBrand():
     data = request.get_json()
     name = data['name']
-    brand = Brand(name=name, active=1)
+    brand = Brand(name=name)
     result = mainController.createBrand(brand,connection,cursor)
     return jsonify({
         'Result': result
     })
 
-@app.route("/brand",methods=['POST'])
+@app.route("/brand",methods=['GET'])
 def readBrand():
-    result = mainController.createBrand(cursor)
+    result = mainController.readBrand(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+#CarPart
+@app.route("/carPart",methods=['POST'])
+def createCarPart():
+    data = request.get_json()
+    name = data['name']
+    car = data['car']
+    category = data['category']
+    stock = data['stock']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    generation = data['generation']
+    brand = data['brand']
+    photos = data['photos']
+
+    CarPart = CarPart(name=name, car= car, category= category, stock= stock, bodyShape= bodyShape, version=version, generation=generation, brand=brand, photos = photos)
+    
+    result = mainController.createCarPart(CarPart,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+
 #User
 @app.route("/user",methods=['POST'])
 def createUser():

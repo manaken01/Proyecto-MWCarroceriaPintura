@@ -1,6 +1,7 @@
 from controller.adminBrand import *
 from controller.adminUser import *
 from model.Brand import *
+from controller.adminCarPart import *
 
 class mainController:
     #Brand
@@ -9,7 +10,10 @@ class mainController:
     
     def readBrand(cursor):
         return (adminBrand.readBrand(cursor))
-
+    #CarPart
+    def createCarPart(CarPart,connection,cursor):
+        return (adminCarPart.createCarPart(CarPart,connection,cursor))
+    
     #User
     def createUser(user,connection,cursor):
         return (adminUser.registerUser(user,connection,cursor))

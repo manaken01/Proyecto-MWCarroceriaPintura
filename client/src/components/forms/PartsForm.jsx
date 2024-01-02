@@ -69,7 +69,7 @@ return (
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Stock:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="stock" className="form-control" aria-label="stock" aria-describedby="basic-addon1" />
+                            <input type="number" id="stock" className="form-control" aria-label="stock" aria-describedby="basic-addon1" />
                         </div>
                     </div>
 

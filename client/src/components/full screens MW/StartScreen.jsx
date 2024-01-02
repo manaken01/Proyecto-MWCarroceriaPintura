@@ -11,7 +11,7 @@ function StartScreen() {
   return (
     <div>
       <Navbar/>
-      <div className="col-12 d-flex justify-content-center" style={{ padding: '3%'}}>
+      <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', padding: '3%'}}>
                     <h1>Buscar repuestos por las mejores marcas</h1>
                 </div>
       <Brands/>
