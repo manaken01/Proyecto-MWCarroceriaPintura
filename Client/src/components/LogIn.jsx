@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const LogIn = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    }
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const handleLogin = () => {
+        console.log('Email:', email);
+        console.log('Password:', password);
+
+    }
+
+
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh' }}>
             <div className="container" style={{ marginTop: '-3%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" , width: '60%', paddingLeft: '2%', paddingRight: '2%' }}>
@@ -14,7 +32,7 @@ const LogIn = () => {
                         <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', backgroundColor: "#F9F9F9" }}>
                             <label for="email">Correo electrónico</label>
                             <div className="input-group">
-                                <input type="text" id="email" className="form-control" aria-label="email" aria-describedby="basic-addon1" />
+                                <input type="email" id="email" className="form-control" aria-label="email" aria-describedby="basic-addon1" value={email} onChange={handleEmailChange} />
                             </div>
                         </div>
                     </div>
@@ -24,7 +42,7 @@ const LogIn = () => {
                         <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', }}>
                             <label for="password">Contraseña</label>
                             <div className="input-group">
-                                <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" />
+                                <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" value={password} onChange={handlePasswordChange} />
                             </div>
                         </div>
                     </div>
@@ -36,7 +54,7 @@ const LogIn = () => {
                                 <p style={{ color: 'red', marginBottom: '15%' }}>¿Olvidaste la contraseña?</p>
                             </div>
                             <div>
-                                <button className="btn btn-outline-secondary" style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Iniciar sesión</button>
+                                <button className="btn btn-outline-secondary" onClick={handleLogin} style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Iniciar sesión</button>
                             </div>
                         </div>
                     </div>
