@@ -15,5 +15,11 @@ class mainController:
         return (adminUser.getUserTypes(cursor))
     
     def logIn(email,password,cursor):
-        return (adminUser.logIn(email,password,cursor))
+        return (adminUser.logIn(email,cursor))
+    
+    def getEmails(cellphone,cursor):
+        return (adminUser.getEmails(cellphone,cursor))
+
+    def getCellphones(cellphone,cursor):
+        return (adminUser.getCellphones(cellphone,cursor))
         

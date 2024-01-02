@@ -49,6 +49,21 @@ def logIn():
         'Result': result
     })
 
+@app.route("/email",methods=['GET'])
+def getEmails():
+    result = mainController.getEmails(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/cellphone",methods=['GET'])
+def getCellphones():
+    result = mainController.getEmails(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
 
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
