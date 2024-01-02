@@ -33,6 +33,7 @@ def readBrand():
     return jsonify({
         'Result': result
     })
+
 #CarPart
 @app.route("/carPart",methods=['POST'])
 def createCarPart():

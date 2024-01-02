@@ -4,6 +4,8 @@ import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function PartsForm() {
+    //se debe hacer una solicitud de las marcas para cargarlas en el frontend
+    
     const dropdowns = [
         { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
     ];
