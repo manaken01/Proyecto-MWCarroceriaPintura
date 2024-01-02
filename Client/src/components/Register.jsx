@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -6,6 +7,7 @@ const Register = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -33,7 +35,28 @@ const Register = () => {
         console.log('Phone:', phone);
         console.log('Password:', password);
         console.log('Repeated Password:', passwordRepeated);
+
+        const postData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/user', {
+                    userName: username,
+                    email: email,
+                    cellphone: phone,
+                    password: password
+                });
+                setResponseMessage(response.data);
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+
+        postData();
     }
+
+    useEffect(() => {
+        // Este useEffect se ejecutará cada vez que username, email, phone o password cambie
+        console.log(responseMessage);
+    }, [responseMessage]); 
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', marginTop: '5%' }}>
@@ -78,8 +101,8 @@ const Register = () => {
                         <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', }}>
                             <label for="password">Contraseña</label>
                             <div className="input-group">
-                                <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" value={password} onChange={handlePasswordChange} />
-                            </div>
+                <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" value={password} onChange={handlePasswordChange} />
+            </div>
                         </div>
                     </div>
                 </div>

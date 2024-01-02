@@ -39,6 +39,17 @@ def createUser():
         'Result': result
     })
 
+@app.route("/user",methods=['GET'])
+def logIn():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    result = mainController.logIn(email,password,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
     result = mainController.getUserTypes(cursor)

@@ -27,3 +27,16 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
         
+    def logIn(email,password,cursor):
+        try: 
+            sql = "Select * FROM user WHERE email = %s AND password = %s"
+            val = (email,password)
+            cursor.execute(sql,val)
+            result = cursor.fetchall()
+            if len(result) == 0:
+                return False
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+        

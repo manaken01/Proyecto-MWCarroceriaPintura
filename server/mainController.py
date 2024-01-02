@@ -13,4 +13,7 @@ class mainController:
     
     def getUserTypes(cursor):
         return (adminUser.getUserTypes(cursor))
+    
+    def logIn(email,password,cursor):
+        return (adminUser.logIn(email,password,cursor))
         

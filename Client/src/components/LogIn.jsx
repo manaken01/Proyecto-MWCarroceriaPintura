@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const LogIn = () => {
     const [email, setEmail] = useState('');
@@ -17,6 +18,21 @@ const LogIn = () => {
         console.log('Password:', password);
 
     }
+
+    const postData = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/user', {
+                email: email,
+                password: password
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    };
+
+    postData();
+}
 
 
     return (
