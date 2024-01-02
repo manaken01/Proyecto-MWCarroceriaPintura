@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306')
-cursor = connection.cursor()
+cursor = connection.cursor(dictionary=True)
 
 @app.route("/brand",methods=['POST'])
 def createBrand():
