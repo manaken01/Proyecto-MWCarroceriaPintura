@@ -4,6 +4,7 @@ import axios from 'axios';
 const LogIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -16,24 +17,25 @@ const LogIn = () => {
     const handleLogin = () => {
         console.log('Email:', email);
         console.log('Password:', password);
+        
+        const getData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/user', {
+                    params: {
+                        email: email,
+                        password: password
+                    }
+                });
+                setResponseMessage(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+    
+        getData();
 
     }
-
-    const postData = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/user', {
-                email: email,
-                password: password
-            });
-            setResponseMessage(response.data);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-    };
-
-    postData();
-}
-
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh' }}>

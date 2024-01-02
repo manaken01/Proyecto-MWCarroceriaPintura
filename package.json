@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-dropzone": "^14.2.3"
+    "react-dropzone": "^14.2.3",
+    "virtualenv": "^0.3.1"
   }
 }

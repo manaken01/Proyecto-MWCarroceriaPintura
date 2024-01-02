@@ -6,12 +6,15 @@ import SearchFilters from './components/objects/SearchFilters';
 import Calendar from './components/objects/Calendar';
 import Register from './components/Register';
 import Navbar from './components/objects/Navbar';
+import LogIn from './components/LogIn';
 
 function App() {
   return (
     <div>
-      <Register />
       
+      <Navbar />
+      <LogIn/>
+      <Register />
     </div>
   );
 }
