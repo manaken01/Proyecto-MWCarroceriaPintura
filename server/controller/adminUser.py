@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 from model.User import *
 from model.UserType import *
+import json 
 
 class adminUser:
 
@@ -34,8 +35,9 @@ class adminUser:
             cursor.execute(sql,val)
             result = cursor.fetchall()
             if len(result) == 0:
-                return False
-            return True
+                return 0
+            print(result)
+            return result[0]['idUser']
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
