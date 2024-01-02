@@ -88,7 +88,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`carPhoto` (
   `idCarPhoto` INT NOT NULL AUTO_INCREMENT,
-  `photo` BLOB NOT NULL,
+  `photo` LONGBLOB NOT NULL,
   `idCarSell` INT NOT NULL,
   PRIMARY KEY (`idCarPhoto`),
   INDEX `fk_carPhoto_carSell1_idx` (`idCarSell` ASC) VISIBLE,
@@ -129,7 +129,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`partPhoto` (
   `idPartPhoto` INT NOT NULL AUTO_INCREMENT,
-  `photo` BLOB NOT NULL,
+  `photo` LONGBLOB NOT NULL,
   `idPart` INT NOT NULL,
   PRIMARY KEY (`idPartPhoto`),
   INDEX `fk_partPhoto_part1_idx` (`idPart` ASC) VISIBLE,
@@ -298,3 +298,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO UserType (name) values ("Administrador");
+INSERT INTO UserType (name) values ("Cliente");

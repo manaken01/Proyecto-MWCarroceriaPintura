@@ -13,7 +13,7 @@ function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
                     <Carousel style={{ boxSizing: 'content-box', objectFit: 'cover', height: '100%' , alignItems: 'center'}}>
                         {pic.map((imagen, index) => (
                             <CarouselItem key={index} >
-                                <img src={imagen} alt={`Slide ${index + 1}`} style={{minWidth: '100%',maxHeight:'350px'}}class="d-block h-100"  />
+                                <img src={imagen} alt={`Slide ${index + 1}`} style={{minWidth: '100%',maxHeight:'350px'}}className="d-block h-100"  />
                             </CarouselItem>
                         ))}
                     </Carousel>

@@ -10,7 +10,7 @@ function PartsScreen() {
   return (
     <div>
       <Navbar/>
-      <div className="col-12 d-flex justify-content-center" style={{ padding: '3%'}}>
+      <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', padding: '3%'}}>
                     <h1>Repuestos en venta</h1>
                 </div>
       <SearchFiltersParts/>

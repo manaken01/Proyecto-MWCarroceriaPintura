@@ -7,6 +7,7 @@ import mysql.connector
 from mysql.connector import Error
 from mainController import *
 from model.Brand import *
+from model.CarPart import *
 
 app = Flask(__name__)
 CORS(app)
@@ -15,17 +16,47 @@ connection = mysql.connector.connect(user='root', password='12345',host='localho
 cursor = connection.cursor(dictionary=True)
 connection.autocommit = True
 
+#Brand
 @app.route("/brand",methods=['POST'])
 def createBrand():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     name = data['name']
-    active = data['active']
-    brand = Brand(name=name, active=active)
+    brand = Brand(name=name)
     result = mainController.createBrand(brand,connection,cursor)
     return jsonify({
         'Result': result
     })
+
+@app.route("/brand",methods=['GET'])
+def readBrand():
+    result = mainController.readBrand(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
+#CarPart
+@app.route("/carPart",methods=['POST'])
+def createCarPart():
+    data = request.get_json()
+    name = data['name']
+    car = data['car']
+    category = data['category']
+    stock = data['stock']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    generation = data['generation']
+    idBrand = data['idBrand']
+    photos = data['photos']
+
+    carPart = CarPart(name=name, car= car, category= category, stock= stock, bodyShape= bodyShape, version=version, generation=generation, idBrand=idBrand, photos = photos)
+    
+    result = mainController.createCarPart(carPart,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 
 #User
 @app.route("/user",methods=['POST'])
@@ -41,6 +72,7 @@ def createUser():
     return jsonify({
         'Result': result
     })
+
 
 @app.route("/user",methods=['GET'])
 def logIn():
@@ -89,6 +121,8 @@ def getUserTypes():
     return jsonify({
         'Result': result
     })
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)
