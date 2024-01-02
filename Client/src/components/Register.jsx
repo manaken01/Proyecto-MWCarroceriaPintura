@@ -11,7 +11,7 @@ const Register = () => {
             </div>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
-                        <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', backgroundColor: "#F9F9F9" }}>
+                        <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', backgroundColor: "#F9F9F9" }}>
                             <label for="email">Nombre de usuario</label>
                             <div className="input-group">
                                 <input type="text" id="email" className="form-control" aria-label="email" aria-describedby="basic-addon1" />
@@ -21,7 +21,7 @@ const Register = () => {
                 </div>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
-                        <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', }}>
+                        <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', }}>
                             <label for="password">Correo electrónico</label>
                             <div className="input-group">
                                 <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" />
@@ -31,7 +31,17 @@ const Register = () => {
                 </div>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
-                        <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', }}>
+                        <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', }}>
+                            <label for="password">Número de teléfono</label>
+                            <div className="input-group">
+                                <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row align-items-center">
+                    <div className="col-12 d-flex justify-content-center">
+                        <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', }}>
                             <label for="password">Contraseña</label>
                             <div className="input-group">
                                 <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" />
@@ -41,7 +51,7 @@ const Register = () => {
                 </div>
                 <div className="row align-items-center">
                     <div className="col-12 d-flex justify-content-center">
-                        <div className="mb-3 align-items-center" style={{ paddingTop: '2%', width: '40%', minWidth: '250px', }}>
+                        <div className="mb-3 align-items-center" style={{ paddingTop: '0%', width: '40%', minWidth: '250px', }}>
                             <label for="password">Confirmar contraseña</label>
                             <div className="input-group">
                                 <input type="password" id="password" className="form-control" aria-label="password" aria-describedby="basic-addon1" />
