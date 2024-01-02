@@ -7,14 +7,14 @@ import Calendar from './components/objects/Calendar';
 import Register from './components/Register';
 import Navbar from './components/objects/Navbar';
 import LogIn from './components/LogIn';
+import Information from './components/full screens MCV/Information';
+import Contact from './components/full screens MCV/Contact';
 
 function App() {
   return (
     <div>
-      
-      <Navbar />
-      <LogIn/>
-      <Register />
+      <Navbar/>
+      <Contact />
     </div>
   );
 }

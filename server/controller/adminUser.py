@@ -44,7 +44,7 @@ class adminUser:
         try: 
             sql = "Select * FROM user WHERE email = %s"
             val = (email)
-            cursor.execute(sql,val)
+            cursor.execute(sql,(val,))
             result = cursor.fetchall()
             if len(result) == 0:
                 return False
@@ -57,8 +57,23 @@ class adminUser:
         try: 
             sql = "Select * FROM user WHERE cellphone = %s"
             val = (cellphone)
-            cursor.execute(sql,val)
+            cursor.execute(sql,(val,))
             result = cursor.fetchall()
+            print(result)
+            if len(result) == 0:
+                return False
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+    
+    def getUserNames(userName,cursor):
+        try: 
+            sql = "Select * FROM user WHERE userName = %s"
+            val = (userName)
+            cursor.execute(sql,(val,))
+            result = cursor.fetchall()
+            print(result)
             if len(result) == 0:
                 return False
             return True

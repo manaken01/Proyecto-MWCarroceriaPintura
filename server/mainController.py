@@ -22,4 +22,7 @@ class mainController:
 
     def getCellphones(cellphone,cursor):
         return (adminUser.getCellphones(cellphone,cursor))
+    
+    def getUserNames(userName,cursor):
+        return (adminUser.getUserNames(userName,cursor))
         

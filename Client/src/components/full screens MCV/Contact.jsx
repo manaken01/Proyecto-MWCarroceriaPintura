@@ -4,23 +4,21 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import Navbar from '../objects/Navbar';
 
 function Contact() {
     return (
         <div>
-            <div style={{ 
-                    fontSize: '2.3em', 
-                    fontWeight: '600', 
-                    color: '#000000',
-                    textAlign: 'center',
-                    marginBottom: '0em',
-                    marginTop: '2.5%'
-                }}>
-                    Contacto
-            </div>
-
-                <div class="container p-4 pb-0 text-center" style={{marginTop: '1%'}}>
-
+            <div class="container p-4 pb-0 text-center">
+                <div style={{ 
+                        fontSize: '2.3em', 
+                        fontWeight: '600', 
+                        color: '#000000',
+                        textAlign: 'center',
+                        marginTop: '6%'
+                    }}>
+                        Contacto
+                </div>
                     <section class="mb-4" >
                         <a
                         className="btn btn-primary btn-lg btn-floating"

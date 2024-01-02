@@ -12,7 +12,6 @@ function InformationFirst() {
                 backgroundColor: '#C80B16',
                 padding: '4em',
                 maxWidth: '100%',
-                marginTop: '2%'
             }}>
                 <div style={{ 
                     fontSize: '5em', 

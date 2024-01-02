@@ -30,6 +30,45 @@ const Register = () => {
         setPasswordRepeated(event.target.value);
     }
 
+    const getEmails = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/email', {
+                params: {
+                    email: email
+                }
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    };
+
+    const getCellphones = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/cellphone', {
+                params: {
+                    cellphone: phone
+                }
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    };
+
+    const getUserNames = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/userName', {
+                params: {
+                    userName: username
+                }
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    };
+
     const handleRegister = () => {
         console.log('Username:', username);
         console.log('Email:', email);
@@ -38,6 +77,10 @@ const Register = () => {
         console.log('Repeated Password:', passwordRepeated);
 
         const hashedPassword = SHA256(password).toString();
+
+        getEmails();
+        console.log(responseMessage)
+        getCellphones();
 
         const postData = async () => {
             try {
@@ -53,13 +96,10 @@ const Register = () => {
             }
         };
 
-        postData();
+        //postData();
     }
 
-    useEffect(() => {
-        // Este useEffect se ejecutará cada vez que username, email, phone o password cambie
-        console.log(responseMessage.Result);
-    }, [responseMessage]); 
+  
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', marginTop: '5%' }}>

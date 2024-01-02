@@ -50,16 +50,24 @@ def logIn():
 
 @app.route("/email",methods=['GET'])
 def getEmails():
-    result = mainController.getEmails(cursor)
-    print(result)
+    email = request.args.get('email')
+    result = mainController.getEmails(email,cursor)
     return jsonify({
         'Result': result
     })
 
 @app.route("/cellphone",methods=['GET'])
 def getCellphones():
-    result = mainController.getEmails(cursor)
-    print(result)
+    cellphone = request.args.get('cellphone')
+    result = mainController.getCellphones(cellphone,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/userName",methods=['GET'])
+def getUserNames():
+    cellphone = request.args.get('userName')
+    result = mainController.getUserNames(cellphone,cursor)
     return jsonify({
         'Result': result
     })
