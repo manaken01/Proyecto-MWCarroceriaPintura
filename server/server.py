@@ -45,10 +45,10 @@ def createCarPart():
     bodyShape = data['bodyShape']
     version = data['version']
     generation = data['generation']
-    brand = data['brand']
+    idBrand = data['idBrand']
     photos = data['photos']
 
-    CarPart = CarPart(name=name, car= car, category= category, stock= stock, bodyShape= bodyShape, version=version, generation=generation, brand=brand, photos = photos)
+    CarPart = CarPart(name=name, car= car, category= category, stock= stock, bodyShape= bodyShape, version=version, generation=generation, idBrand=idBrand, photos = photos)
     
     result = mainController.createCarPart(CarPart,connection,cursor)
     return jsonify({
