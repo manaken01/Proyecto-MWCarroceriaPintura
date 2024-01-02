@@ -44,13 +44,12 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    async def getEmails(email,cursor):
+    def getEmails(email,cursor):
         try: 
             sql = "Select * FROM user WHERE email = %s"
             val = (email,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
-            cursor.nextset()
             if len(result) != 0:
                 return False
             return True
@@ -58,7 +57,7 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    async def getCellphones(cellphone,cursor):
+    def getCellphones(cellphone,cursor):
         try: 
             sql = "Select * FROM user WHERE cellphone = %s"
             val = (cellphone)

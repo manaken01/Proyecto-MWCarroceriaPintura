@@ -82,12 +82,17 @@ const Register = () => {
         // Utilizar Promise.all() para esperar a todas las llamadas
         const [emailResult, cellphoneResult, userNameResult] = await Promise.all([
             getEmails(),
+            //getCellphones(),
+            //getUserNames()
+        ]);
+
+        const [cellphoneResult,] = await Promise.all([
             getCellphones(),
             //getUserNames()
         ]);
     
         console.log("Resultado de Email:", emailResult);
-        console.log("Resultado de Celular:", cellphoneResult);
+        //console.log("Resultado de Celular:", cellphoneResult);
         //console.log("Resultado de Usuario:", userNameResult);
         // Convertir la contraseña a SHA-256
         const hashedPassword = SHA256(password).toString();

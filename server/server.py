@@ -12,6 +12,8 @@ app = Flask(__name__)
 CORS(app)
 
 connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306')
+cursor = connection.cursor(dictionary=True)
+connection.autocommit = True
 
 @app.route("/brand",methods=['POST'])
 def createBrand():
@@ -51,21 +53,21 @@ def logIn():
     })
 
 @app.route("/email",methods=['GET'])
-async def getEmails():
-    cursor = connection.cursor(dictionary=True)
+def getEmails():
     email = request.args.get('email')
-    result = await mainController.getEmails(email,cursor)
+    result = mainController.getEmails(email,cursor)
     cursor.close()
+    cursor = connection.cursor(dictionary=True)
     return jsonify({
         'Result': result
     })
 
 @app.route("/cellphone",methods=['GET'])
 async def getCellphones():
-    cursor = connection.cursor(dictionary=True)
     cellphone = request.args.get('cellphone')
     result = await mainController.getCellphones(cellphone,cursor)
     cursor.close()
+    cursor = connection.cursor(dictionary=True)
     return jsonify({
         'Result': result
     })
