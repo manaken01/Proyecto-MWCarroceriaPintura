@@ -22,6 +22,20 @@ def createBrand():
         'Result': result
     })
 
+#User
+@app.route("/user",methods=['POST'])
+def createUser():
+    data = request.get_json()
+    userName = data['userName']
+    email = data['email']
+    password = data['password']
+    cellphone = data['cellphone']
+    user = User(userName=userName, email=email, password=password,cellphone=cellphone,active=1,userType=1)
+    result = mainController.createUser(user,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
     result = mainController.getUserTypes(cursor)

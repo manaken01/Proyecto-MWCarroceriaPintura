@@ -7,7 +7,7 @@ class adminUser:
 
     def registerUser(user,connection,cursor):
         try: 
-            sql = "INSERT INTO user (username, email, password, cellphone, active, idUserType) VALUES (%s, %s)"
+            sql = "INSERT INTO user (username, email, password, cellphone, active, idUserType) VALUES (%s, %s, %s, %s, %s, %s)"
             val = (user.userName, user.email, user.password, user.cellphone, user.active, user.userType)
             cursor.execute(sql,val)
             connection.commit()
