@@ -7,8 +7,8 @@ class mainController:
     def createBrand(brand,connection,cursor):
         return (adminBrand.createBrand(brand,connection,cursor))
     
-    def readBrand(brand,connection,cursor):
-        return (adminBrand.readBrand(connection,cursor))
+    def readBrand(cursor):
+        return (adminBrand.readBrand(cursor))
 
     def getUserTypes(cursor):
         return (adminUser.getUserTypes(cursor))

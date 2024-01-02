@@ -16,13 +16,12 @@ class adminBrand:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def readBrand(connection,cursor):
+    def readBrand(cursor):
         try: 
             sql = "SELECT * FROM brand WHERE active = 1"
             cursor.execute(sql)
-            connection.commit()
-            print(cursor.rowcount, "record inserted.")
-            return True
+            result = cursor.fetchall()
+            return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
