@@ -22,11 +22,14 @@ class mainController:
         return (adminUser.getUserTypes(cursor))
     
     def logIn(email,password,cursor):
-        return (adminUser.logIn(email,cursor))
+        return (adminUser.logIn(email,password, cursor))
     
-    def getEmails(cellphone,cursor):
-        return (adminUser.getEmails(cellphone,cursor))
+    async def getEmails(emails,cursor):
+        return (await adminUser.getEmails(emails,cursor))
 
-    def getCellphones(cellphone,cursor):
-        return (adminUser.getCellphones(cellphone,cursor))
+    async def getCellphones(cellphone,cursor):
+        return (await adminUser.getCellphones(cellphone,cursor))
+    
+    def getUserNames(userName,cursor):
+        return (adminUser.getUserNames(userName,cursor))
         

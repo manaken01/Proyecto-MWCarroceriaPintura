@@ -3,15 +3,6 @@ import logo from '../../assets/LogoTallerMW.png';
 
 function Navbar() {
 
-    /*useEffect(() => {
-        // Realizando la consulta GET a una API
-        fetch('http://localhost:8080/userType')
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data)
-            });
-    }, []);*/
-
     const linkStyle = { color: '#F9F9F9' };
 
     return (

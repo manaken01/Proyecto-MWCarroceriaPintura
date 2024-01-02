@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { SHA256 } from 'crypto-js';
 
 const LogIn = () => {
     const [email, setEmail] = useState('');
@@ -17,13 +18,15 @@ const LogIn = () => {
     const handleLogin = () => {
         console.log('Email:', email);
         console.log('Password:', password);
+
+        const hashedPassword = SHA256(password).toString();
         
         const getData = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/user', {
                     params: {
                         email: email,
-                        password: password
+                        password: hashedPassword
                     }
                 });
                 setResponseMessage(response.data);

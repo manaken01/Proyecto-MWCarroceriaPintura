@@ -30,36 +30,86 @@ const Register = () => {
         setPasswordRepeated(event.target.value);
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         console.log('Username:', username);
         console.log('Email:', email);
         console.log('Phone:', phone);
         console.log('Password:', password);
         console.log('Repeated Password:', passwordRepeated);
 
-        const hashedPassword = SHA256(password).toString();
-
-        const postData = async () => {
+        const getEmails = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/user', {
-                    userName: username,
-                    email: email,
-                    cellphone: phone,
-                    password: hashedPassword
+                const response = await axios.get('http://localhost:8080/email', {
+                    params: {
+                        email: email
+                    }
                 });
-                setResponseMessage(response.data);
+                return response.data; // Retornar solo los datos
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
+                return null;
             }
         };
+    
+        const getCellphones = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/cellphone', {
+                    params: {
+                        cellphone: phone
+                    }
+                });
+                return response.data; // Retornar solo los datos
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+                return null;
+            }
+        };
+    
+        const getUserNames = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/userName', {
+                    params: {
+                        userName: username
+                    }
+                });
+                return response.data; // Retornar solo los datos
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+                return null;
+            }
+        };
+    
+        // Utilizar Promise.all() para esperar a todas las llamadas
+        const [emailResult] = await Promise.all([
+            getEmails(),
+            //getUserNames()
+        ]);
 
-        postData();
-    }
+        const [cellphoneResult,] = await Promise.all([
+            getCellphones(),
+            //getUserNames()
+        ]);
+    
+        console.log("Resultado de Email:", emailResult);
+        console.log("Resultado de Celular:", cellphoneResult);
+        //console.log("Resultado de Usuario:", userNameResult);
+        // Convertir la contraseña a SHA-256
+        const hashedPassword = SHA256(password).toString();
 
-    useEffect(() => {
-        // Este useEffect se ejecutará cada vez que username, email, phone o password cambie
-        console.log(responseMessage.Result);
-    }, [responseMessage]); 
+        // Llamar a la API para registrar al usuario
+        /*try {
+            const response = await axios.post('http://localhost:8080/user', {
+                userName: username,
+                email: email,
+                cellphone: phone,
+                password: hashedPassword
+            });
+            setResponseMessage(response.data);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }*/
+    };
+  
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', marginTop: '5%' }}>
