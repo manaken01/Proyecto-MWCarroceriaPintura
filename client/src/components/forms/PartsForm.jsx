@@ -1,16 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 function PartsForm() {
     //se debe hacer una solicitud de las marcas para cargarlas en el frontend
-  
-    var photos = []
-    const dropdowns = [
-        { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
-    ];
 
+    var [photo, setPhoto] = useState([]);
+    const [dropdowns, setDropdowns] = useState([]);
+    var [responseData, setResponse] = useState([]);
+
+    const getdropdowns = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/brand');
+            setResponse(response.data.Result);
+            return response.data.Result.map((result) => result.name);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            return []; // Return an empty array or handle the error gracefully
+        }
+    };
+
+    const handleResults = async () => {
+        try {
+            const dropdownItems = await getdropdowns();
+            //console.log(dropdownItems); // Verify that dropdownItems contains the expected data
+            setDropdowns([{ label: 'Marca:', items: dropdownItems }]);
+            // Now you can use 'dropdowns' to populate your dropdown component or perform further processing
+        } catch (error) {
+            console.error('Error handling results:', error);
+        }
+    };
+
+    useEffect(() => {
+        handleResults();
+    }, []);
+    
     const [imageList, setImageList] = useState([]);
 
     //image list es la lista de imagenes 
@@ -26,20 +51,22 @@ function PartsForm() {
 
         // Perform additional actions with the JSON list here
         const jsonList = newImageList.map((image) => ({
-            id: image.id,
-            base64: image.base64,
+            base64: image.base64
         }));
-
-        // For demonstration purposes, log the JSON list to the console
         console.log(jsonList);
-        photos = jsonList;
+        setPhoto(jsonList);
+        // For demonstration purposes, log the JSON list to the console
+        
     };
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
+    
     const handleSelect = (index, value) => {
         const newSelectedItems = [...selectedItems];
         newSelectedItems[index] = value;
         setSelectedItems(newSelectedItems);
+        setidBrand(getIdBrand(value));
     }
+   
     //-------------
     const [name, setName] = useState('');
     const [car, setCar] = useState('');
@@ -77,9 +104,11 @@ function PartsForm() {
         setGeneration(event.target.value);
     }
 
-    const handleidBrandChange = (event) => {
-        setidBrand(event.target.value);
-    }
+    const getIdBrand = (brandName) => {
+        const brand = responseData.find((item) => item.name === brandName);
+        return brand ? brand.idBrand : null;
+      };
+    
 
     const handleParts = () => {
         console.log('name:', name);
@@ -90,7 +119,7 @@ function PartsForm() {
         console.log('version:', version);
         console.log('generation:', generation);
         console.log('idBrand:', idBrand);
-
+        console.log(photo);
 
 
         const getData = async () => {
@@ -104,8 +133,9 @@ function PartsForm() {
                     version: version,
                     generation: generation,
                     idBrand: idBrand,
-                    photos: photos
+                    photos: photo
                 });
+                
                 setResponseMessage(response.data);
                 console.log(response.data);
             } catch (error) {
@@ -185,7 +215,7 @@ function PartsForm() {
 
                                         <Dropdown.Menu>
                                             {dropdown.items.map((item, itemIndex) => (
-                                                <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item) } value={idBrand} onChange={handleidBrandChange}>{item}</Dropdown.Item>
+                                                <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item) } >{item}</Dropdown.Item>
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
