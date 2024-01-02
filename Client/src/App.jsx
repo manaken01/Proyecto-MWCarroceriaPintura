@@ -9,12 +9,23 @@ import Navbar from './components/objects/Navbar';
 import LogIn from './components/LogIn';
 import Information from './components/full screens MCV/Information';
 import Contact from './components/full screens MCV/Contact';
+import PartsScreen from './components/full screens MCV/PartsScreen';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <Register />
+    <BrowserRouter>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LogIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/information" element={<Information />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/parts" element={<PartsScreen />} />
+        </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
