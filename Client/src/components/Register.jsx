@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { SHA256 } from 'crypto-js';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -36,13 +37,15 @@ const Register = () => {
         console.log('Password:', password);
         console.log('Repeated Password:', passwordRepeated);
 
+        const hashedPassword = SHA256(password).toString();
+
         const postData = async () => {
             try {
                 const response = await axios.post('http://localhost:8080/user', {
                     userName: username,
                     email: email,
                     cellphone: phone,
-                    password: password
+                    password: hashedPassword
                 });
                 setResponseMessage(response.data);
             } catch (error) {
@@ -55,7 +58,7 @@ const Register = () => {
 
     useEffect(() => {
         // Este useEffect se ejecutará cada vez que username, email, phone o password cambie
-        console.log(responseMessage);
+        console.log(responseMessage.Result);
     }, [responseMessage]); 
 
     return (
