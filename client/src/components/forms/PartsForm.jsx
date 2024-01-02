@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 function PartsForm() {
     //se debe hacer una solicitud de las marcas para cargarlas en el frontend
+  
     var photos = []
     const dropdowns = [
         { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
