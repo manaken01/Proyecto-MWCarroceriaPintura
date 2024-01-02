@@ -53,21 +53,21 @@ def logIn():
     })
 
 @app.route("/email",methods=['GET'])
-def getEmails():
-    email = request.args.get('email')
-    result = mainController.getEmails(email,cursor)
-    cursor.close()
+async def getEmails():
     cursor = connection.cursor(dictionary=True)
+    email = request.args.get('email')
+    result = await mainController.getEmails(email,cursor)
+    cursor.close()
     return jsonify({
         'Result': result
     })
 
 @app.route("/cellphone",methods=['GET'])
 async def getCellphones():
+    cursor = connection.cursor(dictionary=True)
     cellphone = request.args.get('cellphone')
     result = await mainController.getCellphones(cellphone,cursor)
     cursor.close()
-    cursor = connection.cursor(dictionary=True)
     return jsonify({
         'Result': result
     })

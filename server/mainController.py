@@ -17,8 +17,8 @@ class mainController:
     def logIn(email,password,cursor):
         return (adminUser.logIn(email,password, cursor))
     
-    def getEmails(emails,cursor):
-        return (adminUser.getEmails(emails,cursor))
+    async def getEmails(emails,cursor):
+        return (await adminUser.getEmails(emails,cursor))
 
     async def getCellphones(cellphone,cursor):
         return (await adminUser.getCellphones(cellphone,cursor))

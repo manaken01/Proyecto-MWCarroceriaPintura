@@ -91,7 +91,7 @@ const Register = () => {
         ]);
     
         console.log("Resultado de Email:", emailResult);
-        //console.log("Resultado de Celular:", cellphoneResult);
+        console.log("Resultado de Celular:", cellphoneResult);
         //console.log("Resultado de Usuario:", userNameResult);
         // Convertir la contraseña a SHA-256
         const hashedPassword = SHA256(password).toString();
