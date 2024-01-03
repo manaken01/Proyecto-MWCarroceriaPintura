@@ -26,6 +26,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/parts" element={<PartsScreen />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/form" element={<PartsForm />} />
         </Routes>
     </div>
     </BrowserRouter>

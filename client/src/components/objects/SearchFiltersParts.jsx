@@ -1,5 +1,9 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Button, Modal } from 'react-bootstrap';
+import PartsForm from '../forms/PartsForm';
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const SearchFiltersParts = () => {
     const dropdowns = [
@@ -9,7 +13,19 @@ const SearchFiltersParts = () => {
         { label: 'Repuestos:', items: ['Manual', 'Automático', 'CVT', 'Dual-Clutch'] },
     ];
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    
+    const navigate = useNavigate();
+
+    function navigateToForm() {
+        navigate("/form");
+    }
+
     return (
+        
         <div className="container" style={{ marginTop: '5%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row align-items-center">
                 <div className="col-12">
@@ -19,7 +35,7 @@ const SearchFiltersParts = () => {
                         </div>
                         <input type="text" className="form-control" placeholder="Buscar carro" aria-label="searchCar" aria-describedby="basic-addon1" />
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width:'200%' , backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white',marginLeft: '20%'}}>Buscar</button>
+                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -43,13 +59,18 @@ const SearchFiltersParts = () => {
                 ))}
             </div>
             <div className="row mt-3 mb-3" style={{ paddingBottom: '2%' }}>
-    <div className="col d-flex justify-content-start">
-        <button className="btn btn-outline-secondary" style={{width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px'}}>Filtrar</button>
-    </div>
-    <div className="col d-flex justify-content-end">
-        <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Agregar nuevo carro</button>
-    </div>
-</div>
+                <div className="col d-flex justify-content-start">
+                    <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
+                </div>
+                <div className="col d-flex justify-content-end">
+                    <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Agregar nuevo carro</button>
+                </div>
+                <Modal show={show} onHide={handleClose} style={{backgroundColor: 'transparent'}}>
+                    <Modal.Body style={{backgroundColor: 'transparent' }}>
+                        <PartsForm />
+                    </Modal.Body>
+                </Modal>
+            </div>
         </div>
     );
 };
