@@ -42,6 +42,9 @@ const LogIn = () => {
                 if (response.data.Result != 0){
                     navigate("/");
                 }
+                else{
+                    alert("Usuario o contraseña incorrectos");
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -55,7 +58,7 @@ const LogIn = () => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh' }}>
+        <div className="d-flex flex-column align-items-center justify-content-center" style={{ paddingTop:'200px'}}>
             <div className="container" style={{ marginTop: '-3%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" , width: '60%', paddingLeft: '2%', paddingRight: '2%' }}>
                     <div className="row">
                 <div className="col-12 d-flex justify-content-center" style={{ paddingTop: '5%'}}>
