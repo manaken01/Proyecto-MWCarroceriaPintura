@@ -9,6 +9,7 @@ import LogIn from './components/LogIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from './components/full screens MW/Contact';
 import PartsScreen from './components/full screens MW/PartsScreen';
+import StartScreen from './components/full screens MW/StartScreen';
 
 function App() {
   return (
@@ -16,11 +17,13 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<LogIn />} />
+          <Route path="/" element={<StartScreen />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/information" element={<Calendar />} />
+          <Route path="/information" element={<Information />} />
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/parts" element={<PartsScreen />} />
+          <Route path="/login" element={<LogIn />} />
         </Routes>
     </div>
     </BrowserRouter>

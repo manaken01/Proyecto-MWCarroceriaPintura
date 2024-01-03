@@ -1,8 +1,15 @@
 import React, {useEffect} from 'react';
 import logo from '../../assets/LogoTallerMW.png';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+
+    const navigate = useNavigate();
+
+    function navigateToContact() {
+        navigate("/contact");
+    }
 
     const linkStyle = { color: '#F9F9F9' };
 
@@ -17,7 +24,7 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul className="navbar-nav" style={{ marginLeft: 'auto', marginRight: '1%' }}>
                     <li className="nav-item active">
-                        <a className="nav-link" style={linkStyle} href="#">Inicio</a>
+                    <Link className="nav-link" to= "/ " style={linkStyle} href="#">Inicio</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/parts" style={linkStyle}>Repuestos</Link>
@@ -29,13 +36,13 @@ function Navbar() {
                         <Link className="nav-link" to="/information" style={linkStyle}>Información</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={linkStyle} href="#">Agendar</a>
+                        <Link className="nav-link" to="/calendar" style={linkStyle} href="#">Agendar</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/register" style={{ ...linkStyle, marginRight: '100px' }} href="#">Usuario</Link>
                     </li>
                     <li className="nav-item">
-                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16' }}>Contáctenos</button>
+                        <button type="button" className="btn btn-danger" onClick={navigateToContact} style={{ backgroundColor: '#C80B16' }}>Contáctenos</button>
                     </li>
                 </ul>
             </div>

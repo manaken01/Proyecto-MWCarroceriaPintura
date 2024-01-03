@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SHA256 } from 'crypto-js';
+import { useNavigate } from "react-router-dom";
+
 
 const LogIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
+
+    const navigate = useNavigate();
+
+    function navigateToRegister() {
+        navigate("/register");
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -30,13 +38,19 @@ const LogIn = () => {
                     }
                 });
                 setResponseMessage(response.data);
-                console.log(response.data);
+                console.log(response.data.Result);
+                if (response.data.Result != 0){
+                    navigate("/");
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
+
+
         };
     
         getData();
+
 
     }
 
@@ -87,7 +101,7 @@ const LogIn = () => {
                     <div className="col-12 d-flex justify-content-center">
                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
-                                <button className="btn btn-outline-secondary" style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Registrarse </button>
+                                <button className="btn btn-outline-secondary" onClick={navigateToRegister} style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Registrarse </button>
                             </div>
                         </div>
                     </div>
