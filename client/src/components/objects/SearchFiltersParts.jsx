@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from "react-router-dom";
 
 const SearchFiltersParts = () => {
     const dropdowns = [
@@ -8,9 +9,13 @@ const SearchFiltersParts = () => {
         { label: 'Categoría:', items: ['Sedan', 'SUV', 'Coupe', 'Hatchback'] },
         { label: 'Repuestos:', items: ['Manual', 'Automático', 'CVT', 'Dual-Clutch'] },
     ];
-
+    const navigate = useNavigate();
+    
+    function navigatePartForm() {
+        navigate("/contact");
+    }
     return (
-        <div className="container" style={{ marginTop: '5%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
+        <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row align-items-center">
                 <div className="col-12">
                     <div className="input-group mb-3 align-items-center" style={{ paddingTop: '2%', width: '50%', minWidth: '250px', }}>
@@ -46,8 +51,10 @@ const SearchFiltersParts = () => {
     <div className="col d-flex justify-content-start">
         <button className="btn btn-outline-secondary" style={{width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px'}}>Filtrar</button>
     </div>
+    
     <div className="col d-flex justify-content-end">
-        <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Agregar nuevo carro</button>
+    <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight:'2%' }}>Agregar nueva marca</button>
+        <button className="btn btn-outline-secondary" onClick={navigatePartForm} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Agregar nuevo repuesto</button>
     </div>
 </div>
         </div>

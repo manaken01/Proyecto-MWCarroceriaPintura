@@ -8,6 +8,8 @@ import Navbar from './components/objects/Navbar';
 import LogIn from './components/LogIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from './components/full screens MW/Contact';
+
+import Information from './components/full screens MW/Information';
 import PartsScreen from './components/full screens MW/PartsScreen';
 import StartScreen from './components/full screens MW/StartScreen';
 

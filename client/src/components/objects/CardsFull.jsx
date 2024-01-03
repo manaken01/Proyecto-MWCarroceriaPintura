@@ -25,23 +25,23 @@ function CardsFull() {
         </div>
         <div className="container d-flex justify-content-center align-items-center" >
         <nav aria-label="Page navigation example" >
-            <ul class="pagination" >
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous" style={{ color: '#C80B16' }}>
+            <ul className="pagination" >
+                <li className="page-item">
+                    <a className="page-link" href="#" aria-label="Previous" style={{ color: '#C80B16' }}>
                         <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
+                        <span className="sr-only">Previous</span>
                     </a>
                 </li>
 
               
-                <li class="page-item"><a class="page-link"style={{ color: '#C80B16' }} href="#">1</a></li>
-                <li class="page-item"><a class="page-link" style={{ color: '#C80B16' }} href="#">2</a></li>
-                <li class="page-item"><a class="page-link" style={{ color: '#C80B16' }} href="#">3</a></li>
+                <li className="page-item"><a className="page-link"style={{ color: '#C80B16' }} href="#">1</a></li>
+                <li className="page-item"><a className="page-link" style={{ color: '#C80B16' }} href="#">2</a></li>
+                <li className="page-item"><a className="page-link" style={{ color: '#C80B16' }} href="#">3</a></li>
 
-                <li class="page-item">
-                    <a class="page-link" style={{ color: '#C80B16' }} href="#" aria-label="Next">
+                <li className="page-item">
+                    <a className="page-link" style={{ color: '#C80B16' }} href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only" >Next</span >
+                        <span className="sr-only" >Next</span >
                     </a>
                 </li>
             </ul>

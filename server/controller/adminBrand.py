@@ -17,8 +17,8 @@ class adminBrand:
             return False
     
     def readBrand(cursor):
-        try: 
-            sql = "SELECT * FROM brand WHERE active = 1"
+        try: #recupera solo las activas
+            sql = "SELECT * FROM brand WHERE active = 1" 
             cursor.execute(sql)
             result = cursor.fetchall()
             return result
