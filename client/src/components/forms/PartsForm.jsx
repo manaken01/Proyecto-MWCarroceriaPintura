@@ -139,12 +139,12 @@ function PartsForm() {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center">
-            <div className="card mb-3" style={{ maxWidth: '50%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
+        
+            <div className="card mb-3" style={{ border:'0px' ,backgroundColor: "#F9F9F9" }} >
                 <div className="row g-0">
                     <div className="card-body">
 
-                        <h4 className="card-title" style={{ color: '#000000' }}>Agregar nuevo repuesto</h4>
+                        <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo repuesto</h4>
 
 
                         <Divider />
@@ -222,7 +222,7 @@ function PartsForm() {
 
                         <div className="col d-flex justify-content-end">
 
-                            <button className="btn btn-outline-secondary" style={{ marginRight: '1%', marginTop: '1%', height: 'auto%', width: 'auto%', backgroundColor: 'transparent', borderColor: '#C80B16', color: '#C80B16' }}>Salir</button>
+                            
 
                             <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Agregar
@@ -231,7 +231,7 @@ function PartsForm() {
                     </div>
                 </div>
             </div>
-        </div>
+        
     );
 }
 
