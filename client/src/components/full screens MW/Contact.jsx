@@ -4,7 +4,6 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import Navbar from '../objects/Navbar';
 
 function Contact() {
     return (
@@ -19,7 +18,7 @@ function Contact() {
                     }}>
                         Contacto
                 </div>
-                    <section class="mb-4" >
+                <section class="mb-4" >
                         <a
                         className="btn btn-primary btn-lg btn-floating"
                         style={{

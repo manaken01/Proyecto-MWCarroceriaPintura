@@ -30,6 +30,6 @@ class mainController:
     async def getCellphones(cellphone,cursor):
         return (await adminUser.getCellphones(cellphone,cursor))
     
-    def getUserNames(userName,cursor):
-        return (adminUser.getUserNames(userName,cursor))
+    async def getUserNames(userName,cursor):
+        return (await adminUser.getUserNames(userName,cursor))
         

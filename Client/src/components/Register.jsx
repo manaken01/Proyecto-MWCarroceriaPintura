@@ -8,7 +8,6 @@ const Register = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
-    const [responseMessage, setResponseMessage] = useState('');
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -29,6 +28,24 @@ const Register = () => {
     const handlePasswordRepeatedChange = (event) => {
         setPasswordRepeated(event.target.value);
     }
+
+    const validateEmail = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+        return regex.test(email);
+    };
+
+    const validatePassword = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
+        return regex.test(password);
+    };
+
+    const validateCellphone = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(2|6|7|8)[0-9]{7}$/;
+        return regex.test(phone);
+    };
 
     const handleRegister = async () => {
         console.log('Username:', username);
@@ -78,36 +95,78 @@ const Register = () => {
                 return null;
             }
         };
-    
-        // Utilizar Promise.all() para esperar a todas las llamadas
-        const [emailResult] = await Promise.all([
-            getEmails(),
-            //getUserNames()
+
+        if (!validateEmail()) {
+            console.log('Correo electrónico fallido')
+            return;
+        }
+
+        if (!validateCellphone()) {
+            console.log('Teléfono fallido')
+            return;
+        }
+
+        if (!validatePassword()) {
+            console.log('Contraseña fallida')
+            return;
+        }
+
+        if (!(password === passwordRepeated)) {
+            console.log('Las 2 contraseñas deben ser iguales')
+            return;
+        }
+ 
+        
+        const [userNameResult] = await Promise.all([
+            getUserNames()
         ]);
 
-        const [cellphoneResult,] = await Promise.all([
-            getCellphones(),
-            //getUserNames()
+        if (!userNameResult.Result) {
+            console.log('El nombre de usuario ya esta registrado')
+            return;
+        }
+
+        const [emailResult] = await Promise.all([
+            getEmails(),
         ]);
+
+        if (!emailResult.Result) {
+            console.log('El correo electrónico ya esta registrado')
+            return;
+        }
+
+        const [cellphoneResult] = await Promise.all([
+            getCellphones(),
+        ]);
+
+        if (!cellphoneResult.Result) {
+            console.log('El número de teléfono ya esta registrado')
+            return;
+        }
     
-        console.log("Resultado de Email:", emailResult);
-        console.log("Resultado de Celular:", cellphoneResult);
-        //console.log("Resultado de Usuario:", userNameResult);
         // Convertir la contraseña a SHA-256
         const hashedPassword = SHA256(password).toString();
 
         // Llamar a la API para registrar al usuario
-        /*try {
-            const response = await axios.post('http://localhost:8080/user', {
-                userName: username,
-                email: email,
-                cellphone: phone,
-                password: hashedPassword
-            });
-            setResponseMessage(response.data);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }*/
+        const registerUser = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/user', {
+                    userName: username,
+                    email: email,
+                    cellphone: phone,
+                    password: hashedPassword
+                });
+                return response.data; // Retornar solo los datos
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        }
+
+        const [responseMessage] = await Promise.all([
+            registerUser()
+        ]);
+
+        console.log(responseMessage)
     };
   
 

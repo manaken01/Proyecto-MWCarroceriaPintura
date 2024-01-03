@@ -50,6 +50,7 @@ class adminUser:
             val = (email,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
+            print(result)
             if len(result) != 0:
                 return False
             return True
@@ -63,7 +64,7 @@ class adminUser:
             val = (cellphone)
             cursor.execute(sql,(val,))
             result = cursor.fetchall()
-            cursor.nextset()
+            print(result)
             if len(result) != 0:
                 return False
             return True
@@ -71,12 +72,13 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def getUserNames(userName,cursor):
+    async def getUserNames(userName,cursor):
         try: 
             sql = "Select * FROM user WHERE userName = %s"
             val = (userName)
             cursor.execute(sql,(val,))
             result = cursor.fetchall()
+            print(result)
             if len(result) != 0:
                 return False
             return True
