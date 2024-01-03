@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SHA256 } from 'crypto-js';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -8,6 +9,12 @@ const Register = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
+
+    const navigate = useNavigate();
+
+    function navigateToLogin() {
+        navigate("/login");
+    }
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -171,7 +178,7 @@ const Register = () => {
   
 
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', marginTop: '5%' }}>
+        <div className="d-flex flex-column align-items-center justify-content-center" style={{ paddingTop:'120px'}}>
             <div className="container" style={{ marginTop: '-3%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" , width: '60%', paddingLeft: '2%', paddingRight: '2%' }}>
                     <div className="row">
                 <div className="col-12 d-flex justify-content-center" style={{ paddingTop: '5%'}}>
@@ -244,7 +251,7 @@ const Register = () => {
                     <div className="col-12 d-flex justify-content-center">
                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
-                                <button className="btn btn-outline-secondary" style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Iniciar sesión </button>
+                                <button className="btn btn-outline-secondary" onClick={navigateToLogin} style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Iniciar sesión </button>
                             </div>
                         </div>
                     </div>
