@@ -7,7 +7,7 @@ class adminBrand:
     def createBrand(brand,connection,cursor):
         try: 
             sql = "INSERT INTO brand (name, active) VALUES (%s, 1)"
-            val = (brand.name)
+            val = (brand.name,)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record inserted.")

@@ -4,12 +4,12 @@ import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 function PartsForm() {
-    //se debe hacer una solicitud de las marcas para cargarlas en el frontend
-
+    
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
-
+    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
+    
     const getdropdowns = async () => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
@@ -36,18 +36,10 @@ function PartsForm() {
         handleResults();
     }, []);
     
-    const [imageList, setImageList] = useState([]);
+    //const [imageList, setImageList] = useState([]);
 
-    //image list es la lista de imagenes 
-    /*<div>
-                            {imageList.map((image) => (
-                                <div key={image.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                    <img src={image.base64} alt={`Uploaded ${image.id}`} style={{ maxWidth: '100px', maxHeight: '100px', margin: '5px' }} />
-                                </div>
-                            ))}
-                        </div>*/
     const handleImageListChange = (newImageList) => {
-        setImageList(newImageList);
+        //setImageList(newImageList);
 
         // Perform additional actions with the JSON list here
         const jsonList = newImageList.map((image) => ({
@@ -58,8 +50,7 @@ function PartsForm() {
         // For demonstration purposes, log the JSON list to the console
         
     };
-    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
-    
+
     const handleSelect = (index, value) => {
         const newSelectedItems = [...selectedItems];
         newSelectedItems[index] = value;
@@ -111,7 +102,7 @@ function PartsForm() {
     
 
     const handleParts = () => {
-        console.log('name:', name);
+        /*console.log('name:', name);
         console.log('car:', car);
         console.log('category:', category);
         console.log('stock:', stock);
@@ -119,7 +110,7 @@ function PartsForm() {
         console.log('version:', version);
         console.log('generation:', generation);
         console.log('idBrand:', idBrand);
-        console.log(photo);
+        console.log(photo);*/
 
 
         const getData = async () => {
