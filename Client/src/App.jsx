@@ -2,14 +2,14 @@ import { useState } from 'react'
 import PartsForm from './components/forms/PartsForm';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchFilters from './components/objects/SearchFilters';
 import Calendar from './components/objects/Calendar';
 import Register from './components/Register';
 import Navbar from './components/objects/Navbar';
 import LogIn from './components/LogIn';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Information from './components/full screens MW/Information';
 import Contact from './components/full screens MW/Contact';
+
+import Information from './components/full screens MW/Information';
 import PartsScreen from './components/full screens MW/PartsScreen';
 import StartScreen from './components/full screens MW/StartScreen';
 

@@ -7,7 +7,7 @@ import Divider from '../decoration/Divider';
 
 function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
     return (
-        <div className="card mb-3 " style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
+        <div className="card mb-3 " style={{cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
                 <div className="col-md-6 " > 
                     <Carousel style={{ boxSizing: 'content-box', objectFit: 'cover', height: '100%' , alignItems: 'center'}}>
