@@ -17,7 +17,7 @@ const SearchFiltersParts = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     const navigate = useNavigate();
 
     function navigateToForm() {
@@ -25,7 +25,7 @@ const SearchFiltersParts = () => {
     }
 
     return (
-        
+
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row align-items-center">
                 <div className="col-12">
@@ -63,14 +63,19 @@ const SearchFiltersParts = () => {
                     <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
                 </div>
                 <div className="col d-flex justify-content-end">
-                    <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight:'2%' }}>Agregar nueva marca</button>
+                    <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight: '2%' }}>Agregar nueva marca</button>
                     <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo repuesto</button>
                 </div>
-                <Modal show={show} onHide={handleClose} style={{backgroundColor: 'transparent'}}>
-                    <Modal.Body style={{backgroundColor: '#F9F9F9' }}>
+                <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
+                    </Modal.Header>
+                    <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
                         <PartsForm />
                     </Modal.Body>
+                    <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+                    </Modal.Footer>
                 </Modal>
+
             </div>
         </div>
     );
