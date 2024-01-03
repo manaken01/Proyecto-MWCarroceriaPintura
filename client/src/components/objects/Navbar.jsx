@@ -26,7 +26,7 @@ function Navbar() {
                         <a className="nav-link" style={linkStyle} href="#">Carros</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={linkStyle} href="#">Información</a>
+                        <Link className="nav-link" to="/information" style={linkStyle}>Información</Link>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" style={linkStyle} href="#">Agendar</a>
