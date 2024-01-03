@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navbar from '../objects/Navbar';
 import CardsFull from '../objects/CardsFull';
-import SearchFiltersParts from '../objects/SearchFilters';
+import SearchFiltersParts from '../objects/SearchFiltersParts';
 
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';

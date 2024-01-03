@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SHA256 } from 'crypto-js';
+import { useNavigate } from "react-router-dom";
+
 
 const LogIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
+
+    const navigate = useNavigate();
+
+    function navigateToRegister() {
+        navigate("/register");
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -30,18 +38,27 @@ const LogIn = () => {
                     }
                 });
                 setResponseMessage(response.data);
-                console.log(response.data);
+                console.log(response.data.Result);
+                if (response.data.Result != 0){
+                    navigate("/");
+                }
+                else{
+                    alert("Usuario o contraseña incorrectos");
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
+
+
         };
     
         getData();
 
+
     }
 
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh' }}>
+        <div className="d-flex flex-column align-items-center justify-content-center" style={{ paddingTop:'200px'}}>
             <div className="container" style={{ marginTop: '-3%', marginBottom: '5%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" , width: '60%', paddingLeft: '2%', paddingRight: '2%' }}>
                     <div className="row">
                 <div className="col-12 d-flex justify-content-center" style={{ paddingTop: '5%'}}>
@@ -87,7 +104,7 @@ const LogIn = () => {
                     <div className="col-12 d-flex justify-content-center">
                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
-                                <button className="btn btn-outline-secondary" style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Registrarse </button>
+                                <button className="btn btn-outline-secondary" onClick={navigateToRegister} style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#F9F9F9', borderColor: '#C80B16', color: '#C80B16'}}> Registrarse </button>
                             </div>
                         </div>
                     </div>
