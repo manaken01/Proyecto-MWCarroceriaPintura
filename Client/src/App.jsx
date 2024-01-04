@@ -12,6 +12,7 @@ import Contact from './components/full screens MW/Contact';
 import Information from './components/full screens MW/Information';
 import PartsScreen from './components/full screens MW/PartsScreen';
 import StartScreen from './components/full screens MW/StartScreen';
+import MyCars from './components/full screens MW/MyCars';
 
 function App() {
   return (

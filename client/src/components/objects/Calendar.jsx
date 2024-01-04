@@ -6,6 +6,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from '../resources/event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
+import CardCalendar from './CardCalendar';
+import CardCalendarStart from './CardCalendarStart';
+
+
 
 function Calendar() {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -84,19 +88,7 @@ function Calendar() {
       <div className='demo-app-sidebar' style={{ marginTop: '3%', width: '18%' }}>
         <div className='demo-app-sidebar-section' style={{ padding: '2em' }}>
           <h2><strong>Citas agendadas</strong></h2>
-          <div className="card mb-3" style={{ maxWidth: '100%', backgroundColor: "transparent", boxShadow: "none", border: 'none' }}>
-                  <div className="row g-0">
-                      <div className="col-md-12">
-                          <div className="card-body">
-                              <h5 className="card-title" style={{ fontSize: '1.5em', fontWeight: '500', color: '#000000' }}>Repuestos de alta calidad</h5>
-                              <p className="card-text" style={{ fontSize: '1.3em', fontWeight: '400', color: '#000000' }}>
-                              Todos los repuestos son de alta calidad, con apenas uso y comprobados al 100% de que estan en buen estado.
-                              </p>
-                          </div>
-                      </div>
-                  </div>
-            </div>
-        
+          <CardCalendarStart/>
         </div>
         <div className='demo-app-sidebar-section' style={{ padding: '2em' }}>
           <h2>All Events ({currentEvents.length})</h2>
