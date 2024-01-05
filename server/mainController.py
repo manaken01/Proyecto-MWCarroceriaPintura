@@ -2,6 +2,7 @@ from controller.adminBrand import *
 from controller.adminUser import *
 from model.Brand import *
 from controller.adminCarPart import *
+from controller.adminCarUser import *
 
 class mainController:
     #Brand
@@ -10,6 +11,7 @@ class mainController:
     
     def readBrand(cursor):
         return (adminBrand.readBrand(cursor))
+    
     #CarPart
     def createCarPart(CarPart,connection,cursor):
         return (adminCarPart.createCarPart(CarPart,connection,cursor))
@@ -32,4 +34,11 @@ class mainController:
     
     async def getUserNames(userName,cursor):
         return (await adminUser.getUserNames(userName,cursor))
+    
+    #CarUser
+    def createCarUser(carUser,connection,cursor):
+        return (adminCarUser.createCarUser(carUser,connection,cursor))
+    
+    def readCarUser(idUser,cursor):
+        return (adminCarUser.readCarUser(idUser,cursor))
         

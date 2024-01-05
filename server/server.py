@@ -8,6 +8,7 @@ from mysql.connector import Error
 from mainController import *
 from model.Brand import *
 from model.CarPart import *
+from model.CarUser import *
 
 app = Flask(__name__)
 CORS(app)
@@ -122,6 +123,29 @@ def getUserTypes():
         'Result': result
     })
 
+#CarUser
+@app.route("/carUser",methods=['POST'])
+def createCarUser():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    year = data['year']
+    licensePlate = data['licensePlate']
+    idBrand = data['idBrand']
+    idUser = data['idUser']
+    carUser = CarUser(year=year,licensePlate=licensePlate,idBrand=idBrand,idUser=idUser)
+    result = mainController.createCarUser(carUser,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carUser",methods=['GET'])
+def readCarUser():
+    idUser = request.args.get('idUser')
+    result = mainController.readCarUser(idUser,cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
 
 
 if __name__ == "__main__":
