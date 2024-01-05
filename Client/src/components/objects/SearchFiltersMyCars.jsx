@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import PartsForm from '../forms/PartsForm';
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import MyCarForm from '../forms/MyCarForm';
 
 const SearchFiltersMyCars = () => {
     const dropdowns = [
@@ -61,14 +62,13 @@ const SearchFiltersMyCars = () => {
                     <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
                 </div>
                 <div className="col d-flex justify-content-end">
-                    <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight: '2%' }}>Agregar nueva marca</button>
-                    <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo repuesto</button>
+                    <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo carro</button>
                 </div>
                 <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <PartsForm />
+                        <MyCarForm />
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>

@@ -13,6 +13,9 @@ import Information from './components/full screens MW/Information';
 import PartsScreen from './components/full screens MW/PartsScreen';
 import StartScreen from './components/full screens MW/StartScreen';
 import MyCars from './components/full screens MW/MyCars';
+import CardMyCars from './components/objects/CardMyCars';
+import MyCarForm from './components/forms/MyCarForm';
+import MyCarFormModified from './components/forms/MyCarFormModified';
 
 function App() {
   return (
@@ -25,9 +28,11 @@ function App() {
           <Route path="/information" element={<Information />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/parts" element={<PartsScreen />} />
+          <Route path="/parts" element={<MyCars/>} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/form" element={<PartsForm />} />
+          <Route path="/formMyCar" element={<MyCarForm />} />
+          <Route path="/formMyCarModified" element={<MyCarFormModified/>} />
         </Routes>
     </div>
     </BrowserRouter>
