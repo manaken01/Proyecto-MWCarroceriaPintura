@@ -2,12 +2,20 @@ import { useState, useEffect} from 'react';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function MyCarForm() {
+import { Button, Modal } from 'react-bootstrap';
+import MyCarForm from './MyCarForm';
+
+function AppointmentForm({date}) {
 
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
     
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const getdropdowns = async () => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
@@ -23,8 +31,10 @@ function MyCarForm() {
         try {
             const dropdownItems = await getdropdowns();
             setDropdowns([
+                { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 16:00'] },
+                { label: 'Razón:', items: ['Mantenimiento', 'Problema motor'] },
                 { label: 'Marca:', items: dropdownItems },
-                { label: 'Año:', items: ['2000', '2005', '2010', '2015'] } 
+                
             ]);
         } catch (error) {
             console.error('Error handling results:', error);
@@ -104,15 +114,13 @@ function MyCarForm() {
             <div className="card mb-3" style={{ border:'0px' ,backgroundColor: "#F9F9F9" }} >
                 <div className="row g-0">
                     <div className="card-body">
-                        <h4 className="card-title" style={{ color: '#000000' }} >Agregar carro</h4>
+
+                        <h4 className="card-title" style={{ color: '#000000' }} >Agendar cita</h4>
+
+
                         <Divider />
-                        <div className="d-flex align-items-center">
-                            <p className="card-text"><strong>Placa:</strong></p>
-                            <div className="input-group ml-3" style={{ padding: '2%' }}>
-                                <input type="text" id="plate" className="form-control" aria-label="plate" aria-describedby="basic-addon1" value={plate} onChange={handlePlateChange} />
-                            </div>
-                        </div>
-                        <div className="row ">
+                        <p className="card-text" style={{ fontSize: '1.1em', marginBottom: '0', marginTop: '5%', color: '#000000' }}><strong>Dia: {date}</strong></p>
+                        <div className="col">
                             {dropdowns.map((dropdown, index) => (
                                 <div className="col" key={index}>
                                     <p style={{ fontWeight: 'bold', marginBottom: '1%' }}>{dropdown.label}</p>
@@ -130,12 +138,25 @@ function MyCarForm() {
                                 </div>
                             ))}
                         </div>
+                        
 
-                        <div className="col d-flex justify-content-end">
+                        <div className="col d-flex justify-content-between">
+                            <button type="button" className="btn btn-danger" onClick={handleShow}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                                Agregar carro
+                            </button>
                             <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
-                                Agregar
+                                Confirmar
                             </button>
                         </div>
+                        <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                            <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
+                            </Modal.Header>
+                            <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
+                                <MyCarForm />
+                            </Modal.Body>
+                            <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+                            </Modal.Footer>
+                        </Modal>
                     </div>
                 </div>
             </div>
@@ -143,4 +164,4 @@ function MyCarForm() {
     );
 }
 
-export default MyCarForm;
+export default AppointmentForm;
