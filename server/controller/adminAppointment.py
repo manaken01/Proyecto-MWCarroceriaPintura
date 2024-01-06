@@ -1,13 +1,13 @@
 import mysql.connector
 from mysql.connector import Error
-from model.CarUser import *
+from model.Appointment import *
 
-class adminCarUser:
+class adminAppointment:
 
-    def createCarUser(carUser,connection,cursor):
+    def createAppointment(appointment,connection,cursor):
         try: 
-            sql = "INSERT INTO carUser (year, licensePlate, active, idBrand, User_idUser) VALUES (%s, %s, %s, %s, %s)"
-            val = (carUser.year,carUser.licensePlate,1,carUser.idBrand,carUser.idUser)
+            sql = "INSERT INTO appointment (start, finish, active, idCarUser, User_idUser, idService) VALUES (%s, %s, %s, %s, %s,%s)"
+            val = (appointment.start,appointment.finish,1,appointment.idCarUser,appointment.idUser, appointment.idService)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record inserted.")
@@ -16,9 +16,9 @@ class adminCarUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def readCarUser(idUser, cursor):
+    def readAppointment(idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT * FROM carUser WHERE User_idUser = %s and active = 1" 
+            sql = "SELECT * FROM appointment WHERE User_idUser = %s and active = 1" 
             val = (idUser,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
@@ -27,10 +27,10 @@ class adminCarUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def updateCarUser(carUser, cursor,connection):
+    def updateAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE carUser SET year = %s, licensePlate = %s, idBrand =%s WHERE User_idUser = %s and idCarUser = %s" 
-            val = (carUser.year,carUser.licensePlate,carUser.idBrand,carUser.idUser,carUser.id)
+            sql = "UPDATE appointment SET start = %s, finish = %s, idCarUser =%s, idService WHERE User_idUser = %s and idAppointment = %s" 
+            val = (appointment.start,appointment.finish,appointment.idCarUser,appointment.idService,appointment.idUser, appointment.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record updated.")
@@ -39,10 +39,10 @@ class adminCarUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def deleteCarUser(carUser, cursor,connection):
+    def deleteAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE carUser SET active = %s WHERE User_idUser = %s and idCarUser = %s" 
-            val = (0,carUser.idUser,carUser.id)
+            sql = "UPDATE appointment SET active = %s WHERE User_idUser = %s and idAppointment = %s" 
+            val = (0,appointment.idUser,appointment.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record deleted.")

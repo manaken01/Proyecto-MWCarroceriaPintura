@@ -1,13 +1,13 @@
 import mysql.connector
 from mysql.connector import Error
-from model.CarUser import *
+from model.Service import *
 
-class adminCarUser:
+class adminService:
 
-    def createCarUser(carUser,connection,cursor):
+    def createService(service,connection,cursor):
         try: 
-            sql = "INSERT INTO carUser (year, licensePlate, active, idBrand, User_idUser) VALUES (%s, %s, %s, %s, %s)"
-            val = (carUser.year,carUser.licensePlate,1,carUser.idBrand,carUser.idUser)
+            sql = "INSERT INTO service (service, active) VALUES (%s, %s)"
+            val = (service.service,1)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record inserted.")
@@ -16,21 +16,20 @@ class adminCarUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def readCarUser(idUser, cursor):
+    def readServices(cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT * FROM carUser WHERE User_idUser = %s and active = 1" 
-            val = (idUser,)
-            cursor.execute(sql,val)
+            sql = "SELECT * FROM service WHERE active = 1" 
+            cursor.execute(sql)
             result = cursor.fetchall()
             return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def updateCarUser(carUser, cursor,connection):
+    def updateService(service, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE carUser SET year = %s, licensePlate = %s, idBrand =%s WHERE User_idUser = %s and idCarUser = %s" 
-            val = (carUser.year,carUser.licensePlate,carUser.idBrand,carUser.idUser,carUser.id)
+            sql = "UPDATE service SET service = %s WHERE idService = %s" 
+            val = (service.service,service.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record updated.")
@@ -39,10 +38,10 @@ class adminCarUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def deleteCarUser(carUser, cursor,connection):
+    def deleteService(service, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE carUser SET active = %s WHERE User_idUser = %s and idCarUser = %s" 
-            val = (0,carUser.idUser,carUser.id)
+            sql = "UPDATE service SET active = %s WHERE idService = %s"
+            val = (0,service.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record deleted.")
