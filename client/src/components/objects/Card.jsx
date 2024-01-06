@@ -34,7 +34,7 @@ function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
                         <p className="card-text"><strong>Generación: </strong> 2</p>
 
                         <button type="button" className="btn btn-danger" style={{ textAlign: 'left', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
-                            <img src={whatsapp} style={{ height: '95%', width: '10%', marginRight: '4%' }} alt="WhatsApp" />
+                            <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
                             Preguntar vía Whatsapp
                         </button>
                     </div>
