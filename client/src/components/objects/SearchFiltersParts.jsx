@@ -2,6 +2,8 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Button, Modal } from 'react-bootstrap';
 import PartsForm from '../forms/PartsForm';
+import BrandsForm from '../forms/BrandsForm';
+
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
@@ -13,12 +15,16 @@ const SearchFiltersParts = () => {
         { label: 'Repuestos:', items: ['Manual', 'Automático', 'CVT', 'Dual-Clutch'] },
     ];
 
-    const [show, setShow] = useState(false);
+    const [showRepuestoModal, setShowRepuestoModal] = useState(false);
+    const [showMarcaModal, setShowMarcaModal] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setShowRepuestoModal(false);
+        setShowMarcaModal(false);
+    };
 
-    const navigate = useNavigate();
+    const handleShowRepuestoModal = () => setShowRepuestoModal(true);
+    const handleShowMarcaModal = () => setShowMarcaModal(true);
 
     function navigateToForm() {
         navigate("/form");
@@ -63,10 +69,10 @@ const SearchFiltersParts = () => {
                     <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
                 </div>
                 <div className="col d-flex justify-content-end">
-                    <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight: '2%' }}>Agregar nueva marca</button>
-                    <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo repuesto</button>
+                    <button className="btn btn-outline-secondary" onClick={handleShowMarcaModal} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight: '2%' }}>Agregar nueva marca</button>
+                    <button className="btn btn-outline-secondary" onClick={handleShowRepuestoModal} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo repuesto</button>
                 </div>
-                <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                <Modal show={showRepuestoModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
@@ -76,6 +82,16 @@ const SearchFiltersParts = () => {
                     </Modal.Footer>
                 </Modal>
 
+                <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
+                    </Modal.Header>
+                    <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
+                        <BrandsForm />
+                    </Modal.Body>
+                    <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+                    </Modal.Footer>
+                </Modal>
+                
             </div>
         </div>
     );
