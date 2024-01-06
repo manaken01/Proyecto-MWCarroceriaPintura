@@ -147,6 +147,33 @@ def readCarUser():
         'Result': result
     })
 
+@app.route("/carUser",methods=['PUT'])
+def updateCarUser():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    id = data['id']
+    year = data['year']
+    licensePlate = data['licensePlate']
+    idBrand = data['idBrand']
+    idUser = data['idUser']
+    carUser = CarUser(id=id,year=year,licensePlate=licensePlate,idBrand=idBrand,idUser=idUser)
+    result = mainController.updateCarUser(carUser,cursor,connection)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carUser",methods=['DELETE'])
+def deleteCarUser():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    id = data['id']
+    idUser = data['idUser']
+    carUser = CarUser(id=id,idUser=idUser)
+    result = mainController.deleteCarUser(carUser,cursor,connection)
+    return jsonify({
+        'Result': result
+    })
+
 
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

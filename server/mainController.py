@@ -41,4 +41,10 @@ class mainController:
     
     def readCarUser(idUser,cursor):
         return (adminCarUser.readCarUser(idUser,cursor))
+    
+    def updateCarUser(carUser,cursor,connection):
+        return (adminCarUser.updateCarUser(carUser,cursor,connection))
+    
+    def deleteCarUser(carUser,cursor,connection):
+        return (adminCarUser.deleteCarUser(carUser,cursor,connection))
         
