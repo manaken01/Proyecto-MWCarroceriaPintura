@@ -6,6 +6,7 @@ import Reviews from '../objects/ReviewsStart';
 import Divider from '../decoration/Divider'
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserProfile from '../resources/UserProfile';
 
 function StartScreen() {
   return (

@@ -3,14 +3,14 @@ import car from '../../assets/informationCar.png';
 
 function InformationFirst() {
     return (
-        <div>
+        <div style={{ paddingTop:'4%'}}>
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 backgroundColor: '#C80B16',
                 padding: '4em',
-                maxWidth: '100%',
+                maxWidth: '100%'
             }}>
                 <div style={{ 
                     fontSize: '5em', 

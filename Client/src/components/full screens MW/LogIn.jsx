@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { SHA256 } from 'crypto-js';
 import { useNavigate } from "react-router-dom";
-
+import UserProfile from '../resources/UserProfile';
 
 const LogIn = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
@@ -24,8 +25,6 @@ const LogIn = () => {
     }
 
     const handleLogin = () => {
-        console.log('Email:', email);
-        console.log('Password:', password);
 
         const hashedPassword = SHA256(password).toString();
         
@@ -38,9 +37,14 @@ const LogIn = () => {
                     }
                 });
                 setResponseMessage(response.data);
-                console.log(response.data.Result);
                 if (response.data.Result != 0){
+                    UserProfile.setProfile(response.data.Result.Username, response.data.Result.email, response.data.Result.idUser, response.data.Result.userType);
+                    console.log(UserProfile.getUsername());
+                    var user = UserProfile.getUsername();
+                    console.log(user);
+                    UserProfile.saveToCookies();
                     navigate("/");
+                    
                 }
                 else{
                     alert("Usuario o contraseña incorrectos");

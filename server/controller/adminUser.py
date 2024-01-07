@@ -39,7 +39,8 @@ class adminUser:
             if len(result) == 0:
                 return 0
             print(result)
-            return result[0]['idUserType']
+            return {"email":result[0]['email'],"Username":result[0]['Username'],"idUser":result[0]['idUser'],"userType":result[0]['idUserType']}
+        
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
