@@ -1,13 +1,8 @@
-# Ignore .pyc files
 *.pyc
-
-# Ignore compiled Python files
+*.cpython-311.pyc
+*.cpython-312.pyc
 __pycache__/
-
-# Ignore editor-specific files
 .vscode/
 .idea/
-
-# Ignore system-specific files
 .DS_Store
 Thumbs.db
