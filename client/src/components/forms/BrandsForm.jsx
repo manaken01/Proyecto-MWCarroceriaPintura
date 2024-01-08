@@ -68,20 +68,27 @@ function PartsForm() {
     }
 
     const handleBrandsDelete = (idBrand) => {
-        const getData = async () => {
-            try {
-                console.log(idBrand);
-                const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
-                setResponseMessage(response.data);
-                handleResultsBrands();
-                alert('Se ha eliminado la marca de forma correcta');
-                
-            } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
-            }
-        };
+        const confirmDelete = window.confirm("Are you sure you want to delete this brand?");
+    if (confirmDelete) {
+    
+            const getData = async () => {
+                try {
+                    console.log(idBrand);
+                    const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
+                    setResponseMessage(response.data);
+                    handleResultsBrands();
+                    alert('Se ha eliminado la marca de forma correcta');
+                    
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
 
-        getData();
+            getData();
+
+        } else {
+            alert('La marca no ha sido eliminada');
+        }
     }
 
 
