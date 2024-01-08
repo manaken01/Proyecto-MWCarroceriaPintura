@@ -39,6 +39,16 @@ def readBrand():
         'Result': result
     })
 
+@app.route("/brand/<int:idBrand>", methods=['DELETE'])
+def deleteBrand(idBrand):
+    cursor = connection.cursor(dictionary=True)
+    
+    brand = Brand(idBrand=idBrand)
+    result = mainController.deleteBrand(brand,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 #CarPart
 @app.route("/carPart",methods=['POST'])
 def createCarPart():

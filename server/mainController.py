@@ -14,6 +14,9 @@ class mainController:
     def readBrand(cursor):
         return (adminBrand.readBrand(cursor))
     
+    def deleteBrand(brand, connection, cursor):
+        return (adminBrand.deleteBrand(brand, connection, cursor))
+    
     #CarPart
     def createCarPart(CarPart,connection,cursor):
         return (adminCarPart.createCarPart(CarPart,connection,cursor))

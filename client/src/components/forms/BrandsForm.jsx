@@ -19,7 +19,7 @@ function PartsForm() {
     const handleResultsBrands = async () => {
         try {
             const brandItems = await getbrands();
-            console.log(brandItems);
+            //console.log(brandItems);
             //console.log(dropdownItems); // Verify that dropdownItems contains the expected data
             setBrands(brandItems);
             // Now you can use 'dropdowns' to populate your dropdown component or perform further processing
@@ -39,23 +39,51 @@ function PartsForm() {
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
+
+
+
     const handleBrands = () => {
+        const doesExist = brands.some(brand => brand.name === name.toUpperCase());
+        if (!doesExist) {
+            const getData = async () => {
+                try {
+                    const response = await axios.post('http://localhost:8080/brand', {
+                        name: name.toUpperCase()
+                    });
+
+                    setResponseMessage(response.data);
+                    //console.log(response.data);
+                    handleResultsBrands();
+                    alert('Se ha agregado la marca de forma correcta');
+                    
+
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+            getData();
+        } else {
+            alert(' El nombre de la marca ya existe');
+        }
+    }
+
+    const handleBrandsDelete = (idBrand) => {
         const getData = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/brand', {
-                    name: name
-                });
-                
+                console.log(idBrand);
+                const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
                 setResponseMessage(response.data);
-                console.log(response.data);
+                handleResultsBrands();
+                alert('Se ha eliminado la marca de forma correcta');
+                
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
         };
 
         getData();
-
     }
+
 
     return (
 
@@ -70,7 +98,7 @@ function PartsForm() {
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Nombre:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1"  value={name} onChange={handleNameChange}/>
+                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={name} onChange={handleNameChange} />
                         </div>
                         <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} onClick={handleBrands}>
                             Agregar
@@ -83,11 +111,17 @@ function PartsForm() {
 
                         <ul className="list-group">
                             <div className="row ">
-                                {brands.map((brand,index) => (
-                                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                                {brands.map((brand, index) => (
+                                    <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
                                         {brand.name}
                                         <div>
-                                            <button type="button" className="btn" style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}>
+                                            <button
+                                                type="button"
+                                                className="btn"
+                                                style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}
+
+                                                onClick={() => {  handleBrandsDelete(brand.idBrand); }}
+                                            >
                                                 <img src={DeleteButton} style={{ height: 'auto', width: 'auto' }} alt="Delete" />
                                             </button>
                                             <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
