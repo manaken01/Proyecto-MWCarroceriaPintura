@@ -5,12 +5,10 @@ import axios from 'axios';
 function PartsForm() {
     const [brands, setBrands] = useState([]);
 
-    var [responseData, setResponse] = useState([]);
 
     const getbrands = async () => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
-            setResponse(response.data.Result);
             return response.data.Result.map((result) => result);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
@@ -34,8 +32,30 @@ function PartsForm() {
         handleResultsBrands();
     }, []);
 
+    //---------
+    const [name, setName] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
 
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    }
+    const handleBrands = () => {
+        const getData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/brand', {
+                    name: name
+                });
+                
+                setResponseMessage(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
 
+        getData();
+
+    }
 
     return (
 
@@ -50,9 +70,9 @@ function PartsForm() {
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Nombre:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1"  />
+                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1"  value={name} onChange={handleNameChange}/>
                         </div>
-                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} onClick={handleBrands}>
                             Agregar
                         </button>
 
