@@ -5,7 +5,7 @@ import whatsapp from '../../assets/whatsapp.png';
 import HeartButton from '../decoration/HeartButton';
 import Divider from '../decoration/Divider';
 
-function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
+function Card({ name, car, price, category, stock, bodyshape,brand, version,gen, pic }) {
     return (
         <div className="card mb-3 " style={{cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
@@ -25,13 +25,14 @@ function Card({ name, car, price, category, stock, bodyshape, version, pic }) {
                             <HeartButton />
                         </div>
                         <Divider />
-                        <p className="card-text"><strong>Carro: {car}(B15)</strong></p>
+                        <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Carro: {car}</strong></p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#C80B16' }}><strong>Precio: </strong> {price}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Categoría: </strong>{category}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Stock: </strong>{stock}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Body Shape: </strong>{bodyshape}</p>
+                        <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Marca: </strong>{brand}</p>
                         <p className="card-text" style={{ marginBottom: '0', color: '#000000' }}><strong>Versión: </strong>{version}</p>
-                        <p className="card-text"><strong>Generación: </strong> 2</p>
+                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Generación: </strong>{gen}</p>
 
                         <button type="button" className="btn btn-danger" style={{ textAlign: 'left', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
                             <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
