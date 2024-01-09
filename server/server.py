@@ -49,6 +49,18 @@ def deleteBrand(idBrand):
         'Result': result
     })
 
+@app.route("/brand",methods=['PUT'])
+def updateBrand():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    name = data['name']
+    idBrand = data['idBrand']
+    brand = Brand(idBrand=idBrand,name=name)
+    result = mainController.updateBrand(brand,cursor,connection)
+    return jsonify({
+        'Result': result
+    })
+
 #CarPart
 @app.route("/carPart",methods=['POST'])
 def createCarPart():
