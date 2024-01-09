@@ -6,8 +6,8 @@ class adminCarPart:
 
     def createCarPart(CarPart,connection,cursor):
         try:
-            sql = "INSERT INTO part (name, car, category, stock, bodyShape, version, generation, active, idBrand) VALUES (%s,%s,%s,%s,%s,%s,%s,1,%s)"
-            val = (CarPart.name, CarPart.car, CarPart.category, CarPart.stock, CarPart.bodyShape, CarPart.version, CarPart.generation, CarPart.idBrand)
+            sql = "INSERT INTO part (name, car,price, category, stock, bodyShape, version, generation, active, idBrand) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,1,%s)"
+            val = (CarPart.name, CarPart.car,CarPart.price, CarPart.category, CarPart.stock, CarPart.bodyShape, CarPart.version, CarPart.generation, CarPart.idBrand)
             cursor.execute(sql, val)
             connection.commit()
             
