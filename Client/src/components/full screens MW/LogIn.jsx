@@ -39,9 +39,6 @@ const LogIn = () => {
                 setResponseMessage(response.data);
                 if (response.data.Result != 0){
                     UserProfile.setProfile(response.data.Result.Username, response.data.Result.email, response.data.Result.idUser, response.data.Result.userType);
-                    console.log(UserProfile.getUsername());
-                    var user = UserProfile.getUsername();
-                    console.log(user);
                     UserProfile.saveToCookies();
                     navigate("/");
                     

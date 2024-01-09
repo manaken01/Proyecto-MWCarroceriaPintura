@@ -55,11 +55,6 @@ const Register = () => {
     };
 
     const handleRegister = async () => {
-        console.log('Username:', username);
-        console.log('Email:', email);
-        console.log('Phone:', phone);
-        console.log('Password:', password);
-        console.log('Repeated Password:', passwordRepeated);
 
         const getEmails = async () => {
             try {
@@ -105,21 +100,22 @@ const Register = () => {
 
         if (!validateEmail()) {
             console.log('Correo electrónico fallido')
+            alert('Correo electrónico inválido');
             return;
         }
 
         if (!validateCellphone()) {
-            console.log('Teléfono fallido')
+            alert('Teléfono inválido')
             return;
         }
 
         if (!validatePassword()) {
-            console.log('Contraseña fallida')
+            alert('Contraseña inválida: debe tener entre 8 y 16 caracteres, al menos una letra mayúscula, una letra minúscula y un número')
             return;
         }
 
         if (!(password === passwordRepeated)) {
-            console.log('Las 2 contraseñas deben ser iguales')
+            alert('Las 2 contraseñas deben ser iguales')
             return;
         }
  
@@ -129,7 +125,7 @@ const Register = () => {
         ]);
 
         if (!userNameResult.Result) {
-            console.log('El nombre de usuario ya esta registrado')
+            alert('El nombre de usuario ya esta registrado')
             return;
         }
 
@@ -138,7 +134,7 @@ const Register = () => {
         ]);
 
         if (!emailResult.Result) {
-            console.log('El correo electrónico ya esta registrado')
+            alert('El correo electrónico ya esta registrado')
             return;
         }
 
@@ -147,7 +143,7 @@ const Register = () => {
         ]);
 
         if (!cellphoneResult.Result) {
-            console.log('El número de teléfono ya esta registrado')
+            alert('El número de teléfono ya esta registrado')
             return;
         }
     
