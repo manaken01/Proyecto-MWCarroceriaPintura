@@ -1,19 +1,45 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import PartsForm from '../forms/PartsForm';
 import BrandsForm from '../forms/BrandsForm';
 
-import { useState } from 'react'
-import { useNavigate } from "react-router-dom";
-
+import axios from 'axios';
 const SearchFiltersParts = () => {
-    const dropdowns = [
-        { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
-        { label: 'Carro:', items: ['2000', '2005', '2010', '2015'] },
-        { label: 'Categoría:', items: ['Sedan', 'SUV', 'Coupe', 'Hatchback'] },
-        { label: 'Repuestos:', items: ['Manual', 'Automático', 'CVT', 'Dual-Clutch'] },
-    ];
+    const [dropdowns, setDropdowns] = useState([]);
+    const [selectedItems, setSelectedItems] = useState(Array(4).fill('Seleccione'));
+
+    const handleResults = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/carPart');
+            const responseb = await axios.get('http://localhost:8080/brand');
+            const brands = [...new Set(responseb.data.Result.map(item => item.name))];
+            brands.unshift('Seleccione');
+            const cars = [...new Set(response.data.Result.map(item => item.car))];
+            cars.unshift('Seleccione');
+            const categories = [...new Set(response.data.Result.map(item => item.category))];
+            categories.unshift('Seleccione');
+            const names = [...new Set(response.data.Result.map(item => item.name))];
+            names.unshift('Seleccione');
+
+            const result = [
+                { label: 'Marca:', items: brands },
+                { label: 'Carro:', items: cars },
+                { label: 'Categoría:', items: categories },
+                { label: 'Repuestos:', items: names },
+            ];
+
+            setDropdowns(result);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    };
+
+    useEffect(() => {
+        handleResults();
+    }, []);
+    
 
     const [showRepuestoModal, setShowRepuestoModal] = useState(false);
     const [showMarcaModal, setShowMarcaModal] = useState(false);
@@ -26,8 +52,10 @@ const SearchFiltersParts = () => {
     const handleShowRepuestoModal = () => setShowRepuestoModal(true);
     const handleShowMarcaModal = () => setShowMarcaModal(true);
 
-    function navigateToForm() {
-        navigate("/form");
+    const handleSelect = (index, value) => {
+        const newSelectedItems = [...selectedItems];
+        newSelectedItems[index] = value;
+        setSelectedItems(newSelectedItems);
     }
 
     return (
@@ -52,12 +80,12 @@ const SearchFiltersParts = () => {
                         <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>{dropdown.label}</p>
                         <Dropdown>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
-                                Seleccione
+                                {selectedItems[index]}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 {dropdown.items.map((item, itemIndex) => (
-                                    <Dropdown.Item href="#" key={itemIndex}>{item}</Dropdown.Item>
+                                    <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item)}>{item}</Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
                         </Dropdown>
@@ -73,25 +101,25 @@ const SearchFiltersParts = () => {
                     <button className="btn btn-outline-secondary" onClick={handleShowRepuestoModal} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo repuesto</button>
                 </div>
                 <Modal show={showRepuestoModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
-                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
+                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <PartsForm />
+                        <PartsForm refreshParent={handleResults}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>
                 </Modal>
 
                 <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
-                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
+                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <BrandsForm />
+                        <BrandsForm refreshParent={handleResults}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>
                 </Modal>
-                
+
             </div>
         </div>
     );

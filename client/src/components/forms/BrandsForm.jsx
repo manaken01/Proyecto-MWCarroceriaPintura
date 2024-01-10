@@ -3,7 +3,9 @@ import { Modal } from 'react-bootstrap';
 import Divider from '../decoration/Divider';
 import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
-function PartsForm() {
+
+//acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
+function PartsForm({ refreshParent }) {
     const [brands, setBrands] = useState([]);
     const [showMarcaModal, setShowMarcaModal] = useState(false);
 
@@ -60,8 +62,9 @@ function PartsForm() {
                     setResponseMessage(response.data);
                     //console.log(response.data);
                     handleResultsBrands();
-                    alert('Se ha agregado la marca de forma correcta');
+                    refreshParent();
                     setName('');
+                    alert('Se ha agregado la marca de forma correcta');
 
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
@@ -83,6 +86,7 @@ function PartsForm() {
                     const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
                     setResponseMessage(response.data);
                     handleResultsBrands();
+                    refreshParent();
                     alert('Se ha eliminado la marca de forma correcta');
 
                 } catch (error) {
@@ -113,8 +117,9 @@ function PartsForm() {
 
                         setResponseMessage(response.data);
                         handleResultsBrands();
-                        alert('Se ha modificado la marca de forma correcta');
+                        refreshParent();
                         setName('');
+                        alert('Se ha modificado la marca de forma correcta');
 
                     } catch (error) {
                         console.error('Error al realizar la solicitud:', error);

@@ -83,6 +83,14 @@ def createCarPart():
         'Result': result
     })
 
+@app.route("/carPart",methods=['GET'])
+def readCarPart():
+    result = mainController.readCarPart(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
 
 #User
 @app.route("/user",methods=['POST'])
