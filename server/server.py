@@ -199,6 +199,16 @@ def deleteCarUser():
         'Result': result
     })
 
+@app.route("/plate",methods=['GET'])
+async def getPlate():
+    cursor = connection.cursor(dictionary=True)
+    licensePlate = request.args.get('licensePlate')
+    result = await mainController.getPlate(licensePlate,cursor)
+    cursor.close()
+    return jsonify({
+        'Result': result
+    })
+
 #services
 @app.route("/service",methods=['POST'])
 def createService():

@@ -55,6 +55,9 @@ class mainController:
     
     def deleteCarUser(carUser,cursor,connection):
         return (adminCarUser.deleteCarUser(carUser,cursor,connection))
+
+    async def getPlate(licensePlate,cursor):
+        return (await adminCarUser.getPlate(licensePlate,cursor))
     
     #services
     def createService(service,connection,cursor):

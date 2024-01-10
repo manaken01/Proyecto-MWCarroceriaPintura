@@ -2,15 +2,16 @@ import { useState, useEffect} from 'react';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 function MyCarForm() {
 
-    const [phone, setPhone] = useState('');
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
+    
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
     
-    const handlePhoneChange = (event) => {
-        setPhone(event.target.value);
+    const handleYearChange = (event) => {
+        setYear(event.target.value);
     }
 
     const getdropdowns = async () => {
@@ -35,7 +36,6 @@ function MyCarForm() {
         }
     };
 
-
     useEffect(() => {
         handleResults();
     }, []);
@@ -52,6 +52,7 @@ function MyCarForm() {
     //-------------
     const [plate, setPlate] = useState('');
     const [idBrand, setidBrand] = useState('');
+    const [year, setYear] = useState('');
 
     const [responseMessage, setResponseMessage] = useState('');
 
@@ -59,36 +60,98 @@ function MyCarForm() {
         setPlate(event.target.value);
     }
 
-
     const getIdBrand = (brandName) => {
         const brand = responseData.find((item) => item.name === brandName);
         return brand ? brand.idBrand : null;
-      };
-    
+    };
 
-      const handleCarUse = () => {
-        const doesExist = brands.some(brand => brand.name === name.toUpperCase());
-        if (!doesExist) {
-            const getData = async () => {
-                try {
-                    const response = await axios.post('http://localhost:8080/brand', {
-                        name: name.toUpperCase()
-                    });
+    const resetInputs = () => {
+        setYear('');
+        setPlate('');
+    };
 
-                    setResponseMessage(response.data);
-                    //console.log(response.data);
-                    handleResultsBrands();
-                    alert('Se ha agregado la marca de forma correcta');
-                    
-
-                } catch (error) {
-                    console.error('Error al realizar la solicitud:', error);
-                }
-            };
-            getData();
-        } else {
-            alert(' El nombre de la marca ya existe');
+    const validateInputs = () => {
+        if (!plate || !year || !idBrand) {
+            alert('Se deben llenar obligatoriamente los campos de: placa, año y marca');
+            return false;
         }
+        return true;
+    };
+
+
+    const validatePlate = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^\d{6}$|^([A-Za-z]){3}-\d{3}$/;
+        return regex.test(plate);
+    };
+
+    const validateYear = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(199[0-9]|20[0-1]\d|202[0-4])$/;
+        return regex.test(year);
+    };
+
+    const handleCarUse =  async () => {
+
+
+        if (!validateInputs()) {
+            return;
+        }
+
+        if (!validatePlate()) {
+            alert('Placa con formato incorrecto, debe ser de 6 digitos o con el formato AAA-123');
+            return;
+        }
+
+        if (!validateYear()) {
+            alert('Año incorrecto, debe ser mayor o igual a 1990 y como máximo 2024');
+            return;
+        }
+
+        const getPlate = async () => {
+            try {
+                console.log(plate.toUpperCase())
+
+                const response = await axios.get('http://localhost:8080/plate', {
+                    params: {
+                        licensePlate: plate.toUpperCase()
+                    }
+                });
+                return response.data
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+
+        const [plateResult] = await Promise.all([
+            getPlate(),
+        ]);
+
+
+        if (!plateResult.Result) {
+            alert('La placa ya se encontraba registrada');
+            return
+        }
+
+        const getData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/carUser', {
+                    year: year,
+                    licensePlate: plate.toUpperCase(),
+                    idBrand: idBrand,
+                    idUser: UserProfile.getId()
+                });
+
+                console.log(response.data);
+                alert('Se ha agregado el carro de forma correcta');
+                resetInputs();
+
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+        getData();
+        
     }
 
     return (
@@ -107,7 +170,7 @@ function MyCarForm() {
                         <div className="d-flex align-items-center">
                             <p className="card-text"><strong>Año:</strong></p>
                                 <div className="input-group ml-3" style={{ padding: '2%' }}>
-                                    <input type="number" id="phone" className="form-control" aria-label="phone" aria-describedby="basic-addon1" value={phone} onChange={handlePhoneChange} />
+                                    <input type="number" id="phone" className="form-control" aria-label="phone" aria-describedby="basic-addon1" value={year} onChange={handleYearChange} />
                                 </div>
                         </div>
                         <div className="row ">
@@ -130,7 +193,7 @@ function MyCarForm() {
                         </div>
 
                         <div className="col d-flex justify-content-end">
-                            <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                            <button type="button" className="btn btn-danger" onClick={handleCarUse}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Agregar
                             </button>
                         </div>
