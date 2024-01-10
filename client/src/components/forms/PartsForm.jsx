@@ -3,12 +3,12 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function PartsForm() {
+function PartsForm({ refreshParent }) {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
-    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
+    const [selectedItems, setSelectedItems] = useState(Array(1).fill('Seleccione'));
 
     const getdropdowns = async () => {
         try {
@@ -116,8 +116,8 @@ function PartsForm() {
         setGeneration('');
     };
     const validateInputs = () => {
-        if (!name || !car || !price || !stock || !idBrand || photo.length === 0) {
-            alert('Se deben llenar obligatoriamente los campos de: nombre, carro, precio, stock, marca y fotos');
+        if (!name || !car || !price || !stock || !idBrand ||category || photo.length === 0) {
+            alert('Se deben llenar obligatoriamente los campos de: nombre, carro, precio,categoría, stock, marca y fotos');
             return false;
         }
         return true;
@@ -145,8 +145,9 @@ function PartsForm() {
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                alert('Se ha agregado el repuesto de forma correcta');
+                refreshParent();
                 resetInputs();
+                alert('Se ha agregado el repuesto de forma correcta');
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
