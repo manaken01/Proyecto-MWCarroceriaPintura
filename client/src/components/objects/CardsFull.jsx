@@ -10,14 +10,25 @@ const cards = [
 ]
 
 
-function CardsFull({filters}) {
+function CardsFull({filters, search}) {
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.brand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.car === filters[1]) &&
         (filters[2] === 'Seleccione' || card.category === filters[2]) &&
-        (filters[3] === 'Seleccione' || card.name === filters[3])
+        (filters[3] === 'Seleccione' || card.name === filters[3])&&
+
+        ((search && (card.name.toLowerCase().includes(search.toLowerCase()) ||
+        card.car.toLowerCase().includes(search.toLowerCase()) ||
+        card.price.toLowerCase().includes(search.toLowerCase()) ||
+        card.category.toLowerCase().includes(search.toLowerCase()) ||
+        card.stock.toLowerCase().includes(search.toLowerCase()) ||
+        card.brand.toLowerCase().includes(search.toLowerCase()) ||
+        card.bodyshape.toLowerCase().includes(search.toLowerCase()) ||
+        card.version.toLowerCase().includes(search.toLowerCase()) ||
+        card.gen.toLowerCase().includes(search.toLowerCase())))
+    
+        || (search === undefined || search === ''))
     );
-    console.log(filteredCards);
     return (
         <div>
         <div className="container d-flex justify-content-center align-items-center" >
