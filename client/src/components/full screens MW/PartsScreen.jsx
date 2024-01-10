@@ -14,7 +14,7 @@ function PartsScreen() {
       <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', paddingBottom: '3%'}}>
                     <h1>Repuestos en venta</h1>
                 </div>
-      <SearchFiltersParts selectedItems={selectedItems} setSelectedItems={setSelectedItems}/>
+      <SearchFiltersParts  setSelectedItems={setSelectedItems}/>
       
       <CardsFull filters={selectedItems}/>
 

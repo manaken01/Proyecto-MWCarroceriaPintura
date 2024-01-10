@@ -116,7 +116,7 @@ function PartsForm({ refreshParent }) {
         setGeneration('');
     };
     const validateInputs = () => {
-        if (!name || !car || !price || !stock || !idBrand ||category || photo.length === 0) {
+        if (!name || !car || !price || !stock || !idBrand ||!category || photo.length === 0) {
             alert('Se deben llenar obligatoriamente los campos de: nombre, carro, precio,categoría, stock, marca y fotos');
             return false;
         }
