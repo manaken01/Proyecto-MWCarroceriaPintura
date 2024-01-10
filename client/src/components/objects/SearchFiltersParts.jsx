@@ -6,7 +6,10 @@ import PartsForm from '../forms/PartsForm';
 import BrandsForm from '../forms/BrandsForm';
 
 import axios from 'axios';
-const SearchFiltersParts = ({setSelectedItems}) => {
+/*<div className="input-group-append">
+                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
+                        </div>*/
+const SearchFiltersParts = ({setSelectedItems, setSearch, search}) => {
     const [dropdowns, setDropdowns] = useState([]);
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     const handleResults = async () => {
@@ -59,6 +62,12 @@ const SearchFiltersParts = ({setSelectedItems}) => {
     const handleFilter = () => {
         setSelectedItems(tempSelectedItems);
     };
+
+    const handleBrandChange = (event) => {
+        setSearch(event.target.value);
+        //console.log(search);
+    }
+    
     return (
 
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
@@ -68,10 +77,8 @@ const SearchFiltersParts = ({setSelectedItems}) => {
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="basic-addon1">🔍</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Buscar repuesto" aria-label="searchCar" aria-describedby="basic-addon1" />
-                        <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
-                        </div>
+                        <input type="text" className="form-control" placeholder="Buscar repuesto" value={search} onChange={handleBrandChange} aria-label="searchCar" aria-describedby="basic-addon1" />
+                        
                     </div>
                 </div>
             </div>
