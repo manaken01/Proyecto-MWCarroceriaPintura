@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
 import Divider from '../decoration/Divider';
 import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 function PartsForm() {
     const [brands, setBrands] = useState([]);
+    const [showMarcaModal, setShowMarcaModal] = useState(false);
 
+    const handleClose = () => {
+        setShowMarcaModal(false);
+    };
+    const handleShowMarcaModal = () => setShowMarcaModal(true);
 
     const getbrands = async () => {
         try {
@@ -55,7 +61,7 @@ function PartsForm() {
                     //console.log(response.data);
                     handleResultsBrands();
                     alert('Se ha agregado la marca de forma correcta');
-                    
+                    setName('');
 
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
@@ -68,9 +74,9 @@ function PartsForm() {
     }
 
     const handleBrandsDelete = (idBrand) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this brand?");
-    if (confirmDelete) {
-    
+        const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta marca?");
+        if (confirmDelete) {
+
             const getData = async () => {
                 try {
                     console.log(idBrand);
@@ -78,7 +84,7 @@ function PartsForm() {
                     setResponseMessage(response.data);
                     handleResultsBrands();
                     alert('Se ha eliminado la marca de forma correcta');
-                    
+
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
                 }
@@ -91,6 +97,39 @@ function PartsForm() {
         }
     }
 
+    const handleBrandsEdit = (idBrand) => {
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar esta marca?");
+        if (confirmEdit) {
+            const doesExist = brands.some(brand => brand.name === name.toUpperCase());
+            if (!doesExist) {
+                const getData = async () => {
+                    try {
+                        console.log(idBrand);
+                        const response = await axios.put(`http://localhost:8080/brand`,
+                        {
+                            name: name.toUpperCase(),
+                            idBrand: idBrand
+                        });
+
+                        setResponseMessage(response.data);
+                        handleResultsBrands();
+                        alert('Se ha modificado la marca de forma correcta');
+                        setName('');
+
+                    } catch (error) {
+                        console.error('Error al realizar la solicitud:', error);
+                    }
+                };
+                getData();
+            } else {
+                alert(' El nombre de la marca ya existe');
+            }
+
+        } else {
+            alert('La marca no ha sido modificada');
+        }
+        
+    }
 
     return (
 
@@ -111,9 +150,8 @@ function PartsForm() {
                             Agregar
                         </button>
 
-
-
                     </div>
+
                     <div style={{ maxHeight: '200px', overflowY: 'scroll' }}>
 
                         <ul className="list-group">
@@ -123,19 +161,47 @@ function PartsForm() {
                                         {brand.name}
                                         <div>
                                             <button
-                                                type="button"
-                                                className="btn"
-                                                style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}
-
-                                                onClick={() => {  handleBrandsDelete(brand.idBrand); }}
+                                                type="button" className="btn" style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}
+                                                onClick={() => { handleBrandsDelete(brand.idBrand); }}
                                             >
                                                 <img src={DeleteButton} style={{ height: 'auto', width: 'auto' }} alt="Delete" />
                                             </button>
-                                            <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                                            <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}
+                                                onClick={handleShowMarcaModal}>
                                                 Modificar
                                             </button>
+                                            <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                                                <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
+                                                </Modal.Header>
+                                                <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
+                                                    <div className="card mb-3" style={{ border: '0px', backgroundColor: "#F9F9F9" }} >
+                                                        <div className="row g-0">
+                                                            <div className="card-body">
+
+                                                                <h4 className="card-title" style={{ color: '#000000' }} >Modificar marca</h4>
+
+
+                                                                <Divider />
+                                                                <div className="d-flex align-items-center">
+                                                                    <p className="card-text"><strong>Nombre:</strong></p>
+                                                                    <div className="input-group ml-3" style={{ padding: '2%' }}>
+                                                                        <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={name} onChange={handleNameChange} />
+                                                                    </div>
+                                                                    <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} 
+                                                                    onClick={() => { handleBrandsEdit(brand.idBrand); }}>
+                                                                        Modificar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Modal.Body>
+                                                <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+                                                </Modal.Footer>
+                                            </Modal>
                                         </div>
                                     </li>
+
                                 ))}
                             </div>
 
@@ -143,6 +209,7 @@ function PartsForm() {
                     </div>
                 </div>
             </div>
+
         </div>
 
     );

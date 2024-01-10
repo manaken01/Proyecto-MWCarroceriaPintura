@@ -37,4 +37,14 @@ class adminBrand:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+    def updateBrand(brand, cursor, connection):
+        try:
+            sql = "UPDATE brand SET name = %s WHERE idBrand = %s"
+            val = (brand.name, brand.idBrand)
+            cursor.execute(sql, val)
+            connection.commit()
+            print(cursor.rowcount, "record updated.")
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
