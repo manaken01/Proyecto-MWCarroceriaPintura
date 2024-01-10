@@ -2,6 +2,7 @@ import { useState, useEffect} from 'react';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 
 function MyCarFormModified({ initialPlate }) {
 
@@ -24,8 +25,7 @@ function MyCarFormModified({ initialPlate }) {
         try {
             const dropdownItems = await getdropdowns();
             setDropdowns([
-                { label: 'Marca:', items: dropdownItems },
-                { label: 'Año:', items: ['2000', '2005', '2010', '2015'] } 
+                { label: 'Marca:', items: dropdownItems }
             ]);
         } catch (error) {
             console.error('Error handling results:', error);
@@ -49,6 +49,7 @@ function MyCarFormModified({ initialPlate }) {
     //-------------
     const [plate, setPlate] = useState(initialPlate || '');
     const [idBrand, setidBrand] = useState('');
+    const [year, setYear] = useState('');
 
     const [responseMessage, setResponseMessage] = useState('');
 
@@ -56,50 +57,136 @@ function MyCarFormModified({ initialPlate }) {
         setPlate(event.target.value);
     }
 
+    const handleYearChange = (event) => {
+        setYear(event.target.value);
+    }
+
 
     const getIdBrand = (brandName) => {
         const brand = responseData.find((item) => item.name === brandName);
         return brand ? brand.idBrand : null;
-      };
+    };
+    
+    const resetInputs = () => {
+        setYear('');
+        setPlate('');
+    };
+
+    const validateInputs = () => {
+        if (!plate || !year || !idBrand) {
+            alert('Se deben llenar obligatoriamente los campos de: placa, año y marca');
+            return false;
+        }
+        return true;
+    };
+
+
+    const validatePlate = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^\d{6}$|^([A-Za-z]){3}-\d{3}$/;
+        return regex.test(plate);
+    };
+
+    const validateYear = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(199[0-9]|20[0-1]\d|202[0-4])$/;
+        return regex.test(year);
+    };
     
 
-    const handleParts = () => {
-        /*console.log('name:', name);
-        console.log('car:', car);
-        console.log('category:', category);
-        console.log('stock:', stock);
-        console.log('bodyShape:', bodyShape);
-        console.log('version:', version);
-        console.log('generation:', generation);
-        console.log('idBrand:', idBrand);
-        console.log(photo);*/
 
+    const handleCarUserEdit = async () => {
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar este carrro?");
+        if (confirmEdit) {
 
-        const getData = async () => {
-            try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    car: car,
-                    category: category,
-                    stock: stock,
-                    bodyShape: bodyShape,
-                    version: version,
-                    generation: generation,
-                    idBrand: idBrand,
-                    photos: photo
-                });
-                
-                setResponseMessage(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
+            if (!validateInputs()) {
+                return;
             }
-        };
+    
+            if (!validatePlate()) {
+                alert('Placa con formato incorrecto, debe ser de 6 digitos o con el formato AAA-123');
+                return;
+            }
+    
+            if (!validateYear()) {
+                alert('Año incorrecto, debe ser mayor o igual a 1990 y como máximo 2024');
+                return;
+            }
 
-        getData();
+            if (plate != initialPlate) {
 
+                const getPlate = async () => {
+                    try {
+                        console.log(plate.toUpperCase())
+        
+                        const response = await axios.get('http://localhost:8080/plate', {
+                            params: {
+                                licensePlate: plate.toUpperCase()
+                            }
+                        });
+                        return response.data
+                    } catch (error) {
+                        console.error('Error al realizar la solicitud:', error);
+                    }
+                };
+        
+                const [plateResult] = await Promise.all([
+                    getPlate(),
+                ]);
+        
+        
+                if (!plateResult.Result) {
+                    alert('La placa ya se encontraba registrada');
+                    return
+                }
+            }
+    
+            const getPlateId = async () => {
+                try {
+                    console.log(plate.toUpperCase())
+    
+                    const response = await axios.get('http://localhost:8080/plateId', {
+                        params: {
+                            licensePlate: plate.toUpperCase()
+                        }
+                    });
+                    return response.data
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+
+            const [plateId] = await Promise.all([
+                getPlateId(),
+            ]);
+
+            const getData = async () => {
+                    try {
+                        console.log(idBrand);
+                        const response = await axios.put(`http://localhost:8080/carUser`,
+                        {
+                            idCar: plateId.Result[0].idCarUser,
+                            year: year,
+                            licensePlate: plate.toUpperCase(),
+                            idBrand: idBrand,
+                            idUser: UserProfile.getId()
+                        });
+
+                        resetInputs();
+                        
+                        alert('Se ha modificado la marca de forma correcta');
+
+                    } catch (error) {
+                        console.error('Error al realizar la solicitud:', error);
+                    }
+                };
+                getData();
+
+        } else {
+            alert('La marca no ha sido modificada');
+        }
+        
     }
-
     return (
         
             <div className="card mb-3" style={{ border:'0px' ,backgroundColor: "#F9F9F9" }} >
@@ -116,6 +203,14 @@ function MyCarFormModified({ initialPlate }) {
                                 <input type="text" id="plate" className="form-control" aria-label="plate" aria-describedby="basic-addon1" value={plate} onChange={handlePlateChange} />
                             </div>
                         </div>
+
+                        <div className="d-flex align-items-center">
+                            <p className="card-text"><strong>Año:</strong></p>
+                                <div className="input-group ml-3" style={{ padding: '2%' }}>
+                                    <input type="number" id="phone" className="form-control" aria-label="phone" aria-describedby="basic-addon1" value={year} onChange={handleYearChange} />
+                                </div>
+                        </div>
+                        
                         <div className="row ">
                             {dropdowns.map((dropdown, index) => (
                                 <div className="col" key={index}>
@@ -136,7 +231,7 @@ function MyCarFormModified({ initialPlate }) {
                         </div>
 
                         <div className="col d-flex justify-content-end">
-                            <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                            <button type="button" className="btn btn-danger" onClick={handleCarUserEdit}  style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Modificar
                             </button>
                         </div>
@@ -145,6 +240,6 @@ function MyCarFormModified({ initialPlate }) {
             </div>
         
     );
-}
 
-export default MyCarFormModified;
+}
+export default MyCarFormModified

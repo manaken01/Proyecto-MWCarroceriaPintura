@@ -29,7 +29,7 @@ class adminCarUser:
     
     def updateCarUser(carUser, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE carUser SET year = %s, licensePlate = %s, idBrand =%s WHERE User_idUser = %s and idCarUser = %s" 
+            sql = "UPDATE carUser SET year = %s, licensePlate = %s, idBrand = %s WHERE User_idUser = %s and idCarUser = %s" 
             val = (carUser.year,carUser.licensePlate,carUser.idBrand,carUser.idUser,carUser.id)
             cursor.execute(sql,val)
             connection.commit()
@@ -64,4 +64,17 @@ class adminCarUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+        
+    async def getPlateId(licensePlate,cursor):
+        try: 
+            sql = "Select * FROM carUser WHERE licensePlate = %s"
+            val = (licensePlate,)
+            cursor.execute(sql,val)
+            result = cursor.fetchall()
+            return result
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+        
+        
         

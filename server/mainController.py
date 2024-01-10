@@ -61,6 +61,9 @@ class mainController:
 
     async def getPlate(licensePlate,cursor):
         return (await adminCarUser.getPlate(licensePlate,cursor))
+
+    async def getPlateId(licensePlate,cursor):
+        return (await adminCarUser.getPlateId(licensePlate,cursor))
     
     #services
     def createService(service,connection,cursor):

@@ -184,7 +184,7 @@ def readCarUser():
 def updateCarUser():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    id = data['id']
+    id = data['idCar']
     year = data['year']
     licensePlate = data['licensePlate']
     idBrand = data['idBrand']
@@ -212,6 +212,16 @@ async def getPlate():
     cursor = connection.cursor(dictionary=True)
     licensePlate = request.args.get('licensePlate')
     result = await mainController.getPlate(licensePlate,cursor)
+    cursor.close()
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/plateId",methods=['GET'])
+async def getPlateId():
+    cursor = connection.cursor(dictionary=True)
+    licensePlate = request.args.get('licensePlate')
+    result = await mainController.getPlateId(licensePlate,cursor)
     cursor.close()
     return jsonify({
         'Result': result

@@ -4,12 +4,60 @@ import { Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Divider from '../decoration/Divider';
 import MyCarFormModified from '../forms/MyCarFormModified';
+import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 
 function CardMyCars({car,year,plate}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleMyCarsDelete = async () => {
+        const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta marca?");
+        if (confirmDelete) {
+
+            const getPlateId = async () => {
+                try {
+                    console.log(plate.toUpperCase())
+    
+                    const response = await axios.get('http://localhost:8080/plateId', {
+                        params: {
+                            licensePlate: plate.toUpperCase()
+                        }
+                    });
+                    return response.data
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+
+            const [plateId] = await Promise.all([
+                getPlateId(),
+            ]);
+
+            const getData = async () => {
+                try {
+                    const response = await axios.delete('http://localhost:8080/carUser', {
+                        data: {
+                            id: plateId.Result[0].idCarUser,
+                            idUser: UserProfile.getId()
+                        }
+                    });
+                 
+                    alert('Se ha eliminado la marca de forma correcta');
+
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+
+            getData();
+
+        } else {
+            alert('La marca no ha sido eliminada');
+        }
+    }
     
     return (
     <div>
@@ -22,7 +70,7 @@ function CardMyCars({car,year,plate}) {
                         <p className="card-text" style={{ fontSize: '1.1em', marginBottom: '0', marginTop: '5%', color: '#000000' }}><strong>Año: {year}</strong></p>
                         <p className="card-text" style={{ fontSize: '1.1em', marginBottom: '0', marginTop: '5%', color: '#000000' }}><strong>Placa: {plate}</strong></p>
                         <button type="button" className="btn btn-danger" onClick={handleShow} style={{ marginTop: '5%', backgroundColor: '#C80B16' }}>Modificar</button>
-                        <button type="button" className="btn btn-danger" style={{ marginTop: '5%', marginLeft: '21%', backgroundColor: '#C80B16' }}>Eliminar</button>
+                        <button type="button" className="btn btn-danger" onClick={handleMyCarsDelete} style={{ marginTop: '5%', marginLeft: '21%', backgroundColor: '#C80B16' }}>Eliminar</button>
                     </div>
                     <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
                         <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
