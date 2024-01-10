@@ -37,3 +37,4 @@ class adminBrand:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+        

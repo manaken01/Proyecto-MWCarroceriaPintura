@@ -4,10 +4,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 function MyCarForm() {
 
+    const [phone, setPhone] = useState('');
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
     
+    const handlePhoneChange = (event) => {
+        setPhone(event.target.value);
+    }
+
     const getdropdowns = async () => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
@@ -24,7 +29,6 @@ function MyCarForm() {
             const dropdownItems = await getdropdowns();
             setDropdowns([
                 { label: 'Marca:', items: dropdownItems },
-                { label: 'Año:', items: ['2000', '2005', '2010', '2015'] } 
             ]);
         } catch (error) {
             console.error('Error handling results:', error);
@@ -62,41 +66,29 @@ function MyCarForm() {
       };
     
 
-    const handleParts = () => {
-        /*console.log('name:', name);
-        console.log('car:', car);
-        console.log('category:', category);
-        console.log('stock:', stock);
-        console.log('bodyShape:', bodyShape);
-        console.log('version:', version);
-        console.log('generation:', generation);
-        console.log('idBrand:', idBrand);
-        console.log(photo);*/
+      const handleCarUse = () => {
+        const doesExist = brands.some(brand => brand.name === name.toUpperCase());
+        if (!doesExist) {
+            const getData = async () => {
+                try {
+                    const response = await axios.post('http://localhost:8080/brand', {
+                        name: name.toUpperCase()
+                    });
 
+                    setResponseMessage(response.data);
+                    //console.log(response.data);
+                    handleResultsBrands();
+                    alert('Se ha agregado la marca de forma correcta');
+                    
 
-        const getData = async () => {
-            try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    car: car,
-                    category: category,
-                    stock: stock,
-                    bodyShape: bodyShape,
-                    version: version,
-                    generation: generation,
-                    idBrand: idBrand,
-                    photos: photo
-                });
-                
-                setResponseMessage(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
-            }
-        };
-
-        getData();
-
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+            getData();
+        } else {
+            alert(' El nombre de la marca ya existe');
+        }
     }
 
     return (
@@ -111,6 +103,12 @@ function MyCarForm() {
                             <div className="input-group ml-3" style={{ padding: '2%' }}>
                                 <input type="text" id="plate" className="form-control" aria-label="plate" aria-describedby="basic-addon1" value={plate} onChange={handlePlateChange} />
                             </div>
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <p className="card-text"><strong>Año:</strong></p>
+                                <div className="input-group ml-3" style={{ padding: '2%' }}>
+                                    <input type="number" id="phone" className="form-control" aria-label="phone" aria-describedby="basic-addon1" value={phone} onChange={handlePhoneChange} />
+                                </div>
                         </div>
                         <div className="row ">
                             {dropdowns.map((dropdown, index) => (
