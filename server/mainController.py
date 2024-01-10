@@ -25,9 +25,13 @@ class mainController:
     def createCarPart(CarPart,connection,cursor):
         return (adminCarPart.createCarPart(CarPart,connection,cursor))
     
+    def readCarPart(cursor):
+        return (adminCarPart.readCarPart(cursor))
+    
     #CarSell
     def createCarSell(carSell,connection,cursor):
         return (AdminCarSell.createCarSell(carSell,connection,cursor))
+
 
     #User
     def createUser(user,connection,cursor):
