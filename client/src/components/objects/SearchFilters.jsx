@@ -1,6 +1,9 @@
-import { useState } from 'react' 
+import { useState } from 'react'
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Button, Modal } from 'react-bootstrap';
+import PartsForm from '../forms/PartsForm';
+import CarSellForm from '../forms/CarSellForm';
 
 const SearchFilters = () => {
     const dropdowns = [
@@ -15,6 +18,14 @@ const SearchFilters = () => {
         newSelectedItems[index] = value;
         setSelectedItems(newSelectedItems);
     }
+    const [showCarModal, setShowCarModal] = useState(false);
+
+    const handleClose = () => {
+        setShowCarModal(false);
+    };
+
+    const handleShowCarModal = () => setShowCarModal(true);
+
     return (
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row align-items-center">
@@ -23,9 +34,9 @@ const SearchFilters = () => {
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="basic-addon1">🔍</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Buscar repuestos" aria-label="searchCar" aria-describedby="basic-addon1" />
+                        <input type="text" className="form-control" placeholder="Buscar Cars" aria-label="searchCar" aria-describedby="basic-addon1" />
                         <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width:'200%' , backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white',marginLeft: '20%'}}>Buscar</button>
+                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>
                     </div>
                 </div>
@@ -47,15 +58,25 @@ const SearchFilters = () => {
                         </Dropdown>
                     </div>
                 ))}
-                        </div>
+            </div>
             <div className="row mt-3 mb-3" style={{ paddingBottom: '2%' }}>
-    <div className="col d-flex justify-content-start">
-        <button className="btn btn-outline-secondary" style={{width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px'}}>Filtrar</button>
-    </div>
-    <div className="col d-flex justify-content-end">
-        <button className="btn btn-outline-secondary" style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Agregar nuevo carro</button>
-    </div>
-</div>
+                <div className="col d-flex justify-content-start">
+                    <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
+                </div>
+                <div className="col d-flex justify-content-end">
+                    <button className="btn btn-outline-secondary" onClick={handleShowCarModal} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo carro</button>
+                </div>
+                <Modal show={showCarModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                    <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
+                    </Modal.Header>
+                    <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
+                        <CarSellForm />
+                    </Modal.Body>
+                    <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+                    </Modal.Footer>
+                </Modal>
+
+            </div>
         </div>
     );
 };

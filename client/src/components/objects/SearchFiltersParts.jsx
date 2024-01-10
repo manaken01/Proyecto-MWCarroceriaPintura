@@ -6,10 +6,9 @@ import PartsForm from '../forms/PartsForm';
 import BrandsForm from '../forms/BrandsForm';
 
 import axios from 'axios';
-const SearchFiltersParts = () => {
+const SearchFiltersParts = ({setSelectedItems}) => {
     const [dropdowns, setDropdowns] = useState([]);
-    const [selectedItems, setSelectedItems] = useState(Array(4).fill('Seleccione'));
-
+    const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     const handleResults = async () => {
         try {
             const response = await axios.get('http://localhost:8080/carPart');
@@ -53,11 +52,13 @@ const SearchFiltersParts = () => {
     const handleShowMarcaModal = () => setShowMarcaModal(true);
 
     const handleSelect = (index, value) => {
-        const newSelectedItems = [...selectedItems];
-        newSelectedItems[index] = value;
-        setSelectedItems(newSelectedItems);
-    }
-
+        const newTempSelectedItems = [...tempSelectedItems];
+        newTempSelectedItems[index] = value;
+        setTempSelectedItems(newTempSelectedItems);
+    };
+    const handleFilter = () => {
+        setSelectedItems(tempSelectedItems);
+    };
     return (
 
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
@@ -67,7 +68,7 @@ const SearchFiltersParts = () => {
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="basic-addon1">🔍</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Buscar carro" aria-label="searchCar" aria-describedby="basic-addon1" />
+                        <input type="text" className="form-control" placeholder="Buscar repuesto" aria-label="searchCar" aria-describedby="basic-addon1" />
                         <div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>
@@ -80,7 +81,7 @@ const SearchFiltersParts = () => {
                         <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>{dropdown.label}</p>
                         <Dropdown>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
-                                {selectedItems[index]}
+                                {tempSelectedItems[index]}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
@@ -94,7 +95,7 @@ const SearchFiltersParts = () => {
             </div>
             <div className="row mt-3 mb-3" style={{ paddingBottom: '2%' }}>
                 <div className="col d-flex justify-content-start">
-                    <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
+                    <button className="btn btn-outline-secondary" onClick={handleFilter} style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
                 </div>
                 <div className="col d-flex justify-content-end">
                     <button className="btn btn-outline-secondary" onClick={handleShowMarcaModal} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginRight: '2%' }}>Agregar nueva marca</button>

@@ -6,8 +6,8 @@ class AdminCarSell:
 
     def createCarSell(carSell, connection, cursor):
         try:
-            sql = "INSERT INTO carSell (year, color, transmission, licensePlate, bodyShape, version, passengers, model, price, activated, idBrand) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (carSell.year, carSell.color, carSell.transmission, carSell.licensePlate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, carSell.activated, carSell.idBrand)
+            sql = "INSERT INTO carSell (year, color, transmission, licensePlate, bodyShape, version, passangers, model, price, active, idBrand) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            val = (carSell.year, carSell.color, carSell.transmission, carSell.plate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, 1, carSell.idBrand)
             cursor.execute(sql, val)
             connection.commit()
             
@@ -16,7 +16,7 @@ class AdminCarSell:
             # Fetch the last inserted ID
             lastInsertedId = cursor.lastrowid
             for photo in carSell.photos:
-                sql = "INSERT INTO carSellPhoto (photo, idCarSell) VALUES (%s, %s)"
+                sql = "INSERT INTO carPhoto (photo, idCarSell) VALUES (%s, %s)"
                 val = (photo['base64'], lastInsertedId)
                 cursor.execute(sql, val)
                 connection.commit()
@@ -44,8 +44,8 @@ class AdminCarSell:
 
     def updateCarSell(carSell, connection, cursor):
         try:
-            sql = "UPDATE carSell SET year = %s, color = %s, transmission = %s, licensePlate = %s, bodyShape = %s, version = %s, passengers = %s, model = %s, price = %s, activated = %s, idBrand = %s WHERE idCarSell = %s"
-            val = (carSell.year, carSell.color, carSell.transmission, carSell.licensePlate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, carSell.activated, carSell.idBrand, carSell.idCarSell)
+            sql = "UPDATE carSell SET year = %s, color = %s, transmission = %s, licensePlate = %s, bodyShape = %s, version = %s, passangers = %s, model = %s, price = %s, active = %s, idBrand = %s WHERE idCarSell = %s"
+            val = (carSell.year, carSell.color, carSell.transmission, carSell.plate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, 1, carSell.idBrand, carSell.idCarSell)
             cursor.execute(sql, val)
             connection.commit()
             

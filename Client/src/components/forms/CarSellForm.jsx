@@ -3,12 +3,12 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function PartsForm({ refreshParent }) {
+function CarSellForm() {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
-    const [selectedItems, setSelectedItems] = useState(Array(1).fill('Seleccione'));
+    const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
 
     const getdropdowns = async () => {
         try {
@@ -59,37 +59,50 @@ function PartsForm({ refreshParent }) {
     }
 
     //-------------
-    const [name, setName] = useState('');
-    const [car, setCar] = useState('');
+    const [model, setModel] = useState('');
+    const [year, setYear] = useState('');
+    const [color, setColor] = useState('');
+    const [plate, setPlate] = useState('');
+    const [transmission, setTransmission] = useState('');
+    const [passengers, setpassengers] = useState('');
+    const [idBrand, setidBrand] = useState('');
     const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('');
-    const [stock, setStock] = useState('');
     const [bodyShape, setBodyShape] = useState('');
     const [version, setVersion] = useState('');
-    const [generation, setGeneration] = useState('');
-    const [idBrand, setidBrand] = useState('');
+
+
 
     const [responseMessage, setResponseMessage] = useState('');
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    const handleModelChange = (event) => {
+        setModel(event.target.value);
     }
 
-    const handleCarChange = (event) => {
-        setCar(event.target.value);
+    const handleYearChange = (event) => {
+        setYear(event.target.value);
     }
+
+    const handleColorChange = (event) => {
+        setColor(event.target.value);
+    }
+
+    const handlePlateChange = (event) => {
+        setPlate(event.target.value);
+    }
+
+    const handleTransmissionChange = (event) => {
+        setTransmission(event.target.value);
+    }
+
+    const handlepassengersChange = (event) => {
+        setpassengers(event.target.value);
+    }
+
 
     const handlePriceChange = (event) => {
         setPrice(event.target.value);
     }
 
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
-    }
-
-    const handleStockChange = (event) => {
-        setStock(event.target.value);
-    }
     const handleBodyShapeChange = (event) => {
         setBodyShape(event.target.value);
     }
@@ -97,32 +110,31 @@ function PartsForm({ refreshParent }) {
     const handleVersionChange = (event) => {
         setVersion(event.target.value);
     }
-    const handleGenerationChange = (event) => {
-        setGeneration(event.target.value);
-    }
 
     const getIdBrand = (brandName) => {
         const brand = responseData.find((item) => item.name === brandName);
         return brand ? brand.idBrand : null;
     };
     const resetInputs = () => {
-        setName('');
-        setCar('');
+        setModel('');
+        setYear('');
+        setColor('');
+        setPlate('');
+        setTransmission('');
+        setpassengers('');
+        setidBrand('');
         setPrice('');
-        setCategory('');
-        setStock('');
         setBodyShape('');
         setVersion('');
-        setGeneration('');
     };
     const validateInputs = () => {
-        if (!name || !car || !price || !stock || !idBrand ||!category || photo.length === 0) {
-            alert('Se deben llenar obligatoriamente los campos de: nombre, carro, precio,categoría, stock, marca y fotos');
+        if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
+            alert('Se deben llenar todos los campos');
             return false;
         }
         return true;
     };
-    const handleParts = () => {
+    const handleCars = () => {
 
         if (!validateInputs()) {
             return;
@@ -130,24 +142,24 @@ function PartsForm({ refreshParent }) {
         const getData = async () => {
             console.log(idBrand);
             try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    car: car,
+                const response = await axios.post('http://localhost:8080/carSell', {
+                    model: model,
+                    year: year,
+                    color: color,
+                    plate: plate,
+                    transmission: transmission,
+                    passengers: passengers,
+                    idBrand: idBrand,
                     price: price,
-                    category: category,
-                    stock: stock,
                     bodyShape: bodyShape,
                     version: version,
-                    generation: generation,
-                    idBrand: idBrand,
                     photos: photo
                 });
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                refreshParent();
-                resetInputs();
                 alert('Se ha agregado el repuesto de forma correcta');
+                resetInputs();
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -162,65 +174,8 @@ function PartsForm({ refreshParent }) {
         <div className="card mb-3" style={{ border: '0px', backgroundColor: "#F9F9F9" }} >
             <div className="row g-0">
                 <div className="card-body">
-
-                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo repuesto</h4>
-
-
+                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo carro</h4>
                     <Divider />
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Nombre:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={name} onChange={handleNameChange} />
-                        </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Carro:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="carro" className="form-control" aria-label="carro" aria-describedby="basic-addon1" value={car} onChange={handleCarChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Precio:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="number" id="price" className="form-control" aria-label="stock" aria-describedby="basic-addon1" value={price} onChange={handlePriceChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Categoría:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="categoria" className="form-control" aria-label="categoria" aria-describedby="basic-addon1" value={category} onChange={handleCategoryChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Stock:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="number" id="stock" className="form-control" aria-label="stock" aria-describedby="basic-addon1" value={stock} onChange={handleStockChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Body Shape:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="bodyShape" className="form-control" aria-label="bodyShape" aria-describedby="basic-addon1" value={bodyShape} onChange={handleBodyShapeChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Versión:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="version" className="form-control" aria-label="version" aria-describedby="basic-addon1" value={version} onChange={handleVersionChange} />
-                        </div>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Generación:</strong></p>
-                        <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="generacion" className="form-control" aria-label="generacion" aria-describedby="basic-addon1" value={generation} onChange={handleGenerationChange} />
-                        </div>
-                    </div>
                     <div className="row ">
                         {dropdowns.map((dropdown, index) => (
                             <div className="col" key={index}>
@@ -239,20 +194,84 @@ function PartsForm({ refreshParent }) {
                             </div>
                         ))}
                     </div>
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Año:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="year" className="form-control" aria-label="year" aria-describedby="basic-addon1" value={year} onChange={handleYearChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Color:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="color" className="form-control" aria-label="color" aria-describedby="basic-addon1" value={color} onChange={handleColorChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Transmisión:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="transmission" className="form-control" aria-label="transmission" aria-describedby="basic-addon1" value={transmission} onChange={handleTransmissionChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Placa:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="plate" className="form-control" aria-label="plate" aria-describedby="basic-addon1" value={plate} onChange={handlePlateChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Body shape:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="bodyShape" className="form-control" aria-label="bodyShape" aria-describedby="basic-addon1" value={bodyShape} onChange={handleBodyShapeChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Versión:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="version" className="form-control" aria-label="version" aria-describedby="basic-addon1" value={version} onChange={handleVersionChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Pasajeros:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="number" id="passengers" className="form-control" aria-label="passengers" aria-describedby="basic-addon1" value={passengers} onChange={handlepassengersChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Modelo:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="model" className="form-control" aria-label="model" aria-describedby="basic-addon1" value={model} onChange={handleModelChange} />
+                        </div>
+                    </div>
+
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Precio:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="number" id="price" className="form-control" aria-label="price" aria-describedby="basic-addon1" value={price} onChange={handlePriceChange} />
+                        </div>
+                    </div>
+
                     <div>
 
                         <ImageUploader onImageListChange={handleImageListChange} />
 
-
                     </div>
+
+
+
 
                     <div className="col d-flex justify-content-end">
 
-
-
-                        <button type="button" className="btn btn-danger" onClick={handleParts} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                        <button type="button" className="btn btn-danger" onClick={handleCars} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                             Agregar
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -261,4 +280,4 @@ function PartsForm({ refreshParent }) {
     );
 }
 
-export default PartsForm
+export default CarSellForm
