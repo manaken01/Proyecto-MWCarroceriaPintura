@@ -64,7 +64,7 @@ function CarSellForm() {
     const [color, setColor] = useState('');
     const [plate, setPlate] = useState('');
     const [transmission, setTransmission] = useState('');
-    const [passangers, setPassangers] = useState('');
+    const [passengers, setpassengers] = useState('');
     const [idBrand, setidBrand] = useState('');
     const [price, setPrice] = useState('');
     const [bodyShape, setBodyShape] = useState('');
@@ -77,39 +77,36 @@ function CarSellForm() {
     const handleModelChange = (event) => {
         setModel(event.target.value);
     }
-    
+
     const handleYearChange = (event) => {
         setYear(event.target.value);
     }
-    
+
     const handleColorChange = (event) => {
         setColor(event.target.value);
     }
-    
+
     const handlePlateChange = (event) => {
         setPlate(event.target.value);
     }
-    
+
     const handleTransmissionChange = (event) => {
         setTransmission(event.target.value);
     }
-    
-    const handlePassangersChange = (event) => {
-        setPassangers(event.target.value);
+
+    const handlepassengersChange = (event) => {
+        setpassengers(event.target.value);
     }
-    
-    const handleIdBrandChange = (event) => {
-        setidBrand(event.target.value);
-    }
-    
+
+
     const handlePriceChange = (event) => {
         setPrice(event.target.value);
     }
-    
+
     const handleBodyShapeChange = (event) => {
         setBodyShape(event.target.value);
     }
-    
+
     const handleVersionChange = (event) => {
         setVersion(event.target.value);
     }
@@ -124,20 +121,20 @@ function CarSellForm() {
         setColor('');
         setPlate('');
         setTransmission('');
-        setPassangers('');
+        setpassengers('');
         setidBrand('');
         setPrice('');
         setBodyShape('');
         setVersion('');
     };
     const validateInputs = () => {
-        if (!model || !year || !color || !plate || !transmission || !passangers || !idBrand || !price || !bodyShape || !version) {
+        if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
             alert('Se deben llenar todos los campos');
             return false;
         }
         return true;
     };
-    const handleParts = () => {
+    const handleCars = () => {
 
         if (!validateInputs()) {
             return;
@@ -145,14 +142,17 @@ function CarSellForm() {
         const getData = async () => {
             console.log(idBrand);
             try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    bodyShape: bodyShape,
-                    version: version,
+                const response = await axios.post('http://localhost:8080/carSell', {
+                    model: model,
+                    year: year,
+                    color: color,
+                    plate: plate,
+                    transmission: transmission,
+                    passengers: passengers,
                     idBrand: idBrand,
                     price: price,
-                    model: model,
-
+                    bodyShape: bodyShape,
+                    version: version,
                     photos: photo
                 });
 
@@ -200,7 +200,7 @@ function CarSellForm() {
                             <input type="text" id="year" className="form-control" aria-label="year" aria-describedby="basic-addon1" value={year} onChange={handleYearChange} />
                         </div>
                     </div>
-                    
+
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Color:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
@@ -208,25 +208,13 @@ function CarSellForm() {
                         </div>
                     </div>
 
-                    <div className="row ">
-                        {dropdowns.map((dropdown, index) => (
-                            <div className="col" key={index}>
-                                <p style={{ fontWeight: 'bold', marginBottom: '1%' }}>{dropdown.label}</p>
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
-                                        {selectedItems[index]}
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                        {dropdown.items.map((item, itemIndex) => (
-                                            <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item)} >{item}</Dropdown.Item>
-                                        ))}
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </div>
-                        ))}
+                    <div className="d-flex align-items-center">
+                        <p className="card-text"><strong>Transmisión:</strong></p>
+                        <div className="input-group ml-3" style={{ padding: '2%' }}>
+                            <input type="text" id="transmission" className="form-control" aria-label="transmission" aria-describedby="basic-addon1" value={transmission} onChange={handleTransmissionChange} />
+                        </div>
                     </div>
-                    
+
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Placa:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
@@ -251,21 +239,21 @@ function CarSellForm() {
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Pasajeros:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="passangers" className="form-control" aria-label="passangers" aria-describedby="basic-addon1" value={passangers} onChange={handlePassangersChange} />
+                            <input type="number" id="passengers" className="form-control" aria-label="passengers" aria-describedby="basic-addon1" value={passengers} onChange={handlepassengersChange} />
                         </div>
                     </div>
-                    
+
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Modelo:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
                             <input type="text" id="model" className="form-control" aria-label="model" aria-describedby="basic-addon1" value={model} onChange={handleModelChange} />
                         </div>
                     </div>
-                    
+
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Precio:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="price" className="form-control" aria-label="price" aria-describedby="basic-addon1" value={price} onChange={handlePriceChange} />
+                            <input type="number" id="price" className="form-control" aria-label="price" aria-describedby="basic-addon1" value={price} onChange={handlePriceChange} />
                         </div>
                     </div>
 
@@ -276,11 +264,11 @@ function CarSellForm() {
                     </div>
 
 
-                   
+
 
                     <div className="col d-flex justify-content-end">
 
-                        <button type="button" className="btn btn-danger" onClick={handleParts} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                        <button type="button" className="btn btn-danger" onClick={handleCars} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                             Agregar
                         </button>
 
