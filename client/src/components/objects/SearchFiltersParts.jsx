@@ -6,9 +6,8 @@ import PartsForm from '../forms/PartsForm';
 import BrandsForm from '../forms/BrandsForm';
 
 import axios from 'axios';
-const SearchFiltersParts = () => {
+const SearchFiltersParts = ({selectedItems, setSelectedItems}) => {
     const [dropdowns, setDropdowns] = useState([]);
-    const [selectedItems, setSelectedItems] = useState(Array(4).fill('Seleccione'));
 
     const handleResults = async () => {
         try {
