@@ -1,7 +1,7 @@
 
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Calendar from './components/objects/Calendar';
+import Calendar from './components/full screens MW/CalendarUser';
 import Register from './components/full screens MW/Register';
 import Navbar from './components/objects/Navbar';
 import LogIn from './components/full screens MW/LogIn';

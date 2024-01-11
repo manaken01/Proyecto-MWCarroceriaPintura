@@ -295,31 +295,31 @@ def deleteService():
     })
 
 #appointment
-@app.route("/appoinment",methods=['POST'])
+@app.route("/appointment",methods=['POST'])
 def createAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    start = data['start']
-    finish = data['finish']
+    date = data['date']
+    hour = data['hour']
     idCarUser = data['idCarUser']
     idUser = data['idUser']
     idService = data['idService']
-    appointment = Appointment(start=start,finish=finish,idCarUser=idCarUser,idUser=idUser,idService=idService)
+    appointment = Appointment(date=date,hour=hour,idCarUser=idCarUser,idUser=idUser,idService=idService)
     result = mainController.createAppointment(appointment,connection,cursor)
     return jsonify({
         'Result': result
     })
 
-@app.route("/appoinment",methods=['GET'])
+@app.route("/appointment",methods=['GET'])
 def readAppointment():
     idUser = request.args.get('idUser')
-    result = mainController.readServices(idUser,cursor)
+    result = mainController.readAppointment(idUser,cursor)
     print(result)
     return jsonify({
         'Result': result
     })
 
-@app.route("/appoinment",methods=['PUT'])
+@app.route("/appointment",methods=['PUT'])
 def updateAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
@@ -335,7 +335,7 @@ def updateAppointment():
         'Result': result
     })
 
-@app.route("/appoinment",methods=['DELETE'])
+@app.route("/appointment",methods=['DELETE'])
 def deleteAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()

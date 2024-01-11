@@ -1,8 +1,8 @@
 class Appointment:
-    def __init__(self, id=None, start=None, finish=None,activate=None,idCarUser=None,idUser=None,idService=None):
+    def __init__(self, id=None, date=None, hour=None,activate=None,idCarUser=None,idUser=None,idService=None):
         self.id = id
-        self.start = start
-        self.finish = finish
+        self.date = date
+        self.hour = hour
         self.activate = activate
         self.idCarUser = idCarUser
         self.idUser = idUser

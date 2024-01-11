@@ -1,13 +1,17 @@
 import mysql.connector
 from mysql.connector import Error
 from model.Appointment import *
+from datetime import datetime
 
 class adminAppointment:
 
     def createAppointment(appointment,connection,cursor):
         try: 
-            sql = "INSERT INTO appointment (start, finish, active, idCarUser, User_idUser, idService) VALUES (%s, %s, %s, %s, %s,%s)"
-            val = (appointment.start,appointment.finish,1,appointment.idCarUser,appointment.idUser, appointment.idService)
+            sql = "INSERT INTO appointment (date, hour, active, idCarUser, User_idUser, idService) VALUES (%s, %s, %s, %s, %s,%s)"
+            print("FECHA:"+str(appointment.date))
+            # Convertir el string a un objeto datetime
+            date_obj = datetime.strptime(appointment.date, "%d/%m/%Y")
+            val = (date_obj,appointment.hour,1,appointment.idCarUser,appointment.idUser, appointment.idService)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record inserted.")
@@ -18,8 +22,10 @@ class adminAppointment:
     
     def readAppointment(idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT * FROM appointment WHERE User_idUser = %s and active = 1" 
-            val = (idUser,)
+            sql = "SELECT * FROM appointment WHERE date >= %s and User_idUser = %s and active = 1" 
+            now = datetime.now()
+            formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+            val = (formatted_date,idUser)
             cursor.execute(sql,val)
             result = cursor.fetchall()
             return result
@@ -29,8 +35,8 @@ class adminAppointment:
     
     def updateAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE appointment SET start = %s, finish = %s, idCarUser =%s, idService WHERE User_idUser = %s and idAppointment = %s" 
-            val = (appointment.start,appointment.finish,appointment.idCarUser,appointment.idService,appointment.idUser, appointment.id)
+            sql = "UPDATE appointment SET date = %s, hour = %s, idCarUser =%s, idService WHERE User_idUser = %s and idAppointment = %s" 
+            val = (appointment.date,appointment.hour,appointment.idCarUser,appointment.idService,appointment.idUser, appointment.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record updated.")
