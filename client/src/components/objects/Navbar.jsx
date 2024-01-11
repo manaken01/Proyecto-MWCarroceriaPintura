@@ -24,13 +24,13 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul className="navbar-nav" style={{ marginLeft: 'auto', marginRight: '1%' }}>
                     <li className="nav-item active">
-                    <Link className="nav-link" to= "/ " style={linkStyle} href="#">Inicio</Link>
+                    <Link className="nav-link" to= "/" style={linkStyle} href="#">Inicio</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/parts" style={linkStyle}>Repuestos</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" style={linkStyle} href="#">Carros</a>
+                        <a className="nav-link" to="/cars" style={linkStyle} href="#">Carros</a>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/information" style={linkStyle}>Información</Link>

@@ -1,21 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CardCarSell from './CardCarSell';
+import axios from 'axios';
 
-const cards = [
-    { id: 1, name: "Honda Fit ", year: "2006", price: "₡ 40000", transmission: "Manual", plate: "1111-1111", bodyshape: 'Sedan', version: "Japón", passangers: 4, brand: "Honda", pic: ["https://autojapon.net/uploads/2023/12/1703361655_IMG_20231223_140046.jpg", "https://hips.hearstapps.com/hmg-prod/images/2019-honda-civic-sedan-1558453497.jpg"] },
-]
+const CardsCar = () => {
+    const [cards, setCards] = useState([]);
 
-function CardsCar() {
+
+    useEffect(() => {
+        const getCars = () => {
+            axios.get('http://localhost:8080/carSell')
+                .then(response => {
+                    setCards(response.data.Result);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        getCars();
+    }, []);
     //falta cambiar la paginacion
     return (
         <div>
         <div className="container d-flex justify-content-center align-items-center" >
             <div className='row'>{
-                cards.map(card => (
-                    <div className='col-md-6' key={card.id}>
-                        <CardCarSell name={card.name} year={card.year} price={card.price} transmission={card.transmission} plate={card.plate} bodyshape={card.bodyshape} version={card.version} passangers={card.passangers} brand={card.brand} pic={card.pic} />
-                    </div>
-                ))
+                cards.map(card => {
+                    return (
+                        <div className='col-md-6' key={card.carSell.idCarSell}>
+                            <CardCarSell 
+                                id={card.carSell.idCarSell}
+                                name={card.carSell.model} 
+                                year={card.carSell.year} 
+                                price={card.carSell.price} 
+                                transmission={card.carSell.transmission} 
+                                plate={card.carSell.licensePlate} 
+                                bodyshape={card.carSell.bodyShape} 
+                                version={card.carSell.version} 
+                                passangers={card.carSell.passangers} 
+                                brand={card.carSell.name} 
+                                color = {card.carSell.color}
+                                pic={card.photos} 
+                            />
+                        </div>
+                    );
+                })
             }
             </div>
         </div>

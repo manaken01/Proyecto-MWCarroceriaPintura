@@ -1,13 +1,14 @@
 import mysql.connector
 from mysql.connector import Error
 from model.CarSell import *
+import base64
 
 class AdminCarSell:
 
     def createCarSell(carSell, connection, cursor):
         try:
             sql = "INSERT INTO carSell (year, color, transmission, licensePlate, bodyShape, version, passangers, model, price, active, idBrand) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (carSell.year, carSell.color, carSell.transmission, carSell.plate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, 1, carSell.idBrand)
+            val = (carSell.year, carSell.color, carSell.transmission, carSell.plate, carSell.bodyShape, carSell.version, carSell.passengers, carSell.model, carSell.price, 1 , carSell.idBrand)
             cursor.execute(sql, val)
             connection.commit()
             
@@ -26,21 +27,35 @@ class AdminCarSell:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
-    def readCarSell(carSellId, connection, cursor):
+    def getCarSell(connection, cursor):
         try:
-            sql = "SELECT * FROM carSell WHERE idCarSell = %s"
-            val = (carSellId,)
-            cursor.execute(sql, val)
-            result = cursor.fetchone()
-            
+            sql = "SELECT * FROM carSell INNER JOIN brand ON carSell.idBrand = brand.idBrand INNER JOIN carPhoto ON carSell.idCarSell = carPhoto.idCarSell WHERE carSell.active = 1"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            cars = {}
             if result is not None:
-                carSell = CarSell(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10])
-                return carSell
+                for row in result:
+
+                    if row['idCarSell'] not in cars:
+                        cars[row['idCarSell']] = {
+                            'carSell': {key: value for key, value in row.items() if key != 'photo'},
+                            'photos': []
+                        }
+
+                    if 'photo' in row and isinstance(row['photo'], bytes):
+                        # Decode bytes (BLOB) to string
+                        base64_string = row['photo'].decode('utf-8')
+                        cars[row['idCarSell']]['photos'].append(base64_string)
+
+                cars = list(cars.values())
+
+                return cars
             else:
                 return None
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return None
+    
 
     def updateCarSell(carSell, connection, cursor):
         try:

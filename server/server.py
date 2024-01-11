@@ -101,7 +101,7 @@ def createCarSell():
     year = data['year']
     color = data['color']
     plate = data['plate']
-    transmission = 1 #data['transmission']
+    transmission = data['transmission']
     passengers = data['passengers']
     idBrand = data['idBrand']
     price = data['price']
@@ -112,6 +112,13 @@ def createCarSell():
     carSell= CarSell(model=model, year=year, color=color, plate=plate, transmission=transmission, passengers=passengers, idBrand=idBrand, price=price, bodyShape=bodyShape, version=version, photos=photos)
     
     result = mainController.createCarSell(carSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carSell",methods=['GET'])
+def getCarSell():
+    result = mainController.getCarSell(connection,cursor)
     return jsonify({
         'Result': result
     })

@@ -3,7 +3,9 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function CarSellForm() {
+
+
+const CarSellUpdateForm = ({ carSell }) => {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -127,6 +129,25 @@ function CarSellForm() {
         setBodyShape('');
         setVersion('');
     };
+
+    const defaultInputs = () => {
+        console.log(carSell);
+        setModel(carSell?.name || '');
+        setYear(carSell?.year || '');
+        setColor(carSell?.color || '');
+        setPlate(carSell?.plate || '');
+        setTransmission(carSell?.transmission || '');
+        setpassengers(carSell?.passangers || '');
+        setidBrand(carSell?.brand || '');
+        setPrice(carSell?.price || '');
+        setBodyShape(carSell?.bodyshape || '');
+        setVersion(carSell?.version || '');
+    };
+
+    useEffect(() => {
+        defaultInputs();
+    }, [carSell]);
+
     const validateInputs = () => {
         if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
             alert('Se deben llenar todos los campos');
@@ -142,7 +163,8 @@ function CarSellForm() {
         const getData = async () => {
             console.log(idBrand);
             try {
-                const response = await axios.post('http://localhost:8080/carSell', {
+                const response = await axios.put('http://localhost:8080/carSell', {
+                    idCarSell: idCarSell,
                     model: model,
                     year: year,
                     color: color,
@@ -175,7 +197,7 @@ function CarSellForm() {
         <div className="card mb-3" style={{ border: '0px', backgroundColor: "#F9F9F9" }} >
             <div className="row g-0">
                 <div className="card-body">
-                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo carro</h4>
+                    <h4 className="card-title" style={{ color: '#000000' }} >Modificar carro</h4>
                     <Divider />
                     <div className="row ">
                         {dropdowns.map((dropdown, index) => (
@@ -281,4 +303,4 @@ function CarSellForm() {
     );
 }
 
-export default CarSellForm
+export default CarSellUpdateForm
