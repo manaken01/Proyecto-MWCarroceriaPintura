@@ -22,7 +22,7 @@ class adminAppointment:
     
     def readAppointment(idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE appointment.date BETWEEN %s AND '2100-07-22' and appointment.User_idUser = %s and appointment.active = 1" 
+            sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE appointment.date >= %s and appointment.User_idUser = %s and appointment.active = 1" 
             now = datetime.now()
             formatted_date = now.strftime('%Y-%m-%d')
             print(formatted_date)

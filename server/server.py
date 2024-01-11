@@ -196,9 +196,9 @@ def createCarUser():
     })
 
 @app.route("/carUser",methods=['GET'])
-def readCarUser():
+async def readCarUser():
     idUser = request.args.get('idUser')
-    result = mainController.readCarUser(idUser,cursor)
+    result = await mainController.readCarUser(idUser,cursor)
     print(result)
     return jsonify({
         'Result': result
@@ -264,8 +264,8 @@ def createService():
     })
 
 @app.route("/service",methods=['GET'])
-def readServices():
-    result = mainController.readServices(cursor)
+async def readServices():
+    result = await mainController.readServices(cursor)
     print(result)
     return jsonify({
         'Result': result

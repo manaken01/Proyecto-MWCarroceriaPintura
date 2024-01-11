@@ -16,7 +16,7 @@ class adminService:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def readServices(cursor):
+    async def readServices(cursor):
         try: #recupera solo las del usuario
             sql = "SELECT * FROM service WHERE active = 1" 
             cursor.execute(sql)
