@@ -38,6 +38,7 @@ const CardsCar = () => {
                                 version={card.carSell.version} 
                                 passangers={card.carSell.passangers} 
                                 brand={card.carSell.name} 
+                                idBrand={card.carSell.idBrand}
                                 color = {card.carSell.color}
                                 pic={card.photos} 
                             />

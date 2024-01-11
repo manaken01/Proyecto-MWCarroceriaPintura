@@ -65,6 +65,21 @@ class AdminCarSell:
             connection.commit()
             
             print(cursor.rowcount, "record(s) updated.")
+
+            # Fetch the last inserted ID
+            print(carSell.photos)
+
+            if carSell.photos != []:
+                print('entro')
+                sql = "DELETE FROM carPhoto WHERE idCarSell = %s"
+                val = (carSell.idCarSell,)
+                cursor.execute(sql, val)
+                connection.commit()
+                for photo in carSell.photos:
+                    sql = "INSERT INTO carPhoto (photo, idCarSell) VALUES (%s, %s)"
+                    val = (photo['base64'], carSell.idCarSell)
+                    cursor.execute(sql, val)
+                    connection.commit()
             
             return True
         except mysql.connector.Error as error:

@@ -1,5 +1,5 @@
 class CarSell:
-    def __init__(self, model, year, color, plate, transmission, passengers, idBrand, price, bodyShape, version, photos):
+    def __init__(self, model, year, color, plate, transmission, passengers, idBrand, price, bodyShape, version, photos, idCarSell = None):
         self.model = model
         self.year = year
         self.color = color
@@ -11,3 +11,4 @@ class CarSell:
         self.bodyShape = bodyShape
         self.version = version
         self.photos = photos
+        self.idCarSell = idCarSell

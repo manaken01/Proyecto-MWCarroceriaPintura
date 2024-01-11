@@ -158,7 +158,7 @@ function CarSellForm() {
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                alert('Se ha agregado el repuesto de forma correcta');
+                alert('Se ha agregado el carro de forma correcta');
                 resetInputs();
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);

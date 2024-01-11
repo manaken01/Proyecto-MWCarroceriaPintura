@@ -137,7 +137,7 @@ const CarSellUpdateForm = ({ carSell }) => {
         setPlate(carSell?.plate || '');
         setTransmission(carSell?.transmission || '');
         setpassengers(carSell?.passangers || '');
-        setidBrand(carSell?.brand || '');
+        setidBrand(carSell?.idBrand || '');
         setPrice(carSell?.price || '');
         setBodyShape(carSell?.bodyshape || '');
         setVersion(carSell?.version || '');
@@ -160,7 +160,6 @@ const CarSellUpdateForm = ({ carSell }) => {
             return;
         }
         const getData = async () => {
-            console.log(idBrand);
             try {
                 const response = await axios.put('http://localhost:8080/carSell', {
                     idCarSell: carSell.id,
@@ -179,7 +178,7 @@ const CarSellUpdateForm = ({ carSell }) => {
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                alert('Se ha agregado el repuesto de forma correcta');
+                alert('Se ha modificado el carro.');
                 resetInputs();
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);

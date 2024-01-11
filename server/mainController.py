@@ -35,6 +35,8 @@ class mainController:
     def getCarSell(connection,cursor):
         return (AdminCarSell.getCarSell(connection,cursor))
 
+    def updateCarSell(carSell,connection,cursor):
+        return (AdminCarSell.updateCarSell(carSell,connection,cursor))
 
     #User
     def createUser(user,connection,cursor):

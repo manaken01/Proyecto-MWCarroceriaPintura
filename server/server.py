@@ -123,6 +123,29 @@ def getCarSell():
         'Result': result
     })
 
+@app.route("/carSell",methods=['PUT'])
+def updateCarSell():
+    data = request.get_json()
+    model = data['model']
+    year = data['year']
+    color = data['color']
+    plate = data['plate']
+    transmission = data['transmission']
+    passengers = data['passengers']
+    idBrand = data['idBrand']
+    price = data['price']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    photos = data['photos']
+    idCarSell = data['idCarSell']
+
+    carSell= CarSell(model=model, year=year, color=color, plate=plate, transmission=transmission, passengers=passengers, idBrand=idBrand, price=price, bodyShape=bodyShape, version=version, photos=photos, idCarSell=idCarSell)
+    
+    result = mainController.updateCarSell(carSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 #User
 @app.route("/user",methods=['POST'])
 def createUser():

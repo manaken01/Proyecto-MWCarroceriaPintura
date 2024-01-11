@@ -7,9 +7,9 @@ import HeartButton from '../decoration/HeartButton';
 import Divider from '../decoration/Divider';
 import CarSellUpdateForm from '../forms/CarSellUpdateForm';
 
-function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color }) {
+function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand }) {
 
-    const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color };
+    const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };
 
     const [showCarModal, setShowCarModal] = useState(false);
 
