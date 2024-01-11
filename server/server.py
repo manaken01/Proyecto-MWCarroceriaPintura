@@ -11,6 +11,7 @@ from model.CarPart import *
 from model.CarUser import *
 from model.Service import *
 from model.Appointment import *
+from model.CarSell import *
 
 app = Flask(__name__)
 CORS(app)
@@ -91,6 +92,29 @@ def readCarPart():
         'Result': result
     })
 
+
+#CarSell
+@app.route("/carSell",methods=['POST'])
+def createCarSell():
+    data = request.get_json()
+    model = data['model']
+    year = data['year']
+    color = data['color']
+    plate = data['plate']
+    transmission = 1 #data['transmission']
+    passengers = data['passengers']
+    idBrand = data['idBrand']
+    price = data['price']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    photos = data['photos']
+
+    carSell= CarSell(model=model, year=year, color=color, plate=plate, transmission=transmission, passengers=passengers, idBrand=idBrand, price=price, bodyShape=bodyShape, version=version, photos=photos)
+    
+    result = mainController.createCarSell(carSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
 
 #User
 @app.route("/user",methods=['POST'])
@@ -184,7 +208,7 @@ def readCarUser():
 def updateCarUser():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    id = data['id']
+    id = data['idCar']
     year = data['year']
     licensePlate = data['licensePlate']
     idBrand = data['idBrand']
@@ -203,6 +227,26 @@ def deleteCarUser():
     idUser = data['idUser']
     carUser = CarUser(id=id,idUser=idUser)
     result = mainController.deleteCarUser(carUser,cursor,connection)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/plate",methods=['GET'])
+async def getPlate():
+    cursor = connection.cursor(dictionary=True)
+    licensePlate = request.args.get('licensePlate')
+    result = await mainController.getPlate(licensePlate,cursor)
+    cursor.close()
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/plateId",methods=['GET'])
+async def getPlateId():
+    cursor = connection.cursor(dictionary=True)
+    licensePlate = request.args.get('licensePlate')
+    result = await mainController.getPlateId(licensePlate,cursor)
+    cursor.close()
     return jsonify({
         'Result': result
     })

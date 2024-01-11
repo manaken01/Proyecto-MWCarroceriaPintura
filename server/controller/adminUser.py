@@ -86,3 +86,48 @@ class adminUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+        
+    def readUser(userId, connection, cursor):
+        try:
+            cursor = connection.cursor(dictionary=True)
+            sql = "SELECT * FROM user WHERE idUser = %s"
+            val = (userId,)
+            cursor.execute(sql, val)
+            result = cursor.fetchone()
+            
+            if result is not None:
+                user = User(result['idUser'], result['userName'], result['email'], result['password'], result['cellphone'], result['active'], result['userType'])
+                return user
+            else:
+                return None
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return None
+
+    def updateUser(user, connection, cursor):
+        try:
+            sql = "UPDATE user SET userName = %s, email = %s, password = %s, cellphone = %s, active = %s, idUserType = %s WHERE idUser = %s"
+            val = (user.userName, user.email, user.password, user.cellphone, user.active, user.userType, user.idUser)
+            cursor.execute(sql, val)
+            connection.commit()
+            
+            print(cursor.rowcount, "record(s) updated.")
+            
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+
+    def deleteUser(userId, connection, cursor):
+        try:
+            sql = "DELETE FROM user WHERE idUser = %s"
+            val = (userId,)
+            cursor.execute(sql, val)
+            connection.commit()
+            
+            print(cursor.rowcount, "record(s) deleted.")
+            
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False

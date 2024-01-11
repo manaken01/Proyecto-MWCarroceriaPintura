@@ -2,12 +2,18 @@ import { useState, useEffect} from 'react';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 function MyCarForm() {
 
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
+    
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
     
+    const handleYearChange = (event) => {
+        setYear(event.target.value);
+    }
+
     const getdropdowns = async () => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
@@ -24,13 +30,11 @@ function MyCarForm() {
             const dropdownItems = await getdropdowns();
             setDropdowns([
                 { label: 'Marca:', items: dropdownItems },
-                { label: 'Año:', items: ['2000', '2005', '2010', '2015'] } 
             ]);
         } catch (error) {
             console.error('Error handling results:', error);
         }
     };
-
 
     useEffect(() => {
         handleResults();
@@ -48,6 +52,7 @@ function MyCarForm() {
     //-------------
     const [plate, setPlate] = useState('');
     const [idBrand, setidBrand] = useState('');
+    const [year, setYear] = useState('');
 
     const [responseMessage, setResponseMessage] = useState('');
 
@@ -55,48 +60,98 @@ function MyCarForm() {
         setPlate(event.target.value);
     }
 
-
     const getIdBrand = (brandName) => {
         const brand = responseData.find((item) => item.name === brandName);
         return brand ? brand.idBrand : null;
-      };
-    
+    };
 
-    const handleParts = () => {
-        /*console.log('name:', name);
-        console.log('car:', car);
-        console.log('category:', category);
-        console.log('stock:', stock);
-        console.log('bodyShape:', bodyShape);
-        console.log('version:', version);
-        console.log('generation:', generation);
-        console.log('idBrand:', idBrand);
-        console.log(photo);*/
+    const resetInputs = () => {
+        setYear('');
+        setPlate('');
+    };
+
+    const validateInputs = () => {
+        if (!plate || !year || !idBrand) {
+            alert('Se deben llenar obligatoriamente los campos de: placa, año y marca');
+            return false;
+        }
+        return true;
+    };
 
 
-        const getData = async () => {
+    const validatePlate = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^\d{6}$|^([A-Za-z]){3}-\d{3}$/;
+        return regex.test(plate);
+    };
+
+    const validateYear = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(199[0-9]|20[0-1]\d|202[0-4])$/;
+        return regex.test(year);
+    };
+
+    const handleCarUse =  async () => {
+
+
+        if (!validateInputs()) {
+            return;
+        }
+
+        if (!validatePlate()) {
+            alert('Placa con formato incorrecto, debe ser de 6 digitos o con el formato AAA-123');
+            return;
+        }
+
+        if (!validateYear()) {
+            alert('Año incorrecto, debe ser mayor o igual a 1990 y como máximo 2024');
+            return;
+        }
+
+        const getPlate = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    car: car,
-                    category: category,
-                    stock: stock,
-                    bodyShape: bodyShape,
-                    version: version,
-                    generation: generation,
-                    idBrand: idBrand,
-                    photos: photo
+                console.log(plate.toUpperCase())
+
+                const response = await axios.get('http://localhost:8080/plate', {
+                    params: {
+                        licensePlate: plate.toUpperCase()
+                    }
                 });
-                
-                setResponseMessage(response.data);
-                console.log(response.data);
+                return response.data
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
         };
 
-        getData();
+        const [plateResult] = await Promise.all([
+            getPlate(),
+        ]);
 
+
+        if (!plateResult.Result) {
+            alert('La placa ya se encontraba registrada');
+            return
+        }
+
+        const getData = async () => {
+            try {
+                const response = await axios.post('http://localhost:8080/carUser', {
+                    year: year,
+                    licensePlate: plate.toUpperCase(),
+                    idBrand: idBrand,
+                    idUser: UserProfile.getId()
+                });
+
+                console.log(response.data);
+                alert('Se ha agregado el carro de forma correcta');
+                resetInputs();
+
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+        getData();
+        
     }
 
     return (
@@ -111,6 +166,12 @@ function MyCarForm() {
                             <div className="input-group ml-3" style={{ padding: '2%' }}>
                                 <input type="text" id="plate" className="form-control" aria-label="plate" aria-describedby="basic-addon1" value={plate} onChange={handlePlateChange} />
                             </div>
+                        </div>
+                        <div className="d-flex align-items-center">
+                            <p className="card-text"><strong>Año:</strong></p>
+                                <div className="input-group ml-3" style={{ padding: '2%' }}>
+                                    <input type="number" id="phone" className="form-control" aria-label="phone" aria-describedby="basic-addon1" value={year} onChange={handleYearChange} />
+                                </div>
                         </div>
                         <div className="row ">
                             {dropdowns.map((dropdown, index) => (
@@ -132,7 +193,7 @@ function MyCarForm() {
                         </div>
 
                         <div className="col d-flex justify-content-end">
-                            <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                            <button type="button" className="btn btn-danger" onClick={handleCarUse}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Agregar
                             </button>
                         </div>

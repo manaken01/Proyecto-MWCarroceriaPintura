@@ -1,26 +1,57 @@
 import React from 'react';
 import CardMyCars from './CardMyCars';
-
-const cards = [
-    { id: 1, car: 'HONDA FIT GD', year: '2007', plate:'BKL-391'},
-    { id: 2, car: 'HONDA FIT GD', year: '2007', plate:'BKL-391'},
-    { id: 3, car: 'HONDA FIT GD', year: '2007', plate:'BKL-391'},
-    { id: 4, car: 'HONDA FIT GD', year: '2007', plate:'BKL-391'},
-  ]
+import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
+import { useState, useEffect} from 'react';
 
 function CardMyCarsStart () {
+
+    const [carsUsers, setCarsUsers] = useState([]);
+    var [responseData, setResponse] = useState([]);
+
+    const getCarUser = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/carUser', {
+                    params: {
+                        idUser: UserProfile.getId(),
+                    }
+            });
+            setResponse(response.data.Result);
+            return response.data.Result;
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            return []; // Return an empty array or handle the error gracefully
+        }
+    };
+
+    const handleResults = async () => {
+        try {
+            const carsItems = await getCarUser();
+            //console.log(dropdownItems); // Verify that dropdownItems contains the expected data
+            setCarsUsers(carsItems);
+            // Now you can use 'dropdowns' to populate your dropdown component or perform further processing
+        } catch (error) {
+            console.error('Error handling results:', error);
+        }
+    };
+
+    useEffect(() => {
+        handleResults();
+    }, []);
+
     return (
-        <div className="container d-flex justify-content-center align-items-center" >
+        <div className="container flex justify-content-center align-items-center" >
             <div className='row'>{
-                cards.map(card => (
-                    <div className='col-md-6' key={card.id}>
-                        <CardMyCars car={card.car} year={card.year} plate={card.plate} />
+                carsUsers.map((carData, index) => (
+                    <div className='col-md-6' key={index}>
+                        <CardMyCars car={carData.name} year={carData.year} plate={carData.licensePlate} />
                     </div>
                 ))
             }
             </div>
         </div>
     )
+    
 }
 
 export default CardMyCarsStart;

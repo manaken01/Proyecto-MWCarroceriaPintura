@@ -11,6 +11,12 @@ import Contact from './components/full screens MW/Contact';
 import Information from './components/full screens MW/Information';
 import PartsScreen from './components/full screens MW/PartsScreen';
 import StartScreen from './components/full screens MW/StartScreen';
+import MyCars from './components/full screens MW/MyCars';
+import CardMyCars from './components/objects/CardMyCars';
+import MyCarForm from './components/forms/MyCarForm';
+import MyCarFormModified from './components/forms/MyCarFormModified';
+import CarSellScreen from './components/full screens MW/CarSellScreen';
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +30,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/parts" element={<PartsScreen/>} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/cars" element={<CarSellScreen />} />
         </Routes>
     </div>
     </BrowserRouter>

@@ -5,6 +5,7 @@ from controller.adminCarPart import *
 from controller.adminCarUser import *
 from controller.adminService import *
 from controller.adminAppointment import *
+from controller.adminCarSell import *
 
 class mainController:
     #Brand
@@ -27,6 +28,11 @@ class mainController:
     def readCarPart(cursor):
         return (adminCarPart.readCarPart(cursor))
     
+    #CarSell
+    def createCarSell(carSell,connection,cursor):
+        return (AdminCarSell.createCarSell(carSell,connection,cursor))
+
+
     #User
     def createUser(user,connection,cursor):
         return (adminUser.registerUser(user,connection,cursor))
@@ -58,6 +64,12 @@ class mainController:
     
     def deleteCarUser(carUser,cursor,connection):
         return (adminCarUser.deleteCarUser(carUser,cursor,connection))
+
+    async def getPlate(licensePlate,cursor):
+        return (await adminCarUser.getPlate(licensePlate,cursor))
+
+    async def getPlateId(licensePlate,cursor):
+        return (await adminCarUser.getPlateId(licensePlate,cursor))
     
     #services
     def createService(service,connection,cursor):
