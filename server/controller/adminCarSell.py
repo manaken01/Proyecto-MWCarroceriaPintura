@@ -70,7 +70,6 @@ class AdminCarSell:
             print(carSell.photos)
 
             if carSell.photos != []:
-                print('entro')
                 sql = "DELETE FROM carPhoto WHERE idCarSell = %s"
                 val = (carSell.idCarSell,)
                 cursor.execute(sql, val)
@@ -86,10 +85,10 @@ class AdminCarSell:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
-    def deleteCarSell(carSellId, connection, cursor):
+    def deleteCarSell(idCarSell, connection, cursor):
         try:
-            sql = "DELETE FROM carSell WHERE idCarSell = %s"
-            val = (carSellId,)
+            sql = "UPDATE carSell SET active = 0 WHERE idCarSell = %s"
+            val = (idCarSell,)
             cursor.execute(sql, val)
             connection.commit()
             

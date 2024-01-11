@@ -180,6 +180,9 @@ const CarSellUpdateForm = ({ carSell }) => {
                 console.log(response.data);
                 alert('Se ha modificado el carro.');
                 resetInputs();
+                if (response.status === 200) {
+                    window.location.reload();
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -290,7 +293,7 @@ const CarSellUpdateForm = ({ carSell }) => {
                     <div className="col d-flex justify-content-end">
 
                         <button type="button" className="btn btn-danger" onClick={handleCars} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
-                            Agregar
+                            Modificar
                         </button>
 
                     </div>

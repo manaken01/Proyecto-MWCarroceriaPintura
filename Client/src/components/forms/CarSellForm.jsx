@@ -160,6 +160,9 @@ function CarSellForm() {
                 console.log(response.data);
                 alert('Se ha agregado el carro de forma correcta');
                 resetInputs();
+                if (response.status === 200) {
+                    window.location.reload();
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }

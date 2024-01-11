@@ -30,7 +30,7 @@ function Navbar() {
                         <Link className="nav-link" to="/parts" style={linkStyle}>Repuestos</Link>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" to="/cars" style={linkStyle} href="#">Carros</a>
+                        <Link className="nav-link" to="/cars" style={linkStyle} href="#">Carros</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/information" style={linkStyle}>Información</Link>

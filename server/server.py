@@ -146,6 +146,13 @@ def updateCarSell():
         'Result': result
     })
 
+@app.route("/carSell/<int:idCarSell>",methods=['DELETE'])
+def deleteCarSell(idCarSell):
+    result = mainController.deleteCarSell(idCarSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 #User
 @app.route("/user",methods=['POST'])
 def createUser():
