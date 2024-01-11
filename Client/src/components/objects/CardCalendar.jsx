@@ -10,7 +10,7 @@ import { formatDate } from '@fullcalendar/core';
 function CardCalendar({date,hour,reason,car,plate}) {
     const [show, setShow] = useState(false);
     console.log(date)
-    const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+    const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
