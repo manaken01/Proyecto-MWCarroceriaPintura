@@ -56,7 +56,7 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                         <div className="d-flex justify-content-between align-items-center">
                             <h5 className="card-title" style={{ color: '#000000' }}>{brand} {name} {year}</h5>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.5%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.8%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesomeIcon icon={faTrash} style={{ fontSize: '20px' }} />
                                 </button>
                                 <HeartButton />
