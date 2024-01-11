@@ -4,11 +4,15 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
 import MyCarForm from './MyCarForm';
+import UserProfile from '../resources/UserProfile';
+import { formatDate } from '@fullcalendar/core';
+import esLocale from '@fullcalendar/core/locales/es';
 
 function AppointmentForm({date}) {
-
+    
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
+    var [responseDataService, setResponseService] = useState([]);
     const [selectedItems, setSelectedItems] = useState(Array(dropdowns.length).fill('Seleccione'));
     
     const [show, setShow] = useState(false);
@@ -16,11 +20,27 @@ function AppointmentForm({date}) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const getdropdowns = async () => {
+
+    const getDropdownsCars = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/brand');
+            const response = await axios.get('http://localhost:8080/carUser', {
+                    params: {
+                        idUser: UserProfile.getId(),
+                    }
+            });
             setResponse(response.data.Result);
-            return response.data.Result.map((result) => result.name);
+            return response.data.Result.map((result) => result.licensePlate);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            return []; // Return an empty array or handle the error gracefully
+        }
+    };
+
+    const getDropdownServices = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/service');
+            setResponseService(response.data.Result);
+            return response.data.Result.map((result) => result.service);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             return []; // Return an empty array or handle the error gracefully
@@ -29,11 +49,12 @@ function AppointmentForm({date}) {
 
     const handleResults = async () => {
         try {
-            const dropdownItems = await getdropdowns();
+            const dropdownItemsCars = await getDropdownsCars();
+            const dropdownItemsServices = await getDropdownServices();
             setDropdowns([
-                { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 16:00'] },
-                { label: 'Razón:', items: ['Mantenimiento', 'Problema motor'] },
-                { label: 'Marca:', items: dropdownItems },
+                { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'] },
+                { label: 'Razón:', items: dropdownItemsServices },
+                { label: 'Carro:', items: dropdownItemsCars },
                 
             ]);
         } catch (error) {
@@ -46,66 +67,74 @@ function AppointmentForm({date}) {
         handleResults();
     }, []);
     
-    //const [imageList, setImageList] = useState([]);
 
-    const handleSelect = (index, value) => {
+    const dropdownHandlers = [
+        (item) => handleSelectHour(0, item),  // Para el primer dropdown
+        (item) => handleSelectReason(1, item),  // Para el segundo dropdown
+        (item) => handleSelectCar(2, item)   // Para el tercer dropdown
+      ];
+
+    const handleSelectHour = (index, value) => {
+        
         const newSelectedItems = [...selectedItems];
         newSelectedItems[index] = value;
         setSelectedItems(newSelectedItems);
-        setidBrand(getIdBrand(value));
+        setHour(value);
+   
+    }
+
+    const handleSelectReason = (index, value) => {
+        
+        const newSelectedItems = [...selectedItems];
+        newSelectedItems[index] = value;
+        setSelectedItems(newSelectedItems);
+        setIdReason(getIdReason(value));
+   
     }
    
-    //-------------
-    const [plate, setPlate] = useState('');
-    const [idBrand, setidBrand] = useState('');
-
-    const [responseMessage, setResponseMessage] = useState('');
-
-    const handlePlateChange = (event) => {
-        setPlate(event.target.value);
+    const handleSelectCar = (index, value) => {
+        
+        const newSelectedItems = [...selectedItems];
+        newSelectedItems[index] = value;
+        setSelectedItems(newSelectedItems);
+        setIdCarUser(getIdCarUser(value));
+   
     }
+    //-------------
+    const [hour, setHour] = useState('');
+    const [idCarUser, setIdCarUser] = useState('');
+    const [idReason, setIdReason] = useState('');
 
 
-    const getIdBrand = (brandName) => {
-        const brand = responseData.find((item) => item.name === brandName);
-        return brand ? brand.idBrand : null;
-      };
+    const getIdCarUser = (licensePlate) => {
+        const carUser = responseData.find((item) => item.licensePlate === licensePlate);
+        return carUser ? carUser.idCarUser : null;
+    };
+
+    const getIdReason = (service) => {
+        const reason = responseDataService.find((item) => item.service === service);
+        return reason ? reason.idService : null;
+    };
     
 
-    const handleParts = () => {
-        /*console.log('name:', name);
-        console.log('car:', car);
-        console.log('category:', category);
-        console.log('stock:', stock);
-        console.log('bodyShape:', bodyShape);
-        console.log('version:', version);
-        console.log('generation:', generation);
-        console.log('idBrand:', idBrand);
-        console.log(photo);*/
+    const handleAppointment = () => {
 
-
-        const getData = async () => {
+        const createAppointment = async () => {
             try {
-                const response = await axios.post('http://localhost:8080/carPart', {
-                    name: name,
-                    car: car,
-                    category: category,
-                    stock: stock,
-                    bodyShape: bodyShape,
-                    version: version,
-                    generation: generation,
-                    idBrand: idBrand,
-                    photos: photo
+                const response = await axios.post('http://localhost:8080/appointment', {
+                    date: date,
+                    hour: hour,
+                    idCarUser: idCarUser,
+                    idUser: UserProfile.getId(),
+                    idService: idReason
                 });
-                
-                setResponseMessage(response.data);
-                console.log(response.data);
+                alert('Se ha agendado la cita de manera correcta');
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
         };
 
-        getData();
+        createAppointment();
 
     }
 
@@ -131,7 +160,7 @@ function AppointmentForm({date}) {
 
                                         <Dropdown.Menu>
                                             {dropdown.items.map((item, itemIndex) => (
-                                                <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item) } >{item}</Dropdown.Item>
+                                                <Dropdown.Item href="#" key={itemIndex} onClick={() => dropdownHandlers[index](item) } >{item}</Dropdown.Item>
                                             ))}
                                         </Dropdown.Menu>
                                     </Dropdown>
@@ -144,7 +173,7 @@ function AppointmentForm({date}) {
                             <button type="button" className="btn btn-danger" onClick={handleShow}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Agregar carro
                             </button>
-                            <button type="button" className="btn btn-danger" onClick={handleParts}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                            <button type="button" className="btn btn-danger" onClick={handleAppointment}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Confirmar
                             </button>
                         </div>

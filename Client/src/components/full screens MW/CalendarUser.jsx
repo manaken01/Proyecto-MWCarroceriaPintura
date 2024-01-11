@@ -6,10 +6,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from '../resources/event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
-import CardCalendar from './CardCalendar';
-import CardCalendarStart from './CardCalendarStart';
+import CardCalendar from '../objects/CardCalendar';
+import CardCalendarStart from '../objects/CardCalendarStart';
 import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
+import SideBarCalendar from '../objects/SideBarCalendar';
 
 function Calendar() {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -18,7 +19,7 @@ function Calendar() {
 
   const handleClose = () => setShow(false);
   const handleShow = (selectInfo) => {
-    const formattedDate = formatDate(selectInfo.start, { year: 'numeric', month: 'long', day: 'numeric', locale: esLocale }); // Formatea la fecha a texto
+    const formattedDate = formatDate(selectInfo.start, { year: 'numeric', month: 'numeric', day: 'numeric', locale: esLocale }); // Formatea la fecha a texto
     setSelectedDate(formattedDate); // Guarda el día seleccionado en el estado
     setShow(true); // Muestra el modal
   };
@@ -103,18 +104,7 @@ function Calendar() {
             </Modal.Footer>
         </Modal>
       </div>
-      <div className='demo-app-sidebar' style={{ marginTop: '3%', width: '18%' }}>
-      <div className='demo-app-sidebar-section' style={{ padding: '2em' }}>
-          <h2><strong>Citas agendadas</strong></h2>
-          <CardCalendarStart/>
-      </div>
-      <div className='demo-app-sidebar-section' style={{ padding: '2em' }}>
-          <h2>All Events ({currentEvents.length})</h2>
-          <ul>
-              {currentEvents.map(renderSidebarEvent)}
-          </ul>
-      </div>
-  </div>
+      <SideBarCalendar/>
 
     </div>
   );

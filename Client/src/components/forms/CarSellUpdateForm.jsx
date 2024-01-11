@@ -3,7 +3,9 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function CarSellForm() {
+
+
+const CarSellUpdateForm = ({ carSell }) => {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -127,6 +129,24 @@ function CarSellForm() {
         setBodyShape('');
         setVersion('');
     };
+
+    const defaultInputs = () => {
+        setModel(carSell?.name || '');
+        setYear(carSell?.year || '');
+        setColor(carSell?.color || '');
+        setPlate(carSell?.plate || '');
+        setTransmission(carSell?.transmission || '');
+        setpassengers(carSell?.passangers || '');
+        setidBrand(carSell?.idBrand || '');
+        setPrice(carSell?.price || '');
+        setBodyShape(carSell?.bodyshape || '');
+        setVersion(carSell?.version || '');
+    };
+
+    useEffect(() => {
+        defaultInputs();
+    }, [carSell]);
+
     const validateInputs = () => {
         if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
             alert('Se deben llenar todos los campos');
@@ -140,9 +160,9 @@ function CarSellForm() {
             return;
         }
         const getData = async () => {
-            console.log(idBrand);
             try {
-                const response = await axios.post('http://localhost:8080/carSell', {
+                const response = await axios.put('http://localhost:8080/carSell', {
+                    idCarSell: carSell.id,
                     model: model,
                     year: year,
                     color: color,
@@ -158,7 +178,7 @@ function CarSellForm() {
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                alert('Se ha agregado el carro de forma correcta');
+                alert('Se ha modificado el carro.');
                 resetInputs();
                 if (response.status === 200) {
                     window.location.reload();
@@ -178,7 +198,7 @@ function CarSellForm() {
         <div className="card mb-3" style={{ border: '0px', backgroundColor: "#F9F9F9" }} >
             <div className="row g-0">
                 <div className="card-body">
-                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo carro</h4>
+                    <h4 className="card-title" style={{ color: '#000000' }} >Modificar carro</h4>
                     <Divider />
                     <div className="row ">
                         {dropdowns.map((dropdown, index) => (
@@ -273,7 +293,7 @@ function CarSellForm() {
                     <div className="col d-flex justify-content-end">
 
                         <button type="button" className="btn btn-danger" onClick={handleCars} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
-                            Agregar
+                            Modificar
                         </button>
 
                     </div>
@@ -284,4 +304,4 @@ function CarSellForm() {
     );
 }
 
-export default CarSellForm
+export default CarSellUpdateForm

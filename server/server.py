@@ -101,7 +101,7 @@ def createCarSell():
     year = data['year']
     color = data['color']
     plate = data['plate']
-    transmission = 1 #data['transmission']
+    transmission = data['transmission']
     passengers = data['passengers']
     idBrand = data['idBrand']
     price = data['price']
@@ -112,6 +112,43 @@ def createCarSell():
     carSell= CarSell(model=model, year=year, color=color, plate=plate, transmission=transmission, passengers=passengers, idBrand=idBrand, price=price, bodyShape=bodyShape, version=version, photos=photos)
     
     result = mainController.createCarSell(carSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carSell",methods=['GET'])
+def getCarSell():
+    result = mainController.getCarSell(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carSell",methods=['PUT'])
+def updateCarSell():
+    data = request.get_json()
+    model = data['model']
+    year = data['year']
+    color = data['color']
+    plate = data['plate']
+    transmission = data['transmission']
+    passengers = data['passengers']
+    idBrand = data['idBrand']
+    price = data['price']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    photos = data['photos']
+    idCarSell = data['idCarSell']
+
+    carSell= CarSell(model=model, year=year, color=color, plate=plate, transmission=transmission, passengers=passengers, idBrand=idBrand, price=price, bodyShape=bodyShape, version=version, photos=photos, idCarSell=idCarSell)
+    
+    result = mainController.updateCarSell(carSell,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carSell/<int:idCarSell>",methods=['DELETE'])
+def deleteCarSell(idCarSell):
+    result = mainController.deleteCarSell(idCarSell,connection,cursor)
     return jsonify({
         'Result': result
     })
@@ -196,9 +233,9 @@ def createCarUser():
     })
 
 @app.route("/carUser",methods=['GET'])
-def readCarUser():
+async def readCarUser():
     idUser = request.args.get('idUser')
-    result = mainController.readCarUser(idUser,cursor)
+    result = await mainController.readCarUser(idUser,cursor)
     print(result)
     return jsonify({
         'Result': result
@@ -264,8 +301,8 @@ def createService():
     })
 
 @app.route("/service",methods=['GET'])
-def readServices():
-    result = mainController.readServices(cursor)
+async def readServices():
+    result = await mainController.readServices(cursor)
     print(result)
     return jsonify({
         'Result': result
@@ -295,31 +332,31 @@ def deleteService():
     })
 
 #appointment
-@app.route("/appoinment",methods=['POST'])
+@app.route("/appointment",methods=['POST'])
 def createAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    start = data['start']
-    finish = data['finish']
+    date = data['date']
+    hour = data['hour']
     idCarUser = data['idCarUser']
     idUser = data['idUser']
     idService = data['idService']
-    appointment = Appointment(start=start,finish=finish,idCarUser=idCarUser,idUser=idUser,idService=idService)
+    appointment = Appointment(date=date,hour=hour,idCarUser=idCarUser,idUser=idUser,idService=idService)
     result = mainController.createAppointment(appointment,connection,cursor)
     return jsonify({
         'Result': result
     })
 
-@app.route("/appoinment",methods=['GET'])
+@app.route("/appointment",methods=['GET'])
 def readAppointment():
     idUser = request.args.get('idUser')
-    result = mainController.readServices(idUser,cursor)
+    result = mainController.readAppointment(idUser,cursor)
     print(result)
     return jsonify({
         'Result': result
     })
 
-@app.route("/appoinment",methods=['PUT'])
+@app.route("/appointment",methods=['PUT'])
 def updateAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
@@ -335,7 +372,7 @@ def updateAppointment():
         'Result': result
     })
 
-@app.route("/appoinment",methods=['DELETE'])
+@app.route("/appointment",methods=['DELETE'])
 def deleteAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()

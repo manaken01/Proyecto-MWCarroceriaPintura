@@ -31,7 +31,15 @@ class mainController:
     #CarSell
     def createCarSell(carSell,connection,cursor):
         return (AdminCarSell.createCarSell(carSell,connection,cursor))
+    
+    def getCarSell(connection,cursor):
+        return (AdminCarSell.getCarSell(connection,cursor))
 
+    def updateCarSell(carSell,connection,cursor):
+        return (AdminCarSell.updateCarSell(carSell,connection,cursor))
+    
+    def deleteCarSell(idCarSell,connection,cursor):
+        return (AdminCarSell.deleteCarSell(idCarSell,connection,cursor))
 
     #User
     def createUser(user,connection,cursor):
@@ -56,8 +64,8 @@ class mainController:
     def createCarUser(carUser,connection,cursor):
         return (adminCarUser.createCarUser(carUser,connection,cursor))
     
-    def readCarUser(idUser,cursor):
-        return (adminCarUser.readCarUser(idUser,cursor))
+    async def readCarUser(idUser,cursor):
+        return (await adminCarUser.readCarUser(idUser,cursor))
     
     def updateCarUser(carUser,cursor,connection):
         return (adminCarUser.updateCarUser(carUser,cursor,connection))
@@ -75,8 +83,8 @@ class mainController:
     def createService(service,connection,cursor):
         return (adminService.createService(service,connection,cursor))
     
-    def readServices(cursor):
-        return (adminService.readServices(cursor))
+    async def readServices(cursor):
+        return (await adminService.readServices(cursor))
     
     def updateService(service,cursor,connection):
         return (adminService.updateService(service,cursor,connection))

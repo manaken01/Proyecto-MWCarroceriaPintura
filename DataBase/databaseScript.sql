@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`carSell` (
   `idCarSell` INT NOT NULL AUTO_INCREMENT,
   `year` VARCHAR(4) NOT NULL,
   `color` VARCHAR(20) NOT NULL,
-  `transmission` INT NOT NULL,
+  `transmission` VARCHAR(20) NOT NULL,
   `licensePlate` VARCHAR(20) NOT NULL,
   `bodyShape` VARCHAR(20) NOT NULL,
   `version` VARCHAR(20) NOT NULL,
@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`carSell` (
   `idBrand` INT NOT NULL,
   PRIMARY KEY (`idCarSell`),
   INDEX `fk_carSell_brand1_idx` (`idBrand` ASC) VISIBLE,
-  UNIQUE INDEX `transmission_UNIQUE` (`transmission` ASC) VISIBLE,
   CONSTRAINT `fk_carSell_brand1`
     FOREIGN KEY (`idBrand`)
     REFERENCES `mydb`.`brand` (`idBrand`)
