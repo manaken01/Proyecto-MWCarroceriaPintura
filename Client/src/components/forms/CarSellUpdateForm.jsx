@@ -131,7 +131,6 @@ const CarSellUpdateForm = ({ carSell }) => {
     };
 
     const defaultInputs = () => {
-        console.log(carSell);
         setModel(carSell?.name || '');
         setYear(carSell?.year || '');
         setColor(carSell?.color || '');
@@ -164,7 +163,7 @@ const CarSellUpdateForm = ({ carSell }) => {
             console.log(idBrand);
             try {
                 const response = await axios.put('http://localhost:8080/carSell', {
-                    idCarSell: idCarSell,
+                    idCarSell: carSell.id,
                     model: model,
                     year: year,
                     color: color,
