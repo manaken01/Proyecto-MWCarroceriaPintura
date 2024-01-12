@@ -12,7 +12,7 @@ import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
 import SideBarCalendar from '../objects/SideBarCalendar';
 
-function Calendar() {
+function CalendarAdmin() {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -60,14 +60,13 @@ function Calendar() {
   return (
     <div className='demo-app' style={{ paddingTop: '80px', padding: '3%', display: 'flex', minHeight: '100%', fontFamily: 'Arial, Helvetica Neue, Helvetica, sans-serif', fontSize: '90%' }}>
       <div className='demo-app-main' style={{ flexGrow: '1', padding: '3em' }}>
-        <div style={{ 
-          fontSize: '2.3em', 
-          fontWeight: '600', 
-          color: '#000000',
-          textAlign: 'left',
-          marginBottom: '1%'
-        }}>
-          Agendar cita
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div style={{ fontSize: '2.3em', fontWeight: '600', color: '#000000', marginBottom: '1%' }}>
+            Agendar cita
+          </div>
+          <div className='btn btn-link' onClick={handleShow} style={{ backgroundColor: 'transparent',fontSize: '1.6em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'1%'}}>
+            Agregar servicio
+          </div>
         </div>
         <FullCalendar 
           locale={esLocale}  
@@ -110,4 +109,4 @@ function Calendar() {
   );
 }
 
-export default Calendar;
+export default CalendarAdmin;
