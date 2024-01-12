@@ -25,6 +25,15 @@ class mainController:
     def createCarPart(CarPart,connection,cursor):
         return (adminCarPart.createCarPart(CarPart,connection,cursor))
     
+    def deleteCarPart(CarPart,connection,cursor):
+        return (adminCarPart.deleteCarPart(CarPart,connection,cursor))
+    
+    def updateCarPart(CarPart,connection,cursor):
+        return (adminCarPart.updateCarPart(CarPart,connection,cursor))
+    
+    def getCarPart(connection,cursor):
+        return (adminCarPart.getCarPart(connection,cursor))
+
     def readCarPart(cursor):
         return (adminCarPart.readCarPart(cursor))
     

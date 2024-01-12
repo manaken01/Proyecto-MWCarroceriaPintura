@@ -51,7 +51,7 @@ function PartsForm({ refreshParent }) {
 
 
     const handleBrands = () => {
-        const doesExist = brands.some(brand => brand.name === name.toUpperCase());
+        const doesExist = brands.some(brand => brand.nameBrand === name.toUpperCase());
         if (!doesExist) {
             const getData = async () => {
                 try {
@@ -104,7 +104,7 @@ function PartsForm({ refreshParent }) {
     const handleBrandsEdit = (idBrand) => {
         const confirmEdit = window.confirm("¿Seguro que deseas modificar esta marca?");
         if (confirmEdit) {
-            const doesExist = brands.some(brand => brand.name === name.toUpperCase());
+            const doesExist = brands.some(brand => brand.nameBrand === name.toUpperCase());
             if (!doesExist) {
                 const getData = async () => {
                     try {
@@ -163,7 +163,7 @@ function PartsForm({ refreshParent }) {
                             <div className="row ">
                                 {brands.map((brand, index) => (
                                     <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                                        {brand.name}
+                                        {brand.nameBrand}
                                         <div>
                                             <button
                                                 type="button" className="btn" style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}

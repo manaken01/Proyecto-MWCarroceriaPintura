@@ -9,12 +9,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from './components/full screens MW/Contact';
 
 import Information from './components/full screens MW/Information';
-import PartsScreen from './components/full screens MW/PartsScreen';
+import PartsScreenAdmin from './components/full screens MW/PartsScreenAdmin';
 import StartScreen from './components/full screens MW/StartScreen';
-import MyCars from './components/full screens MW/MyCars';
-import CardMyCars from './components/objects/CardMyCars';
-import MyCarForm from './components/forms/MyCarForm';
-import MyCarFormModified from './components/forms/MyCarFormModified';
 import CarSellScreen from './components/full screens MW/CarSellScreen';
 import CalendarAdmin from './components/full screens MW/CalendarAdmin';
 
@@ -29,7 +25,7 @@ function App() {
           <Route path="/information" element={<Information />} />
           <Route path="/calendar" element={<CalendarAdmin />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/parts" element={<MyCars/>} />
+          <Route path="/parts" element={<PartsScreenAdmin/>} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/cars" element={<CarSellScreen />} />
         </Routes>
