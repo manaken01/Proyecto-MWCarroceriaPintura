@@ -104,3 +104,6 @@ class mainController:
     
     def deleteAppointment(appointment,cursor,connection):
         return (adminAppointment.deleteAppointment(appointment,cursor,connection))
+    
+    def getAppointmentId(date,hour,idUser,cursor):
+        return (adminAppointment.getAppointmentId(date,hour,idUser,cursor))

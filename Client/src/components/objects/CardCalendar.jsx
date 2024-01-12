@@ -6,10 +6,10 @@ import Divider from '../decoration/Divider';
 import MyCarFormModified from '../forms/MyCarFormModified';
 import esLocale from '@fullcalendar/core/locales/es';
 import { formatDate } from '@fullcalendar/core';
+import AppointmentFormModified from '../forms/AppointmentFormModified';
 
 function CardCalendar({date,hour,reason,car,plate}) {
     const [show, setShow] = useState(false);
-    console.log(date)
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
 
     const handleClose = () => setShow(false);
@@ -32,7 +32,7 @@ function CardCalendar({date,hour,reason,car,plate}) {
                 <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                    <MyCarFormModified initialPlate={plate}/>
+                    <AppointmentFormModified date={date} hourM={hour}/>
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                 </Modal.Footer>
