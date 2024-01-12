@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 
 
-const CarSellUpdateForm = ({ carSell }) => {
+const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -16,7 +16,7 @@ const CarSellUpdateForm = ({ carSell }) => {
         try {
             const response = await axios.get('http://localhost:8080/brand');
             setResponse(response.data.Result);
-            return response.data.Result.map((result) => result.name);
+            return response.data.Result.map((result) => result.nameBrand);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             return []; // Return an empty array or handle the error gracefully
@@ -114,7 +114,7 @@ const CarSellUpdateForm = ({ carSell }) => {
     }
 
     const getIdBrand = (brandName) => {
-        const brand = responseData.find((item) => item.name === brandName);
+        const brand = responseData.find((item) => item.nameBrand === brandName);
         return brand ? brand.idBrand : null;
     };
     const resetInputs = () => {
@@ -181,7 +181,8 @@ const CarSellUpdateForm = ({ carSell }) => {
                 alert('Se ha modificado el carro.');
                 resetInputs();
                 if (response.status === 200) {
-                    window.location.reload();
+                    refreshParent();
+                    closeForm();
                 }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);

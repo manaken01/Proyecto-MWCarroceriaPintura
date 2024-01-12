@@ -2,29 +2,31 @@ import React, { useState, useEffect } from 'react';
 import CardCarSell from './CardCarSell';
 import axios from 'axios';
 
-const CardsCar = () => {
-    const [cards, setCards] = useState([]);
+const CardsCar = ({cards, filters, search, refreshParent}) => {
+    console.log(cards);
+    const filteredCards = cards.filter(card => 
+        (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&
+        (filters[1] === 'Seleccione' || card.carSell.year === filters[1]) &&
+        (filters[2] === 'Seleccione' || card.carSell.bodyShape === filters[2]) &&
+        (filters[3] === 'Seleccione' || card.carSell.transmission === filters[3])&&
+        
+        ((search && (card.carSell.model.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.year.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.price.toString().includes(search.toLowerCase()) ||
+        card.carSell.transmission.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.bodyShape.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.version.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.nameBrand.toLowerCase().includes(search.toLowerCase()) ||
+        card.carSell.color.toLowerCase().includes(search.toLowerCase())))
+    
+        || (search === undefined || search === ''))
+    );
 
-
-    useEffect(() => {
-        const getCars = () => {
-            axios.get('http://localhost:8080/carSell')
-                .then(response => {
-                    setCards(response.data.Result);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-
-        getCars();
-    }, []);
-    //falta cambiar la paginacion
     return (
         <div>
-        <div className="container d-flex justify-content-center align-items-center" >
+        <div className="container flex justify-content-center align-items-center" >
             <div className='row'>{
-                cards.map(card => {
+                filteredCards.map(card => {
                     return (
                         <div className='col-md-6' key={card.carSell.idCarSell}>
                             <CardCarSell 
@@ -37,10 +39,11 @@ const CardsCar = () => {
                                 bodyshape={card.carSell.bodyShape} 
                                 version={card.carSell.version} 
                                 passangers={card.carSell.passangers} 
-                                brand={card.carSell.name} 
+                                brand={card.carSell.nameBrand} 
                                 idBrand={card.carSell.idBrand}
                                 color = {card.carSell.color}
                                 pic={card.photos} 
+                                refreshParent={refreshParent}
                             />
                         </div>
                     );

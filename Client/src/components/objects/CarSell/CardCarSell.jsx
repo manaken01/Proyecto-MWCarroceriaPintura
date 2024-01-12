@@ -2,15 +2,15 @@ import React from 'react';
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel, CarouselItem, Button, Modal } from 'react-bootstrap';
-import whatsapp from '../../assets/whatsapp.png';
-import HeartButton from '../decoration/HeartButton';
-import Divider from '../decoration/Divider';
-import CarSellUpdateForm from '../forms/CarSellUpdateForm';
+import whatsapp from '../../../assets/whatsapp.png';
+import HeartButton from '../../decoration/HeartButton';
+import Divider from '../../decoration/Divider';
+import CarSellUpdateForm from '../../forms/CarSellUpdateForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand }) {
+function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
 
     const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };
 
@@ -28,7 +28,7 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
-                        window.location.reload();
+                        refreshParent();
                     }
                 })
                 .catch(error => {
@@ -78,7 +78,7 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <CarSellUpdateForm carSell={allProps} />
+                                <CarSellUpdateForm carSell={allProps} refreshParent={refreshParent} closeForm={handleClose} />
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>

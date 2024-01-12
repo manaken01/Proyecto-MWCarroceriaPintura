@@ -3,7 +3,7 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function CarSellForm() {
+function CarSellForm({refreshParent, closeForm}) {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -14,7 +14,7 @@ function CarSellForm() {
         try {
             const response = await axios.get('http://localhost:8080/brand');
             setResponse(response.data.Result);
-            return response.data.Result.map((result) => result.name);
+            return response.data.Result.map((result) => result.nameBrand);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             return []; // Return an empty array or handle the error gracefully
@@ -112,7 +112,9 @@ function CarSellForm() {
     }
 
     const getIdBrand = (brandName) => {
-        const brand = responseData.find((item) => item.name === brandName);
+        console.log(brandName);
+        console.log(responseData);
+        const brand = responseData.find((item) => item.nameBrand === brandName);
         return brand ? brand.idBrand : null;
     };
     const resetInputs = () => {
@@ -129,6 +131,7 @@ function CarSellForm() {
     };
     const validateInputs = () => {
         if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
+            console.log(model + year + color + plate + transmission + passengers + idBrand + price + bodyShape + version)
             alert('Se deben llenar todos los campos');
             return false;
         }
@@ -161,7 +164,9 @@ function CarSellForm() {
                 alert('Se ha agregado el carro de forma correcta');
                 resetInputs();
                 if (response.status === 200) {
-                    window.location.reload();
+                    refreshParent();
+                    resetInputs();
+                    closeForm();
                 }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
