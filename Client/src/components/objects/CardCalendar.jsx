@@ -2,18 +2,63 @@ import React from 'react';
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Divider from '../decoration/Divider';
-import MyCarFormModified from '../forms/MyCarFormModified';
-import esLocale from '@fullcalendar/core/locales/es';
-import { formatDate } from '@fullcalendar/core';
 import AppointmentFormModified from '../forms/AppointmentFormModified';
+import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 
-function CardCalendar({date,hour,reason,car,plate}) {
+function CardCalendar({date,hour,reason,car}) {
     const [show, setShow] = useState(false);
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
-
+    const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleAppointmentDelete = async () => {
+        const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta cita?");
+        if (confirmDelete) {
+
+            const getAppointmentId = async () => {
+                try {
+    
+                    const response = await axios.get('http://localhost:8080/appointmentID', {
+                        params: {
+                            date: formattedDateForm,
+                            hour: hour,
+                            idUser: UserProfile.getId()
+                        }
+                    });
+                    return response.data
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+
+            const [appointmentID] = await Promise.all([
+                getAppointmentId(),
+            ]);
+
+            const getData = async () => {
+                try {
+                    const response = await axios.delete('http://localhost:8080/appointment', {
+                        data: {
+                            idAppointment: appointmentID.Result[0].idAppointment,
+                            idUser: UserProfile.getId()
+                        }
+                    });
+                 
+                    alert('Se ha eliminado la cita de forma correcta');
+
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+
+            getData();
+
+        } else {
+            alert('La cita no ha sido eliminada');
+        }
+    }
 
     return (
 
@@ -26,7 +71,7 @@ function CardCalendar({date,hour,reason,car,plate}) {
                 <div class="col-10 mb-1 ">Razón: {reason}</div>
                 <div class="col-10 mb-1 "><strong>Carro: {car}</strong></div>
                 <button type="button" className="btn btn-danger" onClick={handleShow} style={{backgroundColor: '#C80B16' }}>Modificar</button>
-                <button type="button" className="btn btn-danger" style={{  marginLeft:'25%',backgroundColor: '#C80B16' }}>Eliminar</button>
+                <button type="button" className="btn btn-danger" onClick={handleAppointmentDelete} style={{  marginLeft:'25%',backgroundColor: '#C80B16' }}>Eliminar</button>
             </a>
             <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
                 <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
