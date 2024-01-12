@@ -1,7 +1,7 @@
 class CarPart:
-    def __init__(self, idCardPart=None, name=None, car= None,price=None, category= None, stock= None, bodyShape= None, version=None,
+    def __init__(self, idCarPart=None, name=None, car= None,price=None, category= None, stock= None, bodyShape= None, version=None,
                 generation=None, active=None, idBrand=None, photos = None):
-        self.idCardPart = idCardPart
+        self.idCarPart = idCarPart
         self.name = name
         self.car = car
         self.price = price

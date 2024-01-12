@@ -5,6 +5,7 @@ import HeartButton from '../../decoration/HeartButton';
 import Divider from '../../decoration/Divider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 function Card({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand }) {
     const allProps = {id,  name, car, price, category, stock, bodyshape, brand, version, gen, pic,idBrand };
 
@@ -17,12 +18,13 @@ function Card({ id, name, car, price, category, stock, bodyshape, brand, version
     const handleshowPartModal = () => setshowPartModal(true);
 
     const handleDelete = () => {
-        if (window.confirm('¿Está seguro que desea eliminar este repusto?')) {
+        if (window.confirm('¿Está seguro que desea eliminar este repuesto?')) {
             axios.delete(`http://localhost:8080/carPart/${id}`)
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
                         window.location.reload();
+                        alert('Se ha eliminado el repuesto de forma correcta');
                     }
                 })
                 .catch(error => {
@@ -57,7 +59,7 @@ function Card({ id, name, car, price, category, stock, bodyshape, brand, version
                         </div>
                         <Divider />
                         <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Carro: {car}</strong></p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#C80B16' }}><strong>Precio: </strong> {price}</p>
+                        <p className="card-text" style={{ marginBottom: '2%', color: '#C80B16' }}><strong>Precio: ₡</strong> {price}</p>
                         <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Categoría: </strong>{category}</p>
                         <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Stock: </strong>{stock}</p>
                         <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Body Shape: </strong>{bodyshape}</p>
