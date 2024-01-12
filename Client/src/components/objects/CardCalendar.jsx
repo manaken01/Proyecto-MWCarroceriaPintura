@@ -23,8 +23,7 @@ function CardCalendar({date,hour,reason,car}) {
                     const response = await axios.get('http://localhost:8080/appointmentID', {
                         params: {
                             date: formattedDateForm,
-                            hour: hour,
-                            idUser: UserProfile.getId()
+                            hour: hour
                         }
                     });
                     return response.data

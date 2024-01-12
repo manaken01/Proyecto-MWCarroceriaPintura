@@ -107,6 +107,11 @@ function AppointmentFormModified({date,hourM}) {
     const [idCarUser, setIdCarUser] = useState('');
     const [idReason, setIdReason] = useState('');
 
+    const resetInputs = () => {
+        setHour('');
+        setIdCarUser('');
+        setIdReason('');
+    };
 
     const getIdCarUser = (licensePlate) => {
         const carUser = responseData.find((item) => item.licensePlate === licensePlate);
@@ -118,10 +123,21 @@ function AppointmentFormModified({date,hourM}) {
         return reason ? reason.idService : null;
     };
     
+    const validateInputs = () => {
+        if (!hour || !idCarUser || !idReason) {
+            alert('Se deben llenar obligatoriamente los campos de: hora, razón y carro');
+            return false;
+        }
+        return true;
+    };
 
     const handleAppointmentUpdate = async () => {
         const confirmEdit = window.confirm("¿Seguro que deseas modificar este carrro?");
         if (confirmEdit) {
+
+            if (!validateInputs()) {
+                return;
+            }    
     
             const getAppointmentId = async () => {
                 try {
@@ -130,7 +146,6 @@ function AppointmentFormModified({date,hourM}) {
                         params: {
                             date: formattedDateForm,
                             hour: hourM,
-                            idUser: UserProfile.getId()
                         }
                     });
                     return response.data
@@ -155,9 +170,12 @@ function AppointmentFormModified({date,hourM}) {
                             idService: idReason,
                             idAppointment: appointmentID.Result[0].idAppointment,
                         });
-                        
                         alert('Se ha modificado la cita de forma correcta');
-
+                        resetInputs();
+                        setResponse(response.data);
+                        if (response.status === 200) {
+                            window.location.reload();
+                        }
                     } catch (error) {
                         console.error('Error al realizar la solicitud:', error);
                     }

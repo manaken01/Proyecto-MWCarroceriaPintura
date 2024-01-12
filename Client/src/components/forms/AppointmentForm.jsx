@@ -105,6 +105,11 @@ function AppointmentForm({date}) {
     const [idCarUser, setIdCarUser] = useState('');
     const [idReason, setIdReason] = useState('');
 
+    const resetInputs = () => {
+        setHour('');
+        setIdCarUser('');
+        setIdReason('');
+    };
 
     const getIdCarUser = (licensePlate) => {
         const carUser = responseData.find((item) => item.licensePlate === licensePlate);
@@ -116,8 +121,45 @@ function AppointmentForm({date}) {
         return reason ? reason.idService : null;
     };
     
+    const validateInputs = () => {
+        if (!hour || !idCarUser || !idReason) {
+            alert('Se deben llenar obligatoriamente los campos de: hora, razón y carro');
+            return false;
+        }
+        return true;
+    };
 
-    const handleAppointment = () => {
+    const handleAppointment = async () => {
+
+        if (!validateInputs()) {
+            return;
+        }
+
+        const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
+
+        const getAppointmentId = async () => {
+            try {
+
+                const response = await axios.get('http://localhost:8080/appointmentID', {
+                    params: {
+                        date: formattedDateForm,
+                        hour: hour
+                    }
+                });
+                return response.data
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        };
+
+        const [appointmentID] = await Promise.all([
+            getAppointmentId(),
+        ]);
+
+        if (!appointmentID.Result.length === 0) {
+            alert('Ya se encuentra una cita asignada a esa hora');
+            return
+        }
 
         const createAppointment = async () => {
             try {
@@ -129,6 +171,11 @@ function AppointmentForm({date}) {
                     idService: idReason
                 });
                 alert('Se ha agendado la cita de manera correcta');
+                resetInputs();
+                setResponse(response.data);
+                if (response.status === 200) {
+                    window.location.reload();
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }

@@ -8,7 +8,6 @@ class adminAppointment:
     def createAppointment(appointment,connection,cursor):
         try: 
             sql = "INSERT INTO appointment (date, hour, active, idCarUser, User_idUser, idService) VALUES (%s, %s, %s, %s, %s,%s)"
-            print("FECHA:"+str(appointment.date))
             # Convertir el string a un objeto datetime
             date_obj = datetime.strptime(appointment.date, "%d/%m/%Y")
             val = (date_obj,appointment.hour,1,appointment.idCarUser,appointment.idUser, appointment.idService)
@@ -22,7 +21,7 @@ class adminAppointment:
     
     def readAppointment(idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE appointment.date >= %s and appointment.User_idUser = %s and appointment.active = 1" 
+            sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE DATE(appointment.date) >= %s and appointment.User_idUser = %s and appointment.active = 1 ORDER BY appointment.date ASC;" 
             now = datetime.now()
             formatted_date = now.strftime('%Y-%m-%d')
             print(formatted_date)
@@ -60,15 +59,16 @@ class adminAppointment:
         
     def getAppointmentId(date,hour,idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT * FROM appointment WHERE date >= %s and hour = %s and User_idUser = %s" 
+            sql = "SELECT * FROM appointment WHERE DATE(date) >= %s and hour = %s" 
             print(date)
             now = datetime.now()
             formatted_date = now.strftime('%Y-%m-%d')
-            val = (formatted_date,hour,idUser)
+            val = (formatted_date,hour)
             cursor.execute(sql,val)
             result = cursor.fetchall()
             return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+    
         
