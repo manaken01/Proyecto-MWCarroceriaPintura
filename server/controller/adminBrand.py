@@ -6,7 +6,7 @@ class adminBrand:
 
     def createBrand(brand,connection,cursor):
         try: 
-            sql = "INSERT INTO brand (name, active) VALUES (%s, 1)"
+            sql = "INSERT INTO brand (nameBrand, active) VALUES (%s, 1)"
             val = (brand.name,)
             cursor.execute(sql,val)
             connection.commit()
@@ -39,7 +39,7 @@ class adminBrand:
             return False
     def updateBrand(brand, cursor, connection):
         try:
-            sql = "UPDATE brand SET name = %s WHERE idBrand = %s"
+            sql = "UPDATE brand SET nameBrand = %s WHERE idBrand = %s"
             val = (brand.name, brand.idBrand)
             cursor.execute(sql, val)
             connection.commit()

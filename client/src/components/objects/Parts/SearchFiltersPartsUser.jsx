@@ -2,19 +2,19 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Modal } from 'react-bootstrap';
-import PartsForm from '../forms/PartsForm';
-import BrandsForm from '../forms/BrandsForm';
+import PartsForm from '../../forms/PartsForm';
+import BrandsForm from '../../forms/BrandsForm';
 
 import axios from 'axios';
 /*<div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>*/
-const SearchFiltersParts = ({setSelectedItems, setSearch, search}) => {
+const SearchFiltersPartsUser = ({setSelectedItems, setSearch, search}) => {
     const [dropdowns, setDropdowns] = useState([]);
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     const handleResults = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/carPart');
+            const response = await axios.get('http://localhost:8080/carPartFilter');
             const responseb = await axios.get('http://localhost:8080/brand');
             const brands = [...new Set(responseb.data.Result.map(item => item.name))];
             brands.unshift('Seleccione');
@@ -133,4 +133,4 @@ const SearchFiltersParts = ({setSelectedItems, setSearch, search}) => {
     );
 };
 
-export default SearchFiltersParts;
+export default SearchFiltersPartsUser;

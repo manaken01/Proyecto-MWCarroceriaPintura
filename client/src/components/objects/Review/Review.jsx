@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import StarRating from '../decoration/StarRating'
+import StarRating from '../../decoration/StarRating'
 
 
 

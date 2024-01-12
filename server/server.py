@@ -23,7 +23,6 @@ connection.autocommit = True
 #Brand
 @app.route("/brand",methods=['POST'])
 def createBrand():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     name = data['name']
     brand = Brand(name=name)
@@ -42,8 +41,6 @@ def readBrand():
 
 @app.route("/brand/<int:idBrand>", methods=['DELETE'])
 def deleteBrand(idBrand):
-    cursor = connection.cursor(dictionary=True)
-    
     brand = Brand(idBrand=idBrand)
     result = mainController.deleteBrand(brand,connection,cursor)
     return jsonify({
@@ -52,7 +49,6 @@ def deleteBrand(idBrand):
 
 @app.route("/brand",methods=['PUT'])
 def updateBrand():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     name = data['name']
     idBrand = data['idBrand']
@@ -84,14 +80,49 @@ def createCarPart():
         'Result': result
     })
 
-@app.route("/carPart",methods=['GET'])
-def readCarPart():
-    result = mainController.readCarPart(cursor)
-    print(result)
+
+@app.route("/carPart/<int:idCarPart>",methods=['DELETE'])
+def deleteCarPart(idCarPart):
+    carPart = CarPart(idCarPart=idCarPart)
+    result = mainController.deleteCarPart(carPart,connection,cursor)
     return jsonify({
         'Result': result
     })
 
+@app.route("/carPart",methods=['PUT'])
+def updateCarPart():
+    data = request.get_json()
+    name = data['name']
+    car = data['car']
+    price = data['price']
+    category = data['category']
+    stock = data['stock']
+    bodyShape = data['bodyShape']
+    version = data['version']
+    generation = data['generation']
+    idBrand = data['idBrand']
+    photos = data['photos']
+    idCarPart = data['idCarPart']
+
+    carPart = CarPart(idCarPart=idCarPart, name=name, car= car,price=price, category= category, stock= stock, bodyShape= bodyShape, version=version, generation=generation, idBrand=idBrand, photos = photos)
+    
+    result = mainController.updateCarPart(carPart,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+@app.route("/carPart",methods=['GET'])
+def getCarPart():
+    result = mainController.getCarPart(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/carPartFilter",methods=['GET'])
+def readCarPart():
+    result = mainController.readCarPart(cursor)
+    return jsonify({
+        'Result': result
+    })
 
 #CarSell
 @app.route("/carSell",methods=['POST'])

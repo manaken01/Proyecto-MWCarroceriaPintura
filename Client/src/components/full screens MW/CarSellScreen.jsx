@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Navbar from '../objects/Navbar';
-import CardsFull from '../objects/CardsFull';
 import SearchFilters from '../objects/SearchFilters';
 import CardsCar from '../objects/CardsCar';
 
