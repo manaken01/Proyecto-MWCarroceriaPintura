@@ -11,13 +11,17 @@ import CardCalendarStart from '../objects/CardCalendarStart';
 import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
 import SideBarCalendar from '../objects/SideBarCalendar';
+import ServicesForm from '../forms/ServicesForm';
 
 function CalendarAdmin() {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [show, setShow] = useState(false);
+  const [showServices, setShowServices] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleClose = () => setShow(false);
+  const handleShowServicesClose = () => setShowServices(false);
+  const handleShowServicesOpen = () => setShowServices(true);
   const handleShow = (selectInfo) => {
     const formattedDate = formatDate(selectInfo.start, { year: 'numeric', month: 'numeric', day: 'numeric', locale: esLocale }); // Formatea la fecha a texto
     setSelectedDate(formattedDate); // Guarda el día seleccionado en el estado
@@ -64,7 +68,7 @@ function CalendarAdmin() {
           <div style={{ fontSize: '2.3em', fontWeight: '600', color: '#000000', marginBottom: '1%' }}>
             Agendar cita
           </div>
-          <div className='btn btn-link' onClick={handleShow} style={{ backgroundColor: 'transparent',fontSize: '1.6em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'1%'}}>
+          <div className='btn btn-link' onClick={handleShowServicesOpen} style={{ backgroundColor: 'transparent',fontSize: '1.6em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'1%'}}>
             Agregar servicio
           </div>
         </div>
@@ -98,6 +102,15 @@ function CalendarAdmin() {
             </Modal.Header>
             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
                 <AppointmentForm date={selectedDate}/>
+            </Modal.Body>
+            <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
+            </Modal.Footer>
+        </Modal>
+        <Modal show={showServices} onHide={handleShowServicesClose} style={{ backgroundColor: 'transparent' }}>
+            <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
+            </Modal.Header>
+            <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
+                <ServicesForm/>
             </Modal.Body>
             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
             </Modal.Footer>
