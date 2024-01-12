@@ -12,6 +12,7 @@ import Information from './components/full screens MW/Information';
 import PartsScreenAdmin from './components/full screens MW/PartsScreenAdmin';
 import StartScreen from './components/full screens MW/StartScreen';
 import CarSellScreen from './components/full screens MW/CarSellScreen';
+import CalendarAdmin from './components/full screens MW/CalendarAdmin';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<StartScreen />} />
           <Route path="/register" element={<Register />} />
           <Route path="/information" element={<Information />} />
-          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/calendar" element={<CalendarAdmin />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/parts" element={<PartsScreenAdmin/>} />
           <Route path="/login" element={<LogIn />} />
