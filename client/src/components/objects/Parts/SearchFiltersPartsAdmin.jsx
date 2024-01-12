@@ -9,39 +9,9 @@ import axios from 'axios';
 /*<div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>*/
-const SearchFiltersParts = ({setSelectedItems, setSearch, search}) => {
-    const [dropdowns, setDropdowns] = useState([]);
-    const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
+const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
-    const handleResults = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/carPartFilter');
-            const responseb = await axios.get('http://localhost:8080/brand');
-            const brands = [...new Set(responseb.data.Result.map(item => item.nameBrand))];
-            brands.unshift('Seleccione');
-            const cars = [...new Set(response.data.Result.map(item => item.car))];
-            cars.unshift('Seleccione');
-            const categories = [...new Set(response.data.Result.map(item => item.category))];
-            categories.unshift('Seleccione');
-            const names = [...new Set(response.data.Result.map(item => item.name))];
-            names.unshift('Seleccione');
-
-            const result = [
-                { label: 'Marca:', items: brands },
-                { label: 'Carro:', items: cars },
-                { label: 'Categoría:', items: categories },
-                { label: 'Repuestos:', items: names },
-            ];
-
-            setDropdowns(result);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-        }
-    };
-
-    useEffect(() => {
-        handleResults();
-    }, []);
+    const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
 
     const [showRepuestoModal, setShowRepuestoModal] = useState(false);
