@@ -5,7 +5,7 @@ import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 
 //acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
-function PartsForm({ refreshParent }) {
+function PartsForm({ refreshParent , closeForm}) {
     const [brands, setBrands] = useState([]);
     const [showMarcaModal, setShowMarcaModal] = useState(false);
 
@@ -120,6 +120,7 @@ function PartsForm({ refreshParent }) {
                         refreshParent();
                         setName('');
                         alert('Se ha modificado la marca de forma correcta');
+                        closeForm();
 
                     } catch (error) {
                         console.error('Error al realizar la solicitud:', error);

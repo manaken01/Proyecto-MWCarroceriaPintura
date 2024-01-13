@@ -3,7 +3,7 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function PartsForm({ refreshParent, closeForm }) {
+function PartsUpdateForm({ carPart, refreshParent, closeForm }) {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -115,13 +115,31 @@ function PartsForm({ refreshParent, closeForm }) {
         setVersion('');
         setGeneration('');
     };
+
+    const defaultInputs = () => {
+        setName(carPart?.name || '');
+        setCar(carPart?.car || '');
+        setidBrand(carPart?.idBrand || '');
+        setPrice(carPart?.price || '');
+        setCategory(carPart?.category || '');
+        setStock(carPart?.stock || '');
+        setBodyShape(carPart?.bodyshape || '');
+        setVersion(carPart?.version || '');
+        setGeneration(carPart?.gen || '');
+        
+    };
+    useEffect(() => {
+        defaultInputs();
+    }, [carPart]);
+
     const validateInputs = () => {
-        if (!name || !car || !price || !stock || !idBrand ||!category || photo.length === 0) {
-            alert('Se deben llenar obligatoriamente los campos de: nombre, carro, precio,categoría, stock, marca y fotos');
+        if (!name || !car || !price || !stock || !idBrand || !category || !bodyShape || !version || !generation) {
+            alert('Se deben llenar todos los campos');
             return false;
         }
         return true;
     };
+
     const handleParts = () => {
 
         if (!validateInputs()) {
@@ -130,7 +148,8 @@ function PartsForm({ refreshParent, closeForm }) {
         const getData = async () => {
             console.log(idBrand);
             try {
-                const response = await axios.post('http://localhost:8080/carPart', {
+                const response = await axios.put('http://localhost:8080/carPart', {
+                    idCarPart: carPart.id,
                     name: name,
                     car: car,
                     price: price,
@@ -145,10 +164,12 @@ function PartsForm({ refreshParent, closeForm }) {
 
                 setResponseMessage(response.data);
                 console.log(response.data);
-                refreshParent();
                 resetInputs();
                 alert('Se ha agregado el repuesto de forma correcta');
-                closeForm();
+                if (response.status === 200) {
+                    refreshParent();
+                    closeForm();
+                }
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -164,7 +185,7 @@ function PartsForm({ refreshParent, closeForm }) {
             <div className="row g-0">
                 <div className="card-body">
 
-                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo repuesto</h4>
+                    <h4 className="card-title" style={{ color: '#000000' }} >Modificar repuesto</h4>
 
 
                     <Divider />
@@ -252,7 +273,7 @@ function PartsForm({ refreshParent, closeForm }) {
 
 
                         <button type="button" className="btn btn-danger" onClick={handleParts} style={{ marginTop: '1%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
-                            Agregar
+                            Modificar
                         </button>
                     </div>
                 </div>
@@ -262,4 +283,4 @@ function PartsForm({ refreshParent, closeForm }) {
     );
 }
 
-export default PartsForm
+export default PartsUpdateForm

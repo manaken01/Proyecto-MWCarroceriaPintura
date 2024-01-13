@@ -83,7 +83,7 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <PartsForm refreshParent={handleResults}/>
+                        <PartsForm refreshParent={handleResults} closeForm = {handleClose}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>
@@ -93,7 +93,7 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <BrandsForm refreshParent={handleResults}/>
+                        <BrandsForm refreshParent={handleResults} closeForm = {handleClose}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>

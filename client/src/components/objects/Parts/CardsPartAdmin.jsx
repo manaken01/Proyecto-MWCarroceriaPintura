@@ -2,7 +2,7 @@
 import Card from './CardPartAdmin';
 import React, { useState, useEffect } from 'react';
 
-function CardPartAdmin({cards,filters, search}) {
+function CardPartAdmin({cards,filters, search, refreshParent}) {
     
 
     const filteredCards = cards.filter(card => 
@@ -42,7 +42,8 @@ function CardPartAdmin({cards,filters, search}) {
                         version={card.parts.version} 
                         gen={card.parts.generation}  
                         idBrand={card.parts.idBrand}
-                        pic={card.photos}  />
+                        pic={card.photos}
+                        refreshParent={refreshParent}  />
                     </div>
                 );
             })

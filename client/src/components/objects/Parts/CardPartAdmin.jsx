@@ -5,8 +5,9 @@ import HeartButton from '../../decoration/HeartButton';
 import Divider from '../../decoration/Divider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import PartsUpdateForm from '../../forms/PartsUpdateForm';
 import axios from 'axios';
-function Card({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand }) {
+function Card({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
     const allProps = {id,  name, car, price, category, stock, bodyshape, brand, version, gen, pic,idBrand };
 
     const [showPartModal, setshowPartModal] = useState(false);
@@ -23,7 +24,7 @@ function Card({ id, name, car, price, category, stock, bodyshape, brand, version
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
-                        window.location.reload();
+                        refreshParent();
                         alert('Se ha eliminado el repuesto de forma correcta');
                     }
                 })
@@ -73,7 +74,7 @@ function Card({ id, name, car, price, category, stock, bodyshape, brand, version
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                {/* <CarSellUpdateForm carSell={allProps} /> */}
+                                <PartsUpdateForm carPart={allProps} refreshParent={refreshParent} closeForm={handleClose}/>
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>

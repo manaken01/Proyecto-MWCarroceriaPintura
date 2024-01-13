@@ -55,7 +55,7 @@ function PartsScreenAdmin() {
                 </div>
       <SearchFiltersPartsAdmin handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
       
-      <CardsPartAdmin   cards={cards} filters={selectedItems} search = {search}/>
+      <CardsPartAdmin  refreshParent={handleResults}  cards={cards} filters={selectedItems} search = {search}/>
 
     </div>
   );
