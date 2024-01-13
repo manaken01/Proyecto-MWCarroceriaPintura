@@ -15,6 +15,8 @@ import StartScreen from './components/full screens MW/StartScreen';
 import CarSellScreen from './components/full screens MW/CarSellScreen';
 import CalendarAdmin from './components/full screens MW/CalendarAdmin';
 import UserProfile from './components/resources/UserProfile'; 
+import UserScreenAdmin from './components/full screens MW/UserScreenAdmin';
+import ManageUsers from './components/full screens MW/ManageUsers';
 
 function App() {
   console.log(UserProfile.getId());
@@ -32,6 +34,8 @@ function App() {
           <Route path="/parts" element={PartsScreen} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/cars" element={<CarSellScreen />} />
+          <Route path="/user" element={< UserScreenAdmin/>} />
+          <Route path="/manageUsers" element={< ManageUsers/>} />
         </Routes>
     </div>
     </BrowserRouter>
