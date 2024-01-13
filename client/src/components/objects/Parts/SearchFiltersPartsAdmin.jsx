@@ -5,11 +5,7 @@ import { Modal } from 'react-bootstrap';
 import PartsForm from '../../forms/PartsForm';
 import BrandsForm from '../../forms/BrandsForm';
 
-import axios from 'axios';
-/*<div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
-                        </div>*/
-const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
+const SearchFiltersPartsAdmin = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
@@ -104,4 +100,4 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
     );
 };
 
-export default SearchFiltersParts;
+export default SearchFiltersPartsAdmin;

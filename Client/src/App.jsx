@@ -9,12 +9,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from './components/full screens MW/Contact';
 
 import Information from './components/full screens MW/Information';
+import PartsScreenUser from './components/full screens MW/PartsScreenUser';
 import PartsScreenAdmin from './components/full screens MW/PartsScreenAdmin';
 import StartScreen from './components/full screens MW/StartScreen';
 import CarSellScreen from './components/full screens MW/CarSellScreen';
 import CalendarAdmin from './components/full screens MW/CalendarAdmin';
+import UserProfile from './components/resources/UserProfile'; 
 
 function App() {
+  console.log(UserProfile.getId());
+  const PartsScreen = UserProfile.getId() !== 1 ? <PartsScreenUser /> : <PartsScreenAdmin />;
   return (
     <BrowserRouter>
       <div>
@@ -25,7 +29,7 @@ function App() {
           <Route path="/information" element={<Information />} />
           <Route path="/calendar" element={<CalendarAdmin />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/parts" element={<PartsScreenAdmin/>} />
+          <Route path="/parts" element={PartsScreen} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/cars" element={<CarSellScreen />} />
         </Routes>
