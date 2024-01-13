@@ -39,7 +39,7 @@ const SearchUser = ({dropdowns, setSelectedItems, handleResults,setSearch, searc
     
     return (
 
-        <div className="container" style={{ backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px", width: '40%' }}>
+        <div className="container" style={{ backgroundColor: "#F9F9F9", marginBottom: '4%',boxShadow: "#E3E3E3 3px 3px 3px", width: '40%' }}>
             <div className="row align-items-center">
                 <div className="col-12">
                     <div className="input-group mb-3 align-items-center" style={{ paddingTop: '4%', paddingBottom: '2%' , width: '100%', minWidth: '250px'}}>

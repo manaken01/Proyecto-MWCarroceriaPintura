@@ -191,6 +191,13 @@ def getUsers():
     return jsonify({
         'Result': result
     })
+@app.route("/user/<int:idUser>",methods=['DELETE'])
+def deleteUser(idUser):
+    result = mainController.deleteUser(idUser,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 
 @app.route("/user",methods=['POST'])
 def createUser():
@@ -202,6 +209,21 @@ def createUser():
     cellphone = data['cellphone']
     user = User(userName=userName, email=email, password=password,cellphone=cellphone,active=1,userType=1)
     result = mainController.createUser(user,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/user",methods=['PUT'])
+def updateUser():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    userName = data['name']
+    email = data['email']
+    cellphone = data['phone']
+    userType = data['type']
+    idUser = data['id']
+    user = User(userName=userName, email=email, cellphone=cellphone,userType=userType,idUser=idUser)
+    result = mainController.updateUser(user,connection,cursor)
     return jsonify({
         'Result': result
     })
@@ -247,6 +269,8 @@ async def getUserNames():
         'Result': result
     })
 
+
+#UserType
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
     result = mainController.getUserTypes(connection,cursor)

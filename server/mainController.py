@@ -6,6 +6,7 @@ from controller.adminCarUser import *
 from controller.adminService import *
 from controller.adminAppointment import *
 from controller.adminCarSell import *
+from controller.adminUserType import *
 
 class mainController:
     #Brand
@@ -52,13 +53,16 @@ class mainController:
 
     #User
     def getUsers(connection, cursor):
-        return (adminUser.getUsers(cursor))
+        return (adminUser.getUsers(connection, cursor))
+    
+    def deleteUser(idUser,connection,cursor):
+        return (adminUser.deleteUser(idUser,connection,cursor))
+    
+    def updateUser(user,connection,cursor):
+        return (adminUser.updateUser(user,connection,cursor))
 
     def createUser(user,connection,cursor):
         return (adminUser.registerUser(user,connection,cursor))
-    
-    def getUserTypes(cursor):
-        return (adminUser.getUserTypes(cursor))
     
     def logIn(email,password,cursor):
         return (adminUser.logIn(email,password, cursor))
@@ -72,6 +76,10 @@ class mainController:
     async def getUserNames(userName,cursor):
         return (await adminUser.getUserNames(userName,cursor))
     
+    #UserType
+
+    def getUserTypes(connection,cursor):
+        return (adminUserType.getUserTypes(connection,cursor))
     #CarUser
     def createCarUser(carUser,connection,cursor):
         return (adminCarUser.createCarUser(carUser,connection,cursor))

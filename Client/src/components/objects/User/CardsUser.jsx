@@ -2,19 +2,15 @@ import React, { useState, useEffect } from 'react';
 import CardUser from './CardUser';
 import axios from 'axios';
 
-const CardsCar = ({ cards, filters, search, refreshParent }) => {
+const CardsUser = ({ cards, search, refreshParent }) => {
     const filteredCards = cards.filter(card =>
 
-        ((search && (card.carSell.model.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.year.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.price.toString().includes(search.toLowerCase()) ||
-            card.carSell.transmission.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.bodyShape.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.version.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.nameBrand.toLowerCase().includes(search.toLowerCase()) ||
-            card.carSell.color.toLowerCase().includes(search.toLowerCase())))
+        ((search && (card.Username.toLowerCase().includes(search.toLowerCase()) || 
+        card.email.toLowerCase().includes(search.toLowerCase()) || 
+        card.name.toLowerCase().includes(search.toLowerCase()) || 
+        card.cellphone.toLowerCase().includes(search.toLowerCase()))) 
 
-            || (search === undefined || search === ''))
+        || (search === undefined || search === ''))
     );
 
     return (
@@ -23,13 +19,15 @@ const CardsCar = ({ cards, filters, search, refreshParent }) => {
                 <div className='row'>{
                     filteredCards.map(card => {
                         return (
-                            <div className='col-md-6' key={card.carSell.idCarSell}>
+                            <div className='col-md-6' key={card.idUser}>
                                 <CardUser
                                     id={card.idUser}
-                                    name={card.userName}
+                                    name={card.Username}
                                     email={card.email}
                                     phone={card.cellphone}
                                     type={card.idUserType}
+                                    typeName = {card.name}
+                                    refreshParent={refreshParent}
                                 />
                             </div>
                         );
@@ -42,4 +40,4 @@ const CardsCar = ({ cards, filters, search, refreshParent }) => {
     );
 }
 
-export default CardsCar;
+export default CardsUser;

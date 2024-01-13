@@ -5,13 +5,12 @@ import { Carousel, CarouselItem, Button, Modal } from 'react-bootstrap';
 import whatsapp from '../../../assets/whatsapp.png';
 import HeartButton from '../../decoration/HeartButton';
 import Divider from '../../decoration/Divider';
-import CarSellUpdateForm from '../../forms/CarSellUpdateForm';
+import UserUpdateForm from '../../forms/UserUpdateForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-function CardCarSell({ name, email, phone, type, id, refreshParent }) {
-
+function CardUser({ name, email, phone, type, id, typeName ,refreshParent }) {
 
     const allProps = { name, email, phone, type, id };
 
@@ -24,8 +23,8 @@ function CardCarSell({ name, email, phone, type, id, refreshParent }) {
     const handleShowUserModal = () => setShowUserModal(true);
 
     const handleDelete = () => {
-        if (window.confirm('¿Está seguro que desea eliminar este carro?')) {
-            axios.delete(`http://localhost:8080/carSell/${id}`)
+        if (window.confirm('¿Está seguro que desea eliminar este usuario?')) {
+            axios.delete(`http://localhost:8080/user/${id}`)
                 .then(response => {
                     console.log(response);
                     if (response.status === 200) {
@@ -41,7 +40,7 @@ function CardCarSell({ name, email, phone, type, id, refreshParent }) {
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
-                <div className="col-md-6">
+                <div className="col-md-16">
                     <div className="card-body">
                         <div className="d-flex justify-content-between align-items-center">
                             <h5 className="card-title" style={{ color: '#000000' }}>{name}</h5>
@@ -49,13 +48,12 @@ function CardCarSell({ name, email, phone, type, id, refreshParent }) {
                                 <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.8%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesomeIcon icon={faTrash} style={{ fontSize: '20px' }} />
                                 </button>
-                                <HeartButton />
                             </div>
                         </div>
                         <Divider />
-                        <p className="card-text" style={{ marginBottom: '5%', color: '#C80B16' }}><strong>Correo: {email}</strong></p>
-                        <p className="card-text" style={{ marginBottom: '5%', color: '#C80B16' }}><strong>Teléfono: {phone}</strong></p>
-                        <p className="card-text" style={{ marginBottom: '5%', color: '#C80B16' }}><strong>Tipo: {type}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Correo: {email}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Teléfono: {phone}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Tipo: {typeName}</strong></p>
 
                         <button type="button" onClick={handleShowUserModal} className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
                             Modificar
@@ -65,7 +63,7 @@ function CardCarSell({ name, email, phone, type, id, refreshParent }) {
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <CarSellUpdateForm carSell={allProps} refreshParent={refreshParent} closeForm={handleClose} pic={pic}  />
+                                <UserUpdateForm user={allProps} refreshParent={refreshParent} closeForm={handleClose}   />
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>
@@ -78,4 +76,4 @@ function CardCarSell({ name, email, phone, type, id, refreshParent }) {
     );
 }
 
-export default CardCarSell;
+export default CardUser;

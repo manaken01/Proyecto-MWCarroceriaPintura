@@ -9,23 +9,11 @@ class adminUser:
     def registerUser(user,connection,cursor):
         try: 
             sql = "INSERT INTO user (username, email, password, cellphone, active, idUserType) VALUES (%s, %s, %s, %s, %s, %s)"
-            val = (user.userName, user.email, user.password, user.cellphone, user.active, user.userType)
+            val = (user.userName, user.email, user.password, user.cellphone, user.active, 2)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record inserted.")
             return True
-        except mysql.connector.Error as error:
-            print("Failed to execute stored procedure: {}".format(error))
-            return False
-    
-    def getUserTypes(connection,cursor):
-        try: 
-            sql = "Select * FROM userType"
-            cursor.execute(sql)
-            result = cursor.fetchall()
-            cursor.close()
-            cursor = connection.cursor(dictionary=True)
-            return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
@@ -89,7 +77,8 @@ class adminUser:
         
     def getUsers(connection, cursor):
         try: 
-            sql = "Select * FROM user"
+            cursor = connection.cursor(dictionary=True)
+            sql = "Select * FROM user INNER JOIN userType ON user.idUserType = userType.idUserType WHERE active = 1"
             cursor.execute(sql)
             result = cursor.fetchall()
             cursor.close()
@@ -101,8 +90,8 @@ class adminUser:
 
     def updateUser(user, connection, cursor):
         try:
-            sql = "UPDATE user SET userName = %s, email = %s, password = %s, cellphone = %s, active = %s, idUserType = %s WHERE idUser = %s"
-            val = (user.userName, user.email, user.password, user.cellphone, user.active, user.userType, user.idUser)
+            sql = "UPDATE user SET userName = %s, email = %s, cellphone = %s, idUserType = %s WHERE idUser = %s"
+            val = (user.userName, user.email, user.cellphone, user.userType, user.idUser)
             cursor.execute(sql, val)
             connection.commit()
             
@@ -113,10 +102,10 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
-    def deleteUser(userId, connection, cursor):
+    def deleteUser(idUser, connection, cursor):
         try:
-            sql = "DELETE FROM user WHERE idUser = %s"
-            val = (userId,)
+            sql = "UPDATE user SET active = 0 WHERE idUser = %s"
+            val = (idUser,)
             cursor.execute(sql, val)
             connection.commit()
             
