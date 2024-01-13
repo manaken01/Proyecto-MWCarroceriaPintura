@@ -54,8 +54,6 @@ const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
   const convertToJSON = () => {
     const newImages = images.filter(image => !initialImagesRef.current.includes(image));
     let jsonList = [];
-    console.log(initialImageCount, " ",initialImagesRef.current.length, " ", newImages.length)
-    console.log(initialImageCount == initialImagesRef.current.length)
     if (newImages.length > 0 || initialImageCount !== initialImagesRef.current.length) {
       jsonList = base64Images.map((base64, index) => ({
         id: index + 1,
