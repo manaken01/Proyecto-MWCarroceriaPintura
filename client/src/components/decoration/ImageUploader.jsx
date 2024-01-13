@@ -13,6 +13,7 @@ const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
         initialImagesRef.current = initialImages;
         setInitialImageCount(initialImages.length);
     }
+    initialImagesRef.current = initialImages;
 }, [initialImages]);
 
   useEffect(() => {
@@ -59,8 +60,6 @@ const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
         id: index + 1,
         base64,
       }));
-    } else {
-        // No new images were added, execute your code here
     }
     // Call the parent component's callback to pass the JSON list
     onImageListChange(jsonList);
