@@ -87,22 +87,17 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
         
-    def readUser(userId, connection, cursor):
-        try:
+    def getUsers(connection, cursor):
+        try: 
+            sql = "Select * FROM user"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            cursor.close()
             cursor = connection.cursor(dictionary=True)
-            sql = "SELECT * FROM user WHERE idUser = %s"
-            val = (userId,)
-            cursor.execute(sql, val)
-            result = cursor.fetchone()
-            
-            if result is not None:
-                user = User(result['idUser'], result['userName'], result['email'], result['password'], result['cellphone'], result['active'], result['userType'])
-                return user
-            else:
-                return None
+            return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
-            return None
+            return False
 
     def updateUser(user, connection, cursor):
         try:

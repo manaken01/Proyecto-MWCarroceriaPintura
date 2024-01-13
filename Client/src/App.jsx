@@ -12,6 +12,8 @@ import Information from './components/full screens MW/Information';
 import PartsScreenAdmin from './components/full screens MW/PartsScreenAdmin';
 import StartScreen from './components/full screens MW/StartScreen';
 import CarSellScreen from './components/full screens MW/CarSellScreen';
+import UserScreenAdmin from './components/full screens MW/UserScreenAdmin';
+import ManageUsers from './components/full screens MW/ManageUsers';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/parts" element={<PartsScreenAdmin/>} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/cars" element={<CarSellScreen />} />
+          <Route path="/user" element={< UserScreenAdmin/>} />
+          <Route path="/manageUsers" element={< ManageUsers/>} />
         </Routes>
     </div>
     </BrowserRouter>

@@ -185,6 +185,13 @@ def deleteCarSell(idCarSell):
     })
 
 #User
+@app.route("/user",methods=['GET'])
+def getUsers():
+    result = mainController.getUsers(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 @app.route("/user",methods=['POST'])
 def createUser():
     cursor = connection.cursor(dictionary=True)
@@ -200,7 +207,7 @@ def createUser():
     })
 
 
-@app.route("/user",methods=['GET'])
+@app.route("/login",methods=['GET'])
 def logIn():
     cursor = connection.cursor(dictionary=True)
     email = request.args.get('email')

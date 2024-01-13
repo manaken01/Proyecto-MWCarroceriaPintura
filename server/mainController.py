@@ -51,6 +51,9 @@ class mainController:
         return (AdminCarSell.deleteCarSell(idCarSell,connection,cursor))
 
     #User
+    def getUsers(connection, cursor):
+        return (adminUser.getUsers(cursor))
+
     def createUser(user,connection,cursor):
         return (adminUser.registerUser(user,connection,cursor))
     

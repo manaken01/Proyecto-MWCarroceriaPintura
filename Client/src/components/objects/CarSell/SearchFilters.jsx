@@ -7,7 +7,7 @@ import axios from 'axios';
 /*<div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>*/
-const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
+const SearchFilters = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
@@ -92,4 +92,4 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
     );
 };
 
-export default SearchFiltersParts;
+export default SearchFilters;
