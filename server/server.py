@@ -351,13 +351,10 @@ def updateService():
         'Result': result
     })
 
-@app.route("/service",methods=['DELETE'])
-def deleteService():
+@app.route("/service/<int:idService>",methods=['DELETE'])
+def deleteService(idService):
     cursor = connection.cursor(dictionary=True)
-    data = request.get_json()
-    idService = data['idService']
-    service = Service(id=idService)
-    result = mainController.deleteService(service,cursor,connection)
+    result = mainController.deleteService(idService,cursor,connection)
     return jsonify({
         'Result': result
     })

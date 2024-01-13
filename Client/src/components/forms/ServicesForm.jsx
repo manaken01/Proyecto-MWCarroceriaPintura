@@ -7,12 +7,17 @@ import axios from 'axios';
 //acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
 function ServicesForm({ }) {
     const [services, setServices] = useState([]);
+    const [idService, setidService] = useState('');
     const [showMarcaModal, setShowMarcaModal] = useState(false);
+    var [responseData, setResponse] = useState([]);
 
     const handleClose = () => {
         setShowMarcaModal(false);
     };
-    const handleShowMarcaModal = () => setShowMarcaModal(true);
+    const handleShowMarcaModal = (idService) => {
+        setidService(idService);
+        setShowMarcaModal(true);
+    };
 
     const getServices = async () => {
         try {
@@ -76,6 +81,7 @@ function ServicesForm({ }) {
     }
 
     const handleServicesDelete = (idService) => {
+        console.log(idService)
         const confirmDelete = window.confirm("¿Seguro que deseas eliminar este servicio?");
         if (confirmDelete) {
 
@@ -100,7 +106,8 @@ function ServicesForm({ }) {
         }
     }
 
-    const handleServicesEdit = (idService) => {
+    const handleServicesEdit = () => {
+        console.log(idService)
         const confirmEdit = window.confirm("¿Seguro que deseas modificar este servicio?");
         if (confirmEdit) {
             const doesExist = services.some(serviceV => serviceV.service === reason);
@@ -170,7 +177,7 @@ function ServicesForm({ }) {
                                                 <img src={DeleteButton} style={{ height: 'auto', width: 'auto' }} alt="Delete" />
                                             </button>
                                             <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}
-                                                onClick={handleShowMarcaModal}>
+                                                onClick={() => { handleShowMarcaModal(serviceV.idService); }}>
                                                 Modificar
                                             </button>
                                             <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
@@ -191,7 +198,7 @@ function ServicesForm({ }) {
                                                                         <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                                                                     </div>
                                                                     <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} 
-                                                                    onClick={() => { handleBrandsEdit(serviceV.idService); }}>
+                                                                    onClick={() => { handleServicesEdit() }}>
                                                                         Modificar
                                                                     </button>
                                                                 </div>

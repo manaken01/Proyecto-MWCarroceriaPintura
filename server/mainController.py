@@ -98,8 +98,8 @@ class mainController:
     def updateService(service,cursor,connection):
         return (adminService.updateService(service,cursor,connection))
     
-    def deleteService(service,cursor,connection):
-        return (adminService.deleteService(service,cursor,connection))
+    def deleteService(idService,cursor,connection):
+        return (adminService.deleteService(idService,cursor,connection))
     
     #appointment
     def createAppointment(appointment,connection,cursor):

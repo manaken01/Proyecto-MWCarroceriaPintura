@@ -68,7 +68,7 @@ function CalendarAdmin() {
           <div style={{ fontSize: '2.3em', fontWeight: '600', color: '#000000', marginBottom: '1%' }}>
             Agendar cita
           </div>
-          <div className='btn btn-link' onClick={handleShowServicesOpen} style={{ backgroundColor: 'transparent',fontSize: '1.6em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'1%'}}>
+          <div className='btn btn-link' onClick={handleShowServicesOpen} style={{ backgroundColor: 'transparent',fontSize: '1.2em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'2%'}}>
             Agregar servicio
           </div>
         </div>
