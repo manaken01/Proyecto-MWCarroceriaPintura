@@ -3,7 +3,6 @@ import CardCarSell from './CardCarSell';
 import axios from 'axios';
 
 const CardsCar = ({cards, filters, search, refreshParent}) => {
-    console.log(cards);
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.carSell.year === filters[1]) &&

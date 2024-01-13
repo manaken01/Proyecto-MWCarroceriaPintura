@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const ImageUploader = ({ onImageListChange }) => {
+const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
   const [images, setImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);
+  const initialImagesRef = useRef();
+  const [initialImageCount, setInitialImageCount] = useState(0);
+
+  useEffect(() => {
+    if (initialImages && initialImages.length > 0 && initialImages !== initialImagesRef.current) {
+        setImages((prevImages) => [...prevImages, ...initialImages]);
+        setBase64Images((prevBase64Images) => [...prevBase64Images, ...initialImages]);
+        initialImagesRef.current = initialImages;
+        setInitialImageCount(initialImages.length);
+    }
+    initialImagesRef.current = initialImages;
+}, [initialImages]);
 
   useEffect(() => {
     // Convert images to JSON whenever the images state changes
@@ -22,42 +34,45 @@ const ImageUploader = ({ onImageListChange }) => {
     };
 
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file) {
-        readFile(file);
-      }
+      readFile(files[i]);
     }
   };
 
   const handleRemoveImage = (index) => {
-    const updatedImages = [...images];
-    const updatedBase64Images = [...base64Images];
+    if (initialImagesRef.current.includes(images[index])) {
+        setInitialImageCount(count => count - 1);
+    }
 
-    updatedImages.splice(index, 1);
-    updatedBase64Images.splice(index, 1);
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
 
-    setImages(updatedImages);
-    setBase64Images(updatedBase64Images);
-  };
+    const newBase64Images = [...base64Images];
+    newBase64Images.splice(index, 1);
+    setBase64Images(newBase64Images);
+};
 
   const convertToJSON = () => {
-    const jsonList = base64Images.map((base64, index) => ({
-      id: index + 1,
-      base64,
-    }));
-
+    const newImages = images.filter(image => !initialImagesRef.current.includes(image));
+    let jsonList = [];
+    if (newImages.length > 0 || initialImageCount !== initialImagesRef.current.length) {
+      jsonList = base64Images.map((base64, index) => ({
+        id: index + 1,
+        base64,
+      }));
+    }
     // Call the parent component's callback to pass the JSON list
     onImageListChange(jsonList);
-  };
+};
 
   return (
-    <div><p  style={{ color: '#C80B16' }}>Presiona aquí para subir imágenes</p>
+    <div><p style={{ color: '#C80B16' }}>Presiona aquí para subir imágenes</p>
       <input type="file" onChange={handleImageUpload} multiple />
       <div><h4>Imágenes subidas: </h4>
         {images.map((imageUrl, index) => (
           <div key={index}>
-            <img src={imageUrl} alt={`Uploaded ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' , padding: '1%'}} />
-            <button style={{ marginLeft: '10px', color: '#C80B16', border: '1px', borderColor: '#C80B16', backgroundColor: 'transparent' }}onClick={() => handleRemoveImage(index)}>x</button>
+            <img src={imageUrl} alt={`Uploaded ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px', padding: '1%' }} />
+            <button style={{ marginLeft: '10px', color: '#C80B16', border: '1px', borderColor: '#C80B16', backgroundColor: 'transparent' }} onClick={() => handleRemoveImage(index)}>x</button>
           </div>
         ))}
       </div>

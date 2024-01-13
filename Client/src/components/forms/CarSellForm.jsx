@@ -45,7 +45,6 @@ function CarSellForm({refreshParent, closeForm}) {
         const jsonList = newImageList.map((image) => ({
             base64: image.base64
         }));
-        console.log(jsonList);
         setPhoto(jsonList);
         // For demonstration purposes, log the JSON list to the console
 
@@ -112,8 +111,6 @@ function CarSellForm({refreshParent, closeForm}) {
     }
 
     const getIdBrand = (brandName) => {
-        console.log(brandName);
-        console.log(responseData);
         const brand = responseData.find((item) => item.nameBrand === brandName);
         return brand ? brand.idBrand : null;
     };
@@ -131,7 +128,6 @@ function CarSellForm({refreshParent, closeForm}) {
     };
     const validateInputs = () => {
         if (!model || !year || !color || !plate || !transmission || !passengers || !idBrand || !price || !bodyShape || !version) {
-            console.log(model + year + color + plate + transmission + passengers + idBrand + price + bodyShape + version)
             alert('Se deben llenar todos los campos');
             return false;
         }
@@ -160,7 +156,6 @@ function CarSellForm({refreshParent, closeForm}) {
                 });
 
                 setResponseMessage(response.data);
-                console.log(response.data);
                 alert('Se ha agregado el carro de forma correcta');
                 resetInputs();
                 if (response.status === 200) {
