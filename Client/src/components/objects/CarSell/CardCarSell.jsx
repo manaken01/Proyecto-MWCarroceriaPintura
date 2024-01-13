@@ -78,7 +78,7 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <CarSellUpdateForm carSell={allProps} refreshParent={refreshParent} closeForm={handleClose} />
+                                <CarSellUpdateForm carSell={allProps} refreshParent={refreshParent} closeForm={handleClose} pic={pic}  />
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>

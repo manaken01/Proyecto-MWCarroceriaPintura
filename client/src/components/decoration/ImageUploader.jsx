@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-const ImageUploader = ({ onImageListChange }) => {
+const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
   const [images, setImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);
+  const initialImagesRef = useRef();
+
+  useEffect(() => {
+    if (initialImages && initialImages.length > 0 && initialImages !== initialImagesRef.current) {
+        setImages((prevImages) => [...prevImages, ...initialImages]);
+        setBase64Images((prevBase64Images) => [...prevBase64Images, ...initialImages]);
+        initialImagesRef.current = initialImages;
+    }
+}, [initialImages]);
 
   useEffect(() => {
     // Convert images to JSON whenever the images state changes
@@ -22,10 +31,7 @@ const ImageUploader = ({ onImageListChange }) => {
     };
 
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      if (file) {
-        readFile(file);
-      }
+      readFile(files[i]);
     }
   };
 
@@ -51,13 +57,13 @@ const ImageUploader = ({ onImageListChange }) => {
   };
 
   return (
-    <div><p  style={{ color: '#C80B16' }}>Presiona aquí para subir imágenes</p>
+    <div><p style={{ color: '#C80B16' }}>Presiona aquí para subir imágenes</p>
       <input type="file" onChange={handleImageUpload} multiple />
       <div><h4>Imágenes subidas: </h4>
         {images.map((imageUrl, index) => (
           <div key={index}>
-            <img src={imageUrl} alt={`Uploaded ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px' , padding: '1%'}} />
-            <button style={{ marginLeft: '10px', color: '#C80B16', border: '1px', borderColor: '#C80B16', backgroundColor: 'transparent' }}onClick={() => handleRemoveImage(index)}>x</button>
+            <img src={imageUrl} alt={`Uploaded ${index + 1}`} style={{ maxWidth: '100px', maxHeight: '100px', padding: '1%' }} />
+            <button style={{ marginLeft: '10px', color: '#C80B16', border: '1px', borderColor: '#C80B16', backgroundColor: 'transparent' }} onClick={() => handleRemoveImage(index)}>x</button>
           </div>
         ))}
       </div>
