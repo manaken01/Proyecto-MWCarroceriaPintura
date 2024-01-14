@@ -1,12 +1,12 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Button, Modal } from 'react-bootstrap';
-import PartsForm from '../forms/PartsForm';
+import PartsForm from '../../forms/PartsForm';
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import MyCarForm from '../forms/MyCarForm';
+import MyCarForm from '../../forms/MyCarForm';
 
-const SearchFiltersMyCars = () => {
+function SearchFiltersMyCars() {
     const dropdowns = [
         { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
         { label: 'Año:', items: ['2000', '2005', '2010', '2015'] },

@@ -454,6 +454,14 @@ def getAppointmentId():
         'Result': result
     })
 
+@app.route("/appointmentAdmin",methods=['GET'])
+def readAppointmentAdmin():
+    result = mainController.readAppointmentAdmin(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
 
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

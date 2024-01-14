@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -6,17 +6,17 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from '../resources/event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
-import CardCalendar from '../objects/CardCalendar';
-import CardCalendarStart from '../objects/CardCalendarStart';
 import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
-import SideBarCalendar from '../objects/SideBarCalendar';
+import SideBarCalendar from '../objects/Calendar/SideBarCalendar';
+import axios from 'axios';
+import UserProfile from '../resources/UserProfile';
 
-function Calendar() {
+function CalendarUser() {
   const [currentEvents, setCurrentEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-
+  const [appointments, setAppointments] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = (selectInfo) => {
     const formattedDate = formatDate(selectInfo.start, { year: 'numeric', month: 'numeric', day: 'numeric', locale: esLocale }); // Formatea la fecha a texto
@@ -24,16 +24,26 @@ function Calendar() {
     setShow(true); // Muestra el modal
   };
 
-  /*const handleDateSelect = (selectInfo) => {
-    let title = prompt('Please enter a new title for your event');
-    if (title) selectInfo.view.calendar.addEvent({
-      id: createEventId(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay
-    });
-  };*/
+  const getAppointments = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/appointment', {
+            params: {
+                idUser: UserProfile.getId(),
+            }
+        });
+        
+        setAppointments(response.data.Result)
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            return []; // Return an empty array or handle the error gracefully
+        }
+    };  
+  
+    useEffect(() => {
+      getAppointments();
+  }, []);
+
+
 
   const handleEventClick = (clickInfo) => {
     if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
@@ -104,10 +114,10 @@ function Calendar() {
             </Modal.Footer>
         </Modal>
       </div>
-      <SideBarCalendar/>
+      <SideBarCalendar appointmentsItemsA={appointments}/>
 
     </div>
   );
 }
 
-export default Calendar;
+export default CalendarUser;

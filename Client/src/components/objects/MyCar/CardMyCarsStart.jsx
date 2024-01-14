@@ -1,7 +1,7 @@
 import React from 'react';
 import CardMyCars from './CardMyCars';
 import axios from 'axios';
-import UserProfile from '../resources/UserProfile';
+import UserProfile from '../../resources/UserProfile';
 import { useState, useEffect} from 'react';
 
 function CardMyCarsStart () {
@@ -44,7 +44,7 @@ function CardMyCarsStart () {
             <div className='row'>{
                 carsUsers.map((carData, index) => (
                     <div className='col-md-6' key={index}>
-                        <CardMyCars car={carData.name} year={carData.year} plate={carData.licensePlate} />
+                        <CardMyCars idCarUser = {carData.idCarUser} car={carData.name} year={carData.year} plate={carData.licensePlate} />
                     </div>
                 ))
             }

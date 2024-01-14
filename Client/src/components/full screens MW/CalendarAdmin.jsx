@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { INITIAL_EVENTS, createEventId } from '../resources/event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
-import CardCalendar from '../objects/CardCalendar';
-import CardCalendarStart from '../objects/CardCalendarStart';
 import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
-import SideBarCalendar from '../objects/SideBarCalendar';
+import SideBarCalendar from '../objects/Calendar/SideBarCalendar';
 import ServicesForm from '../forms/ServicesForm';
+import axios from 'axios';
 
 function CalendarAdmin() {
   const [currentEvents, setCurrentEvents] = useState([]);
+  const [initialEvents, setInitialEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [showServices, setShowServices] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-
+  const [appointments, setAppointments] = useState([]);
   const handleClose = () => setShow(false);
   const handleShowServicesClose = () => setShowServices(false);
   const handleShowServicesOpen = () => setShowServices(true);
@@ -27,6 +26,34 @@ function CalendarAdmin() {
     setSelectedDate(formattedDate); // Guarda el día seleccionado en el estado
     setShow(true); // Muestra el modal
   };
+
+
+  const getAppointments = async () => {
+      try {
+          const response = await axios.get('http://localhost:8080/appointmentAdmin');
+          console.log(response.data.Result)
+          
+          setAppointments(response.data.Result)
+          /*
+          const events = appointments.map((appointment, index) => ({
+            id: index,
+            title: 'All-day event',
+            start: appointment.date
+          }));
+
+          setInitialEvents(events);*/
+
+          return response.data.Result;
+      } catch (error) {
+          console.error('Error al realizar la solicitud:', error);
+          return []; // Return an empty array or handle the error gracefully
+      }
+  };    
+
+  useEffect(() => {
+      getAppointments();
+  }, []);
+
 
   /*const handleDateSelect = (selectInfo) => {
     let title = prompt('Please enter a new title for your event');
@@ -78,14 +105,14 @@ function CalendarAdmin() {
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: ''
           }}
           initialView='dayGridMonth'
           editable={true}
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
-          initialEvents={INITIAL_EVENTS}
+          initialEvents={initialEvents}
           select={handleShow}
           eventClick={handleEventClick}
           eventsSet={handleEvents}  
@@ -116,7 +143,7 @@ function CalendarAdmin() {
             </Modal.Footer>
         </Modal>
       </div>
-      <SideBarCalendar/>
+      <SideBarCalendar appointmentsItemsA={appointments}/>
 
     </div>
   );

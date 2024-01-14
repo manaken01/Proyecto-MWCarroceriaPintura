@@ -2,9 +2,9 @@ import React from 'react';
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AppointmentFormModified from '../forms/AppointmentFormModified';
+import AppointmentFormModified from '../../forms/AppointmentFormModified';
 import axios from 'axios';
-import UserProfile from '../resources/UserProfile';
+import UserProfile from '../../resources/UserProfile';
 
 function CardCalendar({date,hour,reason,car}) {
     const [show, setShow] = useState(false);

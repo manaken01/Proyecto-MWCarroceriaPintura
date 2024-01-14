@@ -119,6 +119,9 @@ class mainController:
     def readAppointment(idUser,cursor):
         return (adminAppointment.readAppointment(idUser,cursor))
     
+    def readAppointmentAdmin(cursor):
+        return (adminAppointment.readAppointmentAdmin(cursor))
+    
     def updateAppointment(appointment,cursor,connection):
         return (adminAppointment.updateAppointment(appointment,cursor,connection))
     

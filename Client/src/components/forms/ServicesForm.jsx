@@ -53,9 +53,21 @@ function ServicesForm({ }) {
         setReason(event.target.value);
     }
 
+    const validateInputs = () => {
+        if (!reason) {
+            alert('Se deben llenar obligatoriamente el campo de servicio');
+            return false;
+        }
+        return true;
+    };
 
 
     const handleServices = () => {
+
+        if (!validateInputs()) {
+            return;
+        }
+
         const doesExist = services.some(serviceV => serviceV.service === reason);
         if (!doesExist) {
             const getData = async () => {
@@ -81,13 +93,11 @@ function ServicesForm({ }) {
     }
 
     const handleServicesDelete = (idService) => {
-        console.log(idService)
         const confirmDelete = window.confirm("¿Seguro que deseas eliminar este servicio?");
         if (confirmDelete) {
 
             const getData = async () => {
                 try {
-                    console.log(idService);
                     const response = await axios.delete(`http://localhost:8080/service/${idService}`);
                     alert('Se ha eliminado el servicio de forma correcta');
                     setResponse(response.data);
@@ -107,7 +117,11 @@ function ServicesForm({ }) {
     }
 
     const handleServicesEdit = () => {
-        console.log(idService)
+
+        if (!validateInputs()) {
+            return;
+        }
+
         const confirmEdit = window.confirm("¿Seguro que deseas modificar este servicio?");
         if (confirmEdit) {
             const doesExist = services.some(serviceV => serviceV.service === reason);
@@ -152,7 +166,7 @@ function ServicesForm({ }) {
 
                     <Divider />
                     <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Nombre:</strong></p>
+                        <p className="card-text"><strong>Servicio:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
                             <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                         </div>
