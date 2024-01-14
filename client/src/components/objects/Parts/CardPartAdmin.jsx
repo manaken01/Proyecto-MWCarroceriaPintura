@@ -74,7 +74,7 @@ function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <PartsUpdateForm carPart={allProps} refreshParent={refreshParent} closeForm={handleClose}/>
+                                <PartsUpdateForm carPart={allProps} refreshParent={refreshParent} closeForm={handleClose} pic={pic}/>
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>

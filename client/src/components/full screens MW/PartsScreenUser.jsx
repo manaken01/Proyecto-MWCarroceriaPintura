@@ -2,6 +2,7 @@ import { useState , useEffect } from 'react'
 import Navbar from '../objects/Navbar';
 import CardsPartUser from '../objects/Parts/CardsPartUser';
 import SearchFiltersPartsUser from '../objects/Parts/SearchFiltersPartsUser';
+import { useParams } from "react-router-dom";
 
 import axios from 'axios';
 import 'bootstrap/dist/js/bootstrap.bundle';
@@ -10,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function PartsScreenUser() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);
+  const { brand } = useParams();
 
 
   const handleResults = async () => {
@@ -17,8 +19,9 @@ function PartsScreenUser() {
       axios.get('http://localhost:8080/carPart')
         .then(response => {
           setCards(response.data.Result);
-          const brands = [...new Set(response.data.Result.map(item => item.parts.nameBrand))];
-          brands.unshift('Seleccione');
+          const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI','NISSAN','HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
+          const brands = [...new Set([...initialBrands, ...response.data.Result.map(item => item.parts.nameBrand)])];
+
           const cars = [...new Set(response.data.Result.map(item => item.parts.car))];
           cars.unshift('Seleccione');
           const categories = [...new Set(response.data.Result.map(item => item.parts.category))];
@@ -53,7 +56,7 @@ function PartsScreenUser() {
       <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', paddingBottom: '3%'}}>
                     <h1>Repuestos en venta</h1>
                 </div>
-      <SearchFiltersPartsUser  dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
+      <SearchFiltersPartsUser brand= {brand}  dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
       
       <CardsPartUser cards={cards} filters={selectedItems} search = {search}/>
 

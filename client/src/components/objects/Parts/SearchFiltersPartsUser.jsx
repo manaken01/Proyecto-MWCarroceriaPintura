@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const SearchFiltersPartsUser = ({dropdowns, setSelectedItems,setSearch, search}) => {
+const SearchFiltersPartsUser = ({brand,dropdowns, setSelectedItems,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
@@ -20,7 +20,12 @@ const SearchFiltersPartsUser = ({dropdowns, setSelectedItems,setSearch, search})
         setSearch(event.target.value);
         //console.log(search);
     }
-    
+    useEffect(() => {
+        if (brand !== 'No') {
+          setSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+          setTempSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+        }
+      }, [brand]);
     return (
 
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>

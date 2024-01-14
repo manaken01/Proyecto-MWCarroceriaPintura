@@ -27,7 +27,7 @@ function Navbar() {
                     <Link className="nav-link" to= "/" style={linkStyle} href="#">Inicio</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/parts" style={linkStyle}>Repuestos</Link>
+                        <Link className="nav-link" to="/parts/No" style={linkStyle}>Repuestos</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/cars" style={linkStyle} href="#">Carros</Link>

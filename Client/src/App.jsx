@@ -19,7 +19,6 @@ import UserScreenAdmin from './components/full screens MW/UserScreenAdmin';
 import ManageUsers from './components/full screens MW/ManageUsers';
 
 function App() {
-  console.log(UserProfile.getId());
   const PartsScreen = UserProfile.getId() !== 1 ? <PartsScreenUser /> : <PartsScreenAdmin />;
   return (
     <BrowserRouter>
@@ -31,7 +30,7 @@ function App() {
           <Route path="/information" element={<Information />} />
           <Route path="/calendar" element={<CalendarAdmin />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/parts" element={PartsScreen} />
+          <Route path="/parts/:brand" element={PartsScreen} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/cars" element={<CarSellScreen />} />
           <Route path="/user" element={< UserScreenAdmin/>} />

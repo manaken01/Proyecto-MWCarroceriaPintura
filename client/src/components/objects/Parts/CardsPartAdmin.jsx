@@ -2,8 +2,6 @@
 import Card from './CardPartAdmin';
 
 function CardPartAdmin({cards,filters, search, refreshParent}) {
-    
-
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.parts.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.parts.car === filters[1]) &&
