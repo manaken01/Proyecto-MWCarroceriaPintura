@@ -21,7 +21,7 @@ class adminFavorite:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def readFavorite(favorite,cursor):
+    def readFavorite(connection,favorite,cursor):
         try:
             
             sql = ''
@@ -33,6 +33,7 @@ class adminFavorite:
             cursor.execute(sql,val)
             result = cursor.fetchall()
             print("Executed")
+            connection.commit()
             return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedurekkkkk: {}".format(error))

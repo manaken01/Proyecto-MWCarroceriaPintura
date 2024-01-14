@@ -17,8 +17,8 @@ function PartsScreenAdmin() {
 
   const handleResults = async () => {
     try {
-      axios.get('http://localhost:8080/carPart')
-        .then(response => {
+      const response = await axios.get('http://localhost:8080/carPart');
+  
           setCards(response.data.Result);
           const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
           const brands = [...new Set([...initialBrands, ...response.data.Result.map(item => item.parts.nameBrand)])];
@@ -39,41 +39,38 @@ function PartsScreenAdmin() {
 
           setDropdowns(result);
 
-        })
-    } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
-    }
-  };
+        
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
+    };
+    
 
-  const handleFavorites = () => {
+  const handleFavorites = async () => {
     if (UserProfile.getId() !== 0) {
       try {
-        axios.get('http://localhost:8080/favorites', {
-        params: {
-          idUser: UserProfile.getId(),
-          status: 1
-        }
-      })
-        .then(response => {
-          const fav = [...new Set(response.data.Result.map(item => item.idPart))];
-          setFavorites(fav);
-
-        })
+        const response = await axios.get('http://localhost:8080/favorites', {
+          params: {
+            idUser: UserProfile.getId(),
+            status: 1
+          }
+        });
+        const fav = [...new Set(response.data.Result.map(item => item.idPart))];
+        setFavorites(fav);
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
       }
     } else {
       setFavorites([]);
-      return Promise.resolve(); // return a resolved Promise when there's no user ID
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       await handleResults();
       await handleFavorites();
     };
-
+  
     fetchData();
   }, []);
 

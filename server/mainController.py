@@ -36,8 +36,8 @@ class mainController:
     def getCarPart(connection,cursor):
         return (adminCarPart.getCarPart(connection,cursor))
 
-    def readCarPart(cursor):
-        return (adminCarPart.readCarPart(cursor))
+    def readCarPart(connection,cursor):
+        return (adminCarPart.readCarPart(connection,cursor))
     
     #CarSell
     def createCarSell(carSell,connection,cursor):
@@ -133,8 +133,8 @@ class mainController:
     def addFavorite(favorite,connection,cursor):
         return (adminFavorite.addFavorite(favorite,connection,cursor))
     
-    def readFavorite(favorite,cursor):
-        return (adminFavorite.readFavorite(favorite,cursor))
+    def readFavorite(connection,favorite,cursor):
+        return (adminFavorite.readFavorite(connection,favorite,cursor))
     
     def deleteFavorite(favorite,connection,cursor):
         return (adminFavorite.deleteFavorite(favorite,connection,cursor))

@@ -120,7 +120,7 @@ def getCarPart():
 
 @app.route("/carPartFilter",methods=['GET'])
 def readCarPart():
-    result = mainController.readCarPart(cursor)
+    result = mainController.readCarPart(connection,cursor)
     return jsonify({
         'Result': result
     })
@@ -479,7 +479,7 @@ def readFavorite():
     status = int(request.args.get('status'))
     
     favorite = Favorite(idUser=idUser, status=status)
-    result = mainController.readFavorite(favorite,cursor)
+    result = mainController.readFavorite(connection,favorite,cursor)
     #print(result)
     return jsonify({
         'Result': result
