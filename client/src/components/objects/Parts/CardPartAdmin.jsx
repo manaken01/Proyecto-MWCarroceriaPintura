@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import PartsUpdateForm from '../../forms/PartsUpdateForm';
 import axios from 'axios';
-function Card({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
+function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
     const allProps = {id,  name, car, price, category, stock, bodyshape, brand, version, gen, pic,idBrand };
 
     const [showPartModal, setshowPartModal] = useState(false);
@@ -86,4 +86,4 @@ function Card({ id, name, car, price, category, stock, bodyshape, brand, version
     );
 }
 
-export default Card;
+export default CardPartAdmin;

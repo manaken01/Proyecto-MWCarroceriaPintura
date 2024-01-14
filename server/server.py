@@ -185,6 +185,20 @@ def deleteCarSell(idCarSell):
     })
 
 #User
+@app.route("/user",methods=['GET'])
+def getUsers():
+    result = mainController.getUsers(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+@app.route("/user/<int:idUser>",methods=['DELETE'])
+def deleteUser(idUser):
+    result = mainController.deleteUser(idUser,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+
 @app.route("/user",methods=['POST'])
 def createUser():
     cursor = connection.cursor(dictionary=True)
@@ -199,8 +213,23 @@ def createUser():
         'Result': result
     })
 
+@app.route("/user",methods=['PUT'])
+def updateUser():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    userName = data['name']
+    email = data['email']
+    cellphone = data['phone']
+    userType = data['type']
+    idUser = data['id']
+    user = User(userName=userName, email=email, cellphone=cellphone,userType=userType,idUser=idUser)
+    result = mainController.updateUser(user,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
 
-@app.route("/user",methods=['GET'])
+
+@app.route("/login",methods=['GET'])
 def logIn():
     cursor = connection.cursor(dictionary=True)
     email = request.args.get('email')
@@ -240,6 +269,8 @@ async def getUserNames():
         'Result': result
     })
 
+
+#UserType
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
     result = mainController.getUserTypes(connection,cursor)

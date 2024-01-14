@@ -5,7 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 
 
-const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
+const CarSellUpdateForm = ({ carSell, refreshParent, closeForm, pic }) => {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -41,16 +41,14 @@ const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
     //const [imageList, setImageList] = useState([]);
 
     const handleImageListChange = (newImageList) => {
-        //setImageList(newImageList);
 
-        // Perform additional actions with the JSON list here
-        const jsonList = newImageList.map((image) => ({
-            base64: image.base64
-        }));
-        console.log(jsonList);
+        const newPhotos = newImageList.map((image) => {
+            return {
+                base64: image.base64
+            }
+        });
+        const jsonList = [...newPhotos];
         setPhoto(jsonList);
-        // For demonstration purposes, log the JSON list to the console
-
     };
 
     const handleSelect = (index, value) => {
@@ -177,7 +175,6 @@ const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
                 });
 
                 setResponseMessage(response.data);
-                console.log(response.data);
                 alert('Se ha modificado el carro.');
                 resetInputs();
                 if (response.status === 200) {
@@ -284,7 +281,7 @@ const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
 
                     <div>
 
-                        <ImageUploader onImageListChange={handleImageListChange} />
+                        <ImageUploader onImageListChange={handleImageListChange} initialImages={pic} />
 
                     </div>
 
@@ -298,6 +295,7 @@ const CarSellUpdateForm = ({ carSell, refreshParent, closeForm }) => {
                         </button>
 
                     </div>
+
                 </div>
             </div>
         </div>

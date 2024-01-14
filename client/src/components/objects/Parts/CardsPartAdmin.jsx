@@ -1,6 +1,5 @@
 
 import Card from './CardPartAdmin';
-import React, { useState, useEffect } from 'react';
 
 function CardPartAdmin({cards,filters, search, refreshParent}) {
     
