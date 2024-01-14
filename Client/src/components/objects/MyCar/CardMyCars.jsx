@@ -37,7 +37,7 @@ function CardMyCars({idCarUser,car,year,plate}) {
             getData();
 
         } else {
-            alert('La marca no ha sido eliminada');
+            alert('El carro no ha sido eliminado');
         }
     }
     
@@ -58,7 +58,7 @@ function CardMyCars({idCarUser,car,year,plate}) {
                         <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
                         </Modal.Header>
                         <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                            <MyCarFormModified initialPlate={plate}/>
+                            <MyCarFormModified initialPlate={plate} idCar={idCarUser}/>
                         </Modal.Body>
                         <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                         </Modal.Footer>
