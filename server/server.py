@@ -12,6 +12,7 @@ from model.CarUser import *
 from model.Service import *
 from model.Appointment import *
 from model.CarSell import *
+from model.Favorite import *
 
 app = Flask(__name__)
 CORS(app)
@@ -457,6 +458,39 @@ def getAppointmentId():
         'Result': result
     })
 
+#favorite
+@app.route("/favorites",methods=['POST'])
+def addFavorite():
+    data = request.get_json()
+    idUser = data['idUser']
+    idProduct = data['idProduct']
+    status = data['status']
+    #print('hola')
+    favorite = Favorite(idUser=idUser,idProduct=idProduct, status=status)
+    result = mainController.addFavorite(favorite,connection,cursor)
+    print('hola')
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/favorites",methods=['GET'])
+def readFavorite():
+    idUser = int(request.args.get('idUser'))
+    status = int(request.args.get('status'))
+    
+    favorite = Favorite(idUser=idUser, status=status)
+    result = mainController.readFavorite(favorite,cursor)
+    #print(result)
+    return jsonify({
+        'Result': result
+    })
+@app.route("/favorites/<int:idUser>/<int:idProduct>/<int:status>",methods=['DELETE'])
+def deleteFavorite(idUser,idProduct,status):
+    favorite = Favorite(idUser=idUser,idProduct=idProduct, status=status)
+    result = mainController.deleteFavorite(favorite,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
 
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

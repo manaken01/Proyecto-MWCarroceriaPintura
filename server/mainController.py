@@ -7,6 +7,7 @@ from controller.adminService import *
 from controller.adminAppointment import *
 from controller.adminCarSell import *
 from controller.adminUserType import *
+from controller.adminFavorite import *
 
 class mainController:
     #Brand
@@ -127,3 +128,13 @@ class mainController:
     
     def getAppointmentId(date,hour,idUser,cursor):
         return (adminAppointment.getAppointmentId(date,hour,idUser,cursor))
+    
+    #favorite
+    def addFavorite(favorite,connection,cursor):
+        return (adminFavorite.addFavorite(favorite,connection,cursor))
+    
+    def readFavorite(favorite,cursor):
+        return (adminFavorite.readFavorite(favorite,cursor))
+    
+    def deleteFavorite(favorite,connection,cursor):
+        return (adminFavorite.deleteFavorite(favorite,connection,cursor))
