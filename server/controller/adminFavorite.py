@@ -32,10 +32,10 @@ class adminFavorite:
             val = (favorite.idUser,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
-            
+            print("Executed")
             return result
         except mysql.connector.Error as error:
-            print("Failed to execute stored procedureerrrr: {}".format(error))
+            print("Failed to execute stored procedurekkkkk: {}".format(error))
             return False
         
     def deleteFavorite(favorite,connection,cursor):

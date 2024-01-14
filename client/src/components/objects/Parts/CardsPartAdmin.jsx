@@ -1,7 +1,7 @@
 
 import Card from './CardPartAdmin';
 
-function CardPartAdmin({cards,filters, search, refreshParent}) {
+function CardPartAdmin({refreshFavorites, favorites,cards,filters, search, refreshParent}) {
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.parts.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.parts.car === filters[1]) &&
@@ -25,6 +25,7 @@ function CardPartAdmin({cards,filters, search, refreshParent}) {
         <div className="container flex justify-content-center align-items-center" >
             <div className='row'>{
                 filteredCards.map(card => {
+                    var isLiked = favorites.includes(card.parts.idPart);
                     return (
                         <div className='col-md-6' key={card.parts.idPart}>
                         <Card 
@@ -40,7 +41,9 @@ function CardPartAdmin({cards,filters, search, refreshParent}) {
                         gen={card.parts.generation}  
                         idBrand={card.parts.idBrand}
                         pic={card.photos}
-                        refreshParent={refreshParent}  />
+                        refreshParent={refreshParent} 
+                        Liked = {isLiked} 
+                        refreshFavorites= {refreshFavorites}/>
                     </div>
                 );
             })

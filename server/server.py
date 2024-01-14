@@ -468,7 +468,7 @@ def addFavorite():
     #print('hola')
     favorite = Favorite(idUser=idUser,idProduct=idProduct, status=status)
     result = mainController.addFavorite(favorite,connection,cursor)
-    print('hola')
+    
     return jsonify({
         'Result': result
     })

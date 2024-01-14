@@ -3,7 +3,7 @@ import Navbar from '../objects/Navbar';
 import CardsPartAdmin from '../objects/Parts/CardsPartAdmin';
 import SearchFiltersPartsAdmin from '../objects/Parts/SearchFiltersPartsAdmin';
 import { useParams } from "react-router-dom";
-
+import UserProfile from '../resources/UserProfile';
 import axios from 'axios';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +12,7 @@ function PartsScreenAdmin() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);
   const { brand } = useParams();
+  const [favorites, setFavorites] = useState([]);
 
 
   const handleResults = async () => {
@@ -19,7 +20,7 @@ function PartsScreenAdmin() {
       axios.get('http://localhost:8080/carPart')
         .then(response => {
           setCards(response.data.Result);
-          const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI','NISSAN','HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
+          const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
           const brands = [...new Set([...initialBrands, ...response.data.Result.map(item => item.parts.nameBrand)])];
 
           const cars = [...new Set(response.data.Result.map(item => item.parts.car))];
@@ -35,7 +36,7 @@ function PartsScreenAdmin() {
             { label: 'Categoría:', items: categories },
             { label: 'Repuestos:', items: names },
           ];
-    
+
           setDropdowns(result);
 
         })
@@ -44,21 +45,49 @@ function PartsScreenAdmin() {
     }
   };
 
+  const handleFavorites = () => {
+    if (UserProfile.getId() !== 0) {
+      try {
+        axios.get('http://localhost:8080/favorites', {
+        params: {
+          idUser: UserProfile.getId(),
+          status: 1
+        }
+      })
+        .then(response => {
+          const fav = [...new Set(response.data.Result.map(item => item.idPart))];
+          setFavorites(fav);
+
+        })
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+      }
+    } else {
+      setFavorites([]);
+      return Promise.resolve(); // return a resolved Promise when there's no user ID
+    }
+  }
+
   useEffect(() => {
-    handleResults();
+    const fetchData = async () => {
+      await handleResults();
+      await handleFavorites();
+    };
+
+    fetchData();
   }, []);
 
   const [selectedItems, setSelectedItems] = useState(Array(4).fill('Seleccione'));
   const [search, setSearch] = useState('');
   return (
     <div>
-      <Navbar/>
-      <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', paddingBottom: '3%'}}>
-                    <h1>Repuestos en venta</h1>
-                </div>
-      <SearchFiltersPartsAdmin brand= {brand} handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
-      
-      <CardsPartAdmin  refreshParent={handleResults}  cards={cards} filters={selectedItems} search = {search}/>
+      <Navbar />
+      <div className="col-12 d-flex justify-content-center" style={{ paddingTop: '80px', paddingBottom: '3%' }}>
+        <h1>Repuestos en venta</h1>
+      </div>
+      <SearchFiltersPartsAdmin brand={brand} handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search={search} setSearch={setSearch} />
+
+      <CardsPartAdmin refreshFavorites={handleFavorites} favorites={favorites} refreshParent={handleResults} cards={cards} filters={selectedItems} search={search} />
 
     </div>
   );
