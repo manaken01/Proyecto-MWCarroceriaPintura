@@ -6,14 +6,13 @@ import CardsCarFavorites from '../objects/Favorites/CardsCarFavorites'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const UserScreenAdmin = () => {
+const UserScreenGeneral = () => {
     const navigate = useNavigate();
     const [cards1, setCards1] = useState([]);
     const [cards2, setCards2] = useState([]);
     const linkStyle = { color: '#C80B16', textDecoration: 'none', display: 'inline-block', width: '100%', height: 'auto', fontWeight: 600 };
     const manageLogOut = () => {
         UserProfile.deleteCookies();
-        location.reload();
     }
 
     const handleCardFavoritesParts = async () => {
@@ -62,6 +61,7 @@ const UserScreenAdmin = () => {
         fetchData();
     }, []);
 
+
     return (
         <div>
             <div className="col-12 d-flex justify-content-center" style={{ paddingTop: '80px' }}></div>
@@ -79,11 +79,8 @@ const UserScreenAdmin = () => {
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
-                        <li className="nav-item active" style={{ listStyle: 'none' }}>
-                            <Link className="nav-link" to="/myCar" style={linkStyle} href="#">Ver mis carros</Link>
-                        </li>
-                        <li className="nav-item active" style={{ listStyle: 'none', marginRight: '20%' }}>
-                            <Link className="nav-link" to="/manageUsers" style={linkStyle} href="#">Manejar usuarios</Link>
+                        <li className="nav-item active" style={{ listStyle: 'none',  marginRight: '20%'  }}>
+                            <Link className="nav-link" to="/" style={linkStyle} href="#">Ver mis carros</Link>
                         </li>
                     </ul>
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-1.5%', marginBottom: '-2%' }}>
@@ -102,4 +99,5 @@ const UserScreenAdmin = () => {
     );
 };
 
-export default UserScreenAdmin;
+
+export default UserScreenGeneral;
