@@ -74,6 +74,9 @@ class mainController:
     async def getUserNames(userName,cursor):
         return (await adminUser.getUserNames(userName,cursor))
     
+    def changePassword(oldPassword, newPassword, idUser, connection, cursor):
+        return (adminUser.changePassword(oldPassword, newPassword, idUser, connection, cursor))
+    
     #UserType
 
     def getUserTypes(connection,cursor):

@@ -115,3 +115,23 @@ class adminUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+        
+    def changePassword(oldPassword, newPassword, idUser, connection, cursor):
+        try:
+            cursor = connection.cursor(dictionary=True)
+            sql = "SELECT * FROM user WHERE idUser = %s AND password = %s"
+            val = (idUser, oldPassword)
+            cursor.execute(sql, val)
+            result = cursor.fetchall()
+            if len(result) == 0:
+                return False
+            sql = "UPDATE user SET password = %s WHERE idUser = %s AND password = %s"
+            val = (newPassword, idUser, oldPassword)
+            cursor.execute(sql, val)
+            connection.commit()
+            cursor.close()
+            cursor = connection.cursor(dictionary=True)
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False

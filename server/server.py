@@ -264,6 +264,17 @@ async def getUserNames():
         'Result': result
     })
 
+@app.route("/changePass",methods=['PUT'])
+def changePass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    idUser = data['idUser']
+    oldPassword = data['oldPassword']
+    newPassword = data['newPassword']
+    result = mainController.changePassword(oldPassword, newPassword, idUser, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
 
 #UserType
 @app.route("/userType",methods=['GET'])
@@ -273,6 +284,7 @@ def getUserTypes():
     return jsonify({
         'Result': result
     })
+
 
 #CarUser
 @app.route("/carUser",methods=['POST'])
