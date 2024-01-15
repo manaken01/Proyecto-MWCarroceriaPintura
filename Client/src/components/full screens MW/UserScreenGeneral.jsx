@@ -2,18 +2,20 @@ import UserProfile from '../resources/UserProfile';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CardsPartFavorite from '../objects/Favorites/CardsPartFavorites'
+import CardsCarFavorites from '../objects/Favorites/CardsCarFavorites'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 const UserScreenGeneral = () => {
     const navigate = useNavigate();
-    const [cards, setCards] = useState([]);
+    const [cards1, setCards1] = useState([]);
+    const [cards2, setCards2] = useState([]);
     const linkStyle = { color: '#C80B16', textDecoration: 'none', display: 'inline-block', width: '100%', height: 'auto', fontWeight: 600 };
     const manageLogOut = () => {
         UserProfile.deleteCookies();
     }
 
-    const handleCardFavorites = async () => {
+    const handleCardFavoritesParts = async () => {
         if (UserProfile.getId() !== 0) {
             try {
                 const response = await axios.get('http://localhost:8080/Userfavorites', {
@@ -22,7 +24,25 @@ const UserScreenGeneral = () => {
                         status: 1
                     }
                 });
-                setCards(response.data.Result);
+                setCards1(response.data.Result);
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        } else {
+            alert('Debe iniciar sesión para ver sus favoritos')
+        }
+    };
+
+    const handleCardFavoritesCars = async () => {
+        if (UserProfile.getId() !== 0) {
+            try {
+                const response = await axios.get('http://localhost:8080/Userfavorites', {
+                    params: {
+                        idUser: UserProfile.getId(),
+                        status: 2
+                    }
+                });
+                setCards2(response.data.Result);
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);
             }
@@ -32,14 +52,15 @@ const UserScreenGeneral = () => {
     };
 
 
-
     useEffect(() => {
         const fetchData = async () => {
-            await handleCardFavorites();
+            await handleCardFavoritesParts();
+            await handleCardFavoritesCars();
         };
 
         fetchData();
     }, []);
+
 
     return (
         <div>
@@ -69,7 +90,10 @@ const UserScreenGeneral = () => {
             </div>
             
             <h1 style={{ marginLeft: '10%' , marginTop: '3%', marginBottom: '2%' }}>Repuestos favoritos</h1>
-            <CardsPartFavorite refreshFavorites={handleCardFavorites} cards={cards} />
+            <CardsPartFavorite refreshFavorites={handleCardFavoritesParts} cards={cards1} />
+
+            <h1 style={{ marginLeft: '10%' , marginTop: '3%', marginBottom: '2%' }}>Carros favoritos</h1>
+            <CardsCarFavorites refreshFavorites={handleCardFavoritesCars} cards={cards2} />
 
         </div>
     );
