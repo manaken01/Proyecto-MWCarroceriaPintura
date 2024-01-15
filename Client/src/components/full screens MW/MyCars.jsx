@@ -13,7 +13,6 @@ function MyCars() {
 
   const [carsUsers, setCarsUsers] = useState([]);
   var [responseData, setResponse] = useState([]);
-  const { brand } = useParams();
   const [search, setSearch] = useState('');
   const dropdowns = [
         { label: 'Marca:', items: ['Seleccione','TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUZUKI'] },
@@ -60,7 +59,7 @@ function MyCars() {
       <div className="col-12 d-flex justify-content-center" style={{ paddingTop:'80px', paddingBottom: '3%'}}>
           <h1>Mis carros</h1>
       </div>
-      <SearchFiltersMyCars brand= {brand}  dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
+      <SearchFiltersMyCars dropdowns={dropdowns} setSelectedItems={setSelectedItems} search = {search} setSearch ={setSearch}/>
       <CardMyCarsStart carsUsers={carsUsers} filters={selectedItems} search = {search}/>
     </div>
   );

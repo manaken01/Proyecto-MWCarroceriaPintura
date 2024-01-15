@@ -1,13 +1,8 @@
 import React from 'react';
 import CardMyCars from './CardMyCars';
-import axios from 'axios';
-import UserProfile from '../../resources/UserProfile';
-import { useState, useEffect} from 'react';
+
 
 function CardMyCarsStart ({carsUsers,filters, search}) {
-
-    console.log(filters)
-    console.log(search)
 
     const filteredCards = carsUsers.filter(card =>
         (filters[0] === 'Seleccione' || card.name.toUpperCase() === filters[0]) &&
