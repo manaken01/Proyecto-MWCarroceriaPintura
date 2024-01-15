@@ -80,7 +80,7 @@ const UserScreenGeneral = () => {
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none',  marginRight: '20%'  }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Ver mis carros</Link>
+                            <Link className="nav-link" to="/myCar" style={linkStyle} href="#">Ver mis carros</Link>
                         </li>
                     </ul>
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-1.5%', marginBottom: '-2%' }}>
