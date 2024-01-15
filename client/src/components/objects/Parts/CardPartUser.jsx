@@ -59,7 +59,7 @@ function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category,
                         {pic.map((imagen, index) => {
                             return (
                                 <CarouselItem key={`${id}-${index}`} >
-                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
+                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100"  />
                                 </CarouselItem>
                             );
                         })}
@@ -74,12 +74,12 @@ function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category,
                             </div>
                         </div>
                         <Divider />
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Carro: {car}</strong></p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#C80B16' }}><strong>Precio: ₡</strong> {price}</p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Categoría: </strong>{category}</p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Stock: </strong>{stock}</p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Body Shape: </strong>{bodyshape}</p>
-                        <p className="card-text" style={{ marginBottom: '2%', color: '#000000' }}><strong>Versión: </strong>{version}</p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Carro: {car}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#C80B16' }}><strong>Precio: ₡</strong> {price}</p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Categoría: </strong>{category}</p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Stock: </strong>{stock}</p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Body Shape: </strong>{bodyshape}</p>
+                        <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Versión: </strong>{version}</p>
                         <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Generación: </strong>{gen}</p>
 
                         <button type="button" className="btn btn-danger" style={{ textAlign: 'left', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>

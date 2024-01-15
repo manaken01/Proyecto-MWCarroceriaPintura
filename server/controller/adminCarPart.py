@@ -92,13 +92,3 @@ class adminCarPart:
             print("Failed to execute stored procedure: {}".format(error))
             return False
         
-    def readCarPart(cursor, connection):
-        try: #recupera solo las activas
-            sql = "SELECT * FROM part WHERE active = 1" 
-            cursor.execute(sql)
-            result = cursor.fetchall()
-            connection.commit()
-            return result
-        except mysql.connector.Error as error:
-            print("Failed to execute stored procedure: {}".format(error))
-            return False

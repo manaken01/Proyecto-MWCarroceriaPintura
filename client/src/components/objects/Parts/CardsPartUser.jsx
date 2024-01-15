@@ -25,7 +25,7 @@ function CardsPartUser({ refreshFavorites, favorites, cards, filters, search }) 
     return (
         <div>
             <div className="container flex justify-content-center align-items-center" >
-                <div className='row'>{
+            <div className='row'>{
                     filteredCards.map(card => {
                         var isLiked = favorites.includes(card.parts.idPart);
                         return (

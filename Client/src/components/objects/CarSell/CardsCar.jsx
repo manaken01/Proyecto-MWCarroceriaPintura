@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import CardCarSell from './CardCarSell';
-import axios from 'axios';
 
-const CardsCar = ({cards, filters, search, refreshParent}) => {
+const CardsCar = ({refreshFavorites, favorites,cards, filters, search, refreshParent}) => {
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.carSell.year === filters[1]) &&
@@ -26,6 +25,7 @@ const CardsCar = ({cards, filters, search, refreshParent}) => {
         <div className="container flex justify-content-center align-items-center" >
             <div className='row'>{
                 filteredCards.map(card => {
+                    var isLiked = favorites.includes(card.carSell.idCarSell);
                     return (
                         <div className='col-md-6' key={card.carSell.idCarSell}>
                             <CardCarSell 
@@ -43,6 +43,8 @@ const CardsCar = ({cards, filters, search, refreshParent}) => {
                                 color = {card.carSell.color}
                                 pic={card.photos} 
                                 refreshParent={refreshParent}
+                                Liked={isLiked}
+                                refreshFavorites={refreshFavorites} 
                             />
                         </div>
                     );

@@ -5,42 +5,65 @@ import CardsCar from '../objects/CarSell/CardsCar';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-
+import UserProfile from '../resources/UserProfile';
 function CarSellScreen() {
     const [cards, setCards] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
-
+    const [favorites, setFavorites] = useState([]);
 
     const handleResults = async () => {
-        axios.get('http://localhost:8080/carSell')
-            .then(response => {
-                setCards(response.data.Result);
-                const brands = [...new Set(response.data.Result.map(item => item.carSell.nameBrand))];
-                brands.unshift('Seleccione');
-                const years = [...new Set(response.data.Result.map(item => item.carSell.year))];
-                years.unshift('Seleccione');
-                const bodyshapes = [...new Set(response.data.Result.map(item => item.carSell.bodyShape))];
-                bodyshapes.unshift('Seleccione');
-                const transmissions = [...new Set(response.data.Result.map(item => item.carSell.transmission))];
-                transmissions.unshift('Seleccione');
+        try {
+            const response = await axios.get('http://localhost:8080/carSell')
+            setCards(response.data.Result);
+            const brands = [...new Set(response.data.Result.map(item => item.carSell.nameBrand))];
+            brands.unshift('Seleccione');
+            const years = [...new Set(response.data.Result.map(item => item.carSell.year))];
+            years.unshift('Seleccione');
+            const bodyshapes = [...new Set(response.data.Result.map(item => item.carSell.bodyShape))];
+            bodyshapes.unshift('Seleccione');
+            const transmissions = [...new Set(response.data.Result.map(item => item.carSell.transmission))];
+            transmissions.unshift('Seleccione');
 
-                const result = [
-                    { label: 'Marca:', items: brands },
-                    { label: 'Año:', items: years },
-                    { label: 'Body Shape:', items: bodyshapes },
-                    { label: 'Transmisión:', items: transmissions },
-                ];
+            const result = [
+                { label: 'Marca:', items: brands },
+                { label: 'Año:', items: years },
+                { label: 'Body Shape:', items: bodyshapes },
+                { label: 'Transmisión:', items: transmissions },
+            ];
 
-                setDropdowns(result);
+            setDropdowns(result);
 
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
     }
-    useEffect(() => {
-        handleResults();
-    }, []);
+    const handleFavorites = async () => {
+        if (UserProfile.getId() !== 0) {
+          try {
+            const response = await axios.get('http://localhost:8080/favorites', {
+              params: {
+                idUser: UserProfile.getId(),
+                status: 2
+              }
+            });
+            const fav = [...new Set(response.data.Result.map(item => item.idCarSell))];
+            setFavorites(fav);
+          } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+          }
+        } else {
+          setFavorites([]);
+        }
+      };
+    
+      useEffect(() => {
+        const fetchData = async () => {
+          await handleResults();
+          await handleFavorites();
+        };
+      
+        fetchData();
+      }, []);
 
     const [selectedItems, setSelectedItems] = useState(Array(4).fill('Seleccione'));
     const [search, setSearch] = useState('');
@@ -53,7 +76,7 @@ function CarSellScreen() {
 </div>
             <SearchFilters handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search={search} setSearch={setSearch} />
 
-            <CardsCar cards={cards} filters={selectedItems} search={search} refreshParent={handleResults} />
+            <CardsCar refreshFavorites={handleFavorites} favorites={favorites} cards={cards} filters={selectedItems} search={search} refreshParent={handleResults} />
 
 
         </div>
