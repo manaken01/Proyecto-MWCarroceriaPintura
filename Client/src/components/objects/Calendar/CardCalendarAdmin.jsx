@@ -6,12 +6,8 @@ import AppointmentFormModified from '../../forms/AppointmentFormModified';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
 
-function CardCalendar({date,hour,reason,car,appointmentID}) {
-    const [show, setShow] = useState(false);
+function CardCalendarAdmin({date,hour,reason,car,appointmentID}) {
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
-    const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const handleAppointmentDelete = async () => {
         const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta cita?");
@@ -52,21 +48,11 @@ function CardCalendar({date,hour,reason,car,appointmentID}) {
                 </div>
                 <div class="col-10 mb-1 ">Razón: {reason}</div>
                 <div class="col-10 mb-1 "><strong>Carro: {car}</strong></div>
-                <button type="button" className="btn btn-danger" onClick={handleShow} style={{backgroundColor: '#C80B16' }}>Modificar</button>
-                <button type="button" className="btn btn-danger" onClick={handleAppointmentDelete} style={{  marginLeft:'25%',backgroundColor: '#C80B16' }}>Eliminar</button>
+                <button type="button" className="btn btn-danger" onClick={handleAppointmentDelete} style={{ backgroundColor: '#C80B16' }}>Eliminar</button>
             </a>
-            <Modal show={show} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
-                <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
-                </Modal.Header>
-                <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                    <AppointmentFormModified date={date} hourM={hour} appointmentID={appointmentID}/>
-                </Modal.Body>
-                <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 }
 
 
-export default CardCalendar;
+export default CardCalendarAdmin;

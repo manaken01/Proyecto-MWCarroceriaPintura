@@ -8,7 +8,7 @@ import UserProfile from '../resources/UserProfile';
 import { formatDate } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
-function AppointmentFormModified({date,hourM}) {
+function AppointmentFormModified({date,hourM,appointmentID}) {
     
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
     const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
@@ -51,8 +51,12 @@ function AppointmentFormModified({date,hourM}) {
 
     const handleResults = async () => {
         try {
-            const dropdownItemsCars = await getDropdownsCars();
-            const dropdownItemsServices = await getDropdownServices();
+            const [dropdownItemsCars] = await Promise.all([
+                getDropdownsCars()
+            ]);
+            const [dropdownItemsServices] = await Promise.all([
+                getDropdownServices()
+            ]);
             setDropdowns([
                 { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'] },
                 { label: 'Razón:', items: dropdownItemsServices },
@@ -132,32 +136,13 @@ function AppointmentFormModified({date,hourM}) {
     };
 
     const handleAppointmentUpdate = async () => {
-        const confirmEdit = window.confirm("¿Seguro que deseas modificar este carrro?");
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar esta cita?");
         if (confirmEdit) {
 
             if (!validateInputs()) {
                 return;
             }    
     
-            const getAppointmentId = async () => {
-                try {
-    
-                    const response = await axios.get('http://localhost:8080/appointmentID', {
-                        params: {
-                            date: formattedDateForm,
-                            hour: hourM,
-                        }
-                    });
-                    return response.data
-                } catch (error) {
-                    console.error('Error al realizar la solicitud:', error);
-                }
-            };
-
-            const [appointmentID] = await Promise.all([
-                getAppointmentId(),
-            ]);
-
             const getData = async () => {
                 console.log(appointmentID)
                     try {
@@ -168,7 +153,7 @@ function AppointmentFormModified({date,hourM}) {
                             idCarUser: idCarUser,
                             idUser: UserProfile.getId(),
                             idService: idReason,
-                            idAppointment: appointmentID.Result[0].idAppointment,
+                            idAppointment: appointmentID
                         });
                         alert('Se ha modificado la cita de forma correcta');
                         resetInputs();

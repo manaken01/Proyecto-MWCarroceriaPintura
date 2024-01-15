@@ -297,9 +297,11 @@ def createCarUser():
 
 @app.route("/carUser",methods=['GET'])
 async def readCarUser():
+    cursor = connection.cursor(dictionary=True)
     idUser = request.args.get('idUser')
     result = await mainController.readCarUser(idUser,cursor)
     print(result)
+    cursor.close()
     return jsonify({
         'Result': result
     })
@@ -379,6 +381,7 @@ def updateService():
     idService = data['idService']
     serviceO = Service(id=idService,service=service)
     result = mainController.updateService(serviceO,cursor,connection)
+    cursor.close()
     return jsonify({
         'Result': result
     })
@@ -436,9 +439,8 @@ def updateAppointment():
 def deleteAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    idUser = data['idUser']
     id = data['idAppointment']
-    appointment = Appointment(id=id,idUser=idUser)
+    appointment = Appointment(id=id)
     result = mainController.deleteAppointment(appointment,cursor,connection)
     return jsonify({
         'Result': result
@@ -459,6 +461,9 @@ def getAppointmentId():
 def readAppointmentAdmin():
     result = mainController.readAppointmentAdmin(cursor)
     print(result)
+    return jsonify({
+        'Result': result
+    })
     
 #favorite
 @app.route("/favorites",methods=['POST'])

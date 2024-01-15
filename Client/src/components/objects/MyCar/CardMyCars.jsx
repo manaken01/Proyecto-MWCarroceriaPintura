@@ -28,6 +28,9 @@ function CardMyCars({idCarUser,car,year,plate}) {
                     });
                  
                     alert('Se ha eliminado el carro de forma correcta');
+                    if (response.status === 200) {
+                        window.location.reload();
+                    }
 
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);

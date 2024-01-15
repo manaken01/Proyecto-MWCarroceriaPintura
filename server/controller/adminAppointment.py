@@ -59,8 +59,8 @@ class adminAppointment:
     
     def deleteAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE appointment SET active = %s WHERE User_idUser = %s and idAppointment = %s" 
-            val = (0,appointment.idUser,appointment.id)
+            sql = "UPDATE appointment SET active = %s WHERE idAppointment = %s" 
+            val = (0,appointment.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record deleted.")

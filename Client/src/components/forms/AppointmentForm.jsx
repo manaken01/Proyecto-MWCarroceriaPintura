@@ -49,8 +49,12 @@ function AppointmentForm({date}) {
 
     const handleResults = async () => {
         try {
-            const dropdownItemsCars = await getDropdownsCars();
-            const dropdownItemsServices = await getDropdownServices();
+            const [dropdownItemsCars] = await Promise.all([
+                getDropdownsCars()
+            ]);
+            const [dropdownItemsServices] = await Promise.all([
+                getDropdownServices()
+            ]);
             setDropdowns([
                 { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'] },
                 { label: 'Razón:', items: dropdownItemsServices },
@@ -156,7 +160,7 @@ function AppointmentForm({date}) {
             getAppointmentId(),
         ]);
 
-        if (!appointmentID.Result.length === 0) {
+        if (!appointmentID.Result) {
             alert('Ya se encuentra una cita asignada a esa hora');
             return
         }
