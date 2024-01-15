@@ -48,9 +48,9 @@ function CarSellScreen() {
     return (
         <div>
             <Navbar />
-            <div className="col-12 flex justify-content-center" style={{ paddingTop: '80px', paddingBottom: '3%' }}>
-                <h1>Carros en venta</h1>
-            </div>
+            <div className="col-12 flex justify-content-center text-center" style={{ paddingTop: '80px', paddingBottom: '3%' }}>
+    <h1>Carros en venta</h1>
+</div>
             <SearchFilters handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search={search} setSearch={setSearch} />
 
             <CardsCar cards={cards} filters={selectedItems} search={search} refreshParent={handleResults} />
