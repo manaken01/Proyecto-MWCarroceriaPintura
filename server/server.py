@@ -458,6 +458,15 @@ def readAppointmentAdmin():
     return jsonify({
         'Result': result
     })
+
+@app.route("/appointmentForm",methods=['GET'])
+def readAppointmentForm():
+    idUser = request.args.get('idUser')
+    result = mainController.readAppointmentForm(idUser,cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
     
 #favorite
 @app.route("/favorites",methods=['POST'])

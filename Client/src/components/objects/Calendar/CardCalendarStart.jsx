@@ -9,7 +9,7 @@ function CardCalendarStart ({appointmentsItems}) {
         <div>{
             appointmentsItems.map((appointmentData, index) => (
                 <div key={appointmentData.idAppointment}>
-                    <CardCalendar date={appointmentData.date} hour={appointmentData.hour} reason={appointmentData.service} car={appointmentData.licensePlate} />
+                    <CardCalendar date={appointmentData.date} hour={appointmentData.hour} reason={appointmentData.service} car={appointmentData.licensePlate} appointmentID={appointmentData.idAppointment} />
                 </div>
             ))
         }

@@ -45,6 +45,18 @@ class adminAppointment:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
+    def readAppointmentForm(idUser, cursor):
+        try: #recupera solo las del usuario
+            sql = "SELECT 'CarUser' AS tipo, idCarUser, licensePlate FROM carUser WHERE User_idUser = %s AND active = 1 UNION SELECT 'Service' AS active, idService, service FROM service WHERE active = 1;"
+            val = (idUser,)
+            cursor.execute(sql,val)
+            result = cursor.fetchall()
+            return result
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+    
+    
     def updateAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
             sql = "UPDATE appointment SET hour = %s, idCarUser =%s, idService = %s WHERE User_idUser = %s and idAppointment = %s" 

@@ -10,7 +10,7 @@ function CardCalendarStartAdmin ({appointmentsItems}) {
         <div>{
             appointmentsItems.map((appointmentData, index) => (
                 <div key={appointmentData.idAppointment}>
-                    <CardCalendarAdmin date={appointmentData.date} hour={appointmentData.hour} reason={appointmentData.service} car={appointmentData.licensePlate} />
+                    <CardCalendarAdmin date={appointmentData.date} hour={appointmentData.hour} reason={appointmentData.service} car={appointmentData.licensePlate} appointmentID={appointmentData.idAppointment}/>
                 </div>
             ))
         }

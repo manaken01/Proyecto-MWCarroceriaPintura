@@ -25,42 +25,43 @@ function AppointmentFormModified({date,hourM,appointmentID}) {
 
     const getDropdownsCars = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/carUser', {
+            const response = await axios.get('http://localhost:8080/appointmentForm', {
                     params: {
                         idUser: UserProfile.getId(),
                     }
             });
-            setResponse(response.data.Result);
-            return response.data.Result.map((result) => result.licensePlate);
+      
+            return response.data.Result;
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             return []; // Return an empty array or handle the error gracefully
         }
     };
 
-    const getDropdownServices = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/service');
-            setResponseService(response.data.Result);
-            return response.data.Result.map((result) => result.service);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-            return []; // Return an empty array or handle the error gracefully
-        }
-    };
 
     const handleResults = async () => {
         try {
             const [dropdownItemsCars] = await Promise.all([
                 getDropdownsCars()
             ]);
-            const [dropdownItemsServices] = await Promise.all([
-                getDropdownServices()
-            ]);
+
+            const filteredServices = dropdownItemsCars.filter(dropdown => {
+                return dropdown.tipo === 'Service';
+            });
+
+            
+
+            const filteredCars = dropdownItemsCars.filter(dropdown => {
+                return dropdown.tipo === 'CarUser';
+            });
+
+            setResponse(filteredCars)
+            setResponseService(filteredServices)
+    
             setDropdowns([
                 { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'] },
-                { label: 'Razón:', items: dropdownItemsServices },
-                { label: 'Carro:', items: dropdownItemsCars },
+                { label: 'Razón:', items: filteredServices.map((result) => result.licensePlate)},
+                { label: 'Carro:', items: filteredCars.map((result) => result.licensePlate) },
                 
             ]);
         } catch (error) {
@@ -122,9 +123,9 @@ function AppointmentFormModified({date,hourM,appointmentID}) {
         return carUser ? carUser.idCarUser : null;
     };
 
-    const getIdReason = (service) => {
-        const reason = responseDataService.find((item) => item.service === service);
-        return reason ? reason.idService : null;
+    const getIdReason = (licensePlate) => {
+        const reason = responseDataService.find((item) => item.licensePlate === licensePlate);
+        return reason ? reason.idCarUser : null;
     };
     
     const validateInputs = () => {
@@ -142,9 +143,32 @@ function AppointmentFormModified({date,hourM,appointmentID}) {
             if (!validateInputs()) {
                 return;
             }    
+
+            const getAppointmentId = async () => {
+                try {
+    
+                    const response = await axios.get('http://localhost:8080/appointmentID', {
+                        params: {
+                            date: formattedDateForm,
+                            hour: hour
+                        }
+                    });
+                    return response.data
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
+            };
+    
+            const [appointmentID2] = await Promise.all([
+                getAppointmentId(),
+            ]);
+    
+            if (appointmentID2.Result.length !== 0) {
+                alert('Ya se encuentra una cita asignada a esa hora');
+                return
+            }
     
             const getData = async () => {
-                console.log(appointmentID)
                     try {
                         const response = await axios.put(`http://localhost:8080/appointment`,
                         {
