@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
-const HeartButton = () => {
-  const [isLiked, setIsLiked] = useState(false);
-
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-  };
-
+const HeartButton = ({ isLiked, handleLikeClick }) => {
+  //console.log(isLiked);
   return (
     <button
       onClick={handleLikeClick}

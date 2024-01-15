@@ -5,8 +5,8 @@ import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 
 //acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
-function PartsForm({ refreshParent , closeForm}) {
-    const [brands, setBrands] = useState([]);
+function ServicesForm({ }) {
+    const [services, setServices] = useState([]);
     const [showMarcaModal, setShowMarcaModal] = useState(false);
 
     const handleClose = () => {
@@ -14,9 +14,9 @@ function PartsForm({ refreshParent , closeForm}) {
     };
     const handleShowMarcaModal = () => setShowMarcaModal(true);
 
-    const getbrands = async () => {
+    const getServices = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/brand');
+            const response = await axios.get('http://localhost:8080/service');
             return response.data.Result.map((result) => result);
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
@@ -24,12 +24,12 @@ function PartsForm({ refreshParent , closeForm}) {
         }
     };
 
-    const handleResultsBrands = async () => {
+    const handleResultsServices = async () => {
         try {
-            const brandItems = await getbrands();
+            const serviceItems = await getServices();
             //console.log(brandItems);
             //console.log(dropdownItems); // Verify that dropdownItems contains the expected data
-            setBrands(brandItems);
+            setServices(serviceItems);
             // Now you can use 'dropdowns' to populate your dropdown component or perform further processing
         } catch (error) {
             console.error('Error handling results:', error);
@@ -37,58 +37,57 @@ function PartsForm({ refreshParent , closeForm}) {
     };
 
     useEffect(() => {
-        handleResultsBrands();
+        handleResultsServices();
     }, []);
 
     //---------
-    const [name, setName] = useState('');
+    const [reason, setReason] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
 
-    const handleNameChange = (event) => {
-        setName(event.target.value);
+    const handleServiceChange = (event) => {
+        setReason(event.target.value);
     }
 
 
 
-    const handleBrands = () => {
-        const doesExist = brands.some(brand => brand.nameBrand === name.toUpperCase());
+    const handleServices = () => {
+        const doesExist = services.some(serviceV => serviceV.service === reason);
         if (!doesExist) {
             const getData = async () => {
                 try {
-                    const response = await axios.post('http://localhost:8080/brand', {
-                        name: name.toUpperCase()
+                    const response = await axios.post('http://localhost:8080/service', {
+                        service: reason
                     });
-
-                    setResponseMessage(response.data);
                     //console.log(response.data);
-                    handleResultsBrands();
-                    refreshParent();
-                    setName('');
-                    alert('Se ha agregado la marca de forma correcta');
-
+                    setReason('');
+                    alert('Se ha agregado el servicio de forma correcta');
+                    setResponse(response.data);
+                    if (response.status === 200) {
+                        window.location.reload();
+                    }
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
                 }
             };
             getData();
         } else {
-            alert(' El nombre de la marca ya existe');
+            alert('El servicio ya existe');
         }
     }
 
-    const handleBrandsDelete = (idBrand) => {
-        const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta marca?");
+    const handleServicesDelete = (idService) => {
+        const confirmDelete = window.confirm("¿Seguro que deseas eliminar este servicio?");
         if (confirmDelete) {
 
             const getData = async () => {
                 try {
-                    console.log(idBrand);
-                    const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
-                    setResponseMessage(response.data);
-                    handleResultsBrands();
-                    refreshParent();
-                    alert('Se ha eliminado la marca de forma correcta');
-
+                    console.log(idService);
+                    const response = await axios.delete(`http://localhost:8080/service/${idService}`);
+                    alert('Se ha eliminado el servicio de forma correcta');
+                    setResponse(response.data);
+                    if (response.status === 200) {
+                        window.location.reload();
+                    }
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
                 }
@@ -97,30 +96,28 @@ function PartsForm({ refreshParent , closeForm}) {
             getData();
 
         } else {
-            alert('La marca no ha sido eliminada');
+            alert('El servicio no ha sido eliminado');
         }
     }
 
-    const handleBrandsEdit = (idBrand) => {
-        const confirmEdit = window.confirm("¿Seguro que deseas modificar esta marca?");
+    const handleServicesEdit = (idService) => {
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar este servicio?");
         if (confirmEdit) {
-            const doesExist = brands.some(brand => brand.nameBrand === name.toUpperCase());
+            const doesExist = services.some(serviceV => serviceV.service === reason);
             if (!doesExist) {
                 const getData = async () => {
                     try {
-                        console.log(idBrand);
-                        const response = await axios.put(`http://localhost:8080/brand`,
+                        const response = await axios.put(`http://localhost:8080/service`,
                         {
-                            name: name.toUpperCase(),
-                            idBrand: idBrand
+                            service: reason,
+                            idService: idService
                         });
-
-                        setResponseMessage(response.data);
-                        handleResultsBrands();
-                        refreshParent();
-                        setName('');
+                        setReason('');
                         alert('Se ha modificado la marca de forma correcta');
-                        closeForm();
+                        setResponse(response.data);
+                        if (response.status === 200) {
+                            window.location.reload();
+                        }
 
                     } catch (error) {
                         console.error('Error al realizar la solicitud:', error);
@@ -128,11 +125,11 @@ function PartsForm({ refreshParent , closeForm}) {
                 };
                 getData();
             } else {
-                alert(' El nombre de la marca ya existe');
+                alert('El servicio ya existe');
             }
 
         } else {
-            alert('La marca no ha sido modificada');
+            alert('El servicio no ha sido modificado');
         }
         
     }
@@ -143,16 +140,16 @@ function PartsForm({ refreshParent , closeForm}) {
             <div className="row g-0">
                 <div className="card-body">
 
-                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nueva marca</h4>
+                    <h4 className="card-title" style={{ color: '#000000' }} >Agregar nuevo servicio</h4>
 
 
                     <Divider />
                     <div className="d-flex align-items-center">
                         <p className="card-text"><strong>Nombre:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
-                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={name} onChange={handleNameChange} />
+                            <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                         </div>
-                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} onClick={handleBrands}>
+                        <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} onClick={handleServices}>
                             Agregar
                         </button>
 
@@ -162,13 +159,13 @@ function PartsForm({ refreshParent , closeForm}) {
 
                         <ul className="list-group">
                             <div className="row ">
-                                {brands.map((brand, index) => (
+                                {services.map((serviceV, index) => (
                                     <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                                        {brand.nameBrand}
+                                        {serviceV.service}
                                         <div>
                                             <button
                                                 type="button" className="btn" style={{ backgroundColor: 'transparent', width: 'auto', height: 'auto%' }}
-                                                onClick={() => { handleBrandsDelete(brand.idBrand); }}
+                                                onClick={() => { handleServicesDelete(serviceV.idService); }}
                                             >
                                                 <img src={DeleteButton} style={{ height: 'auto', width: 'auto' }} alt="Delete" />
                                             </button>
@@ -184,17 +181,17 @@ function PartsForm({ refreshParent , closeForm}) {
                                                         <div className="row g-0">
                                                             <div className="card-body">
 
-                                                                <h4 className="card-title" style={{ color: '#000000' }} >Modificar marca</h4>
+                                                                <h4 className="card-title" style={{ color: '#000000' }} >Modificar servicio</h4>
 
 
                                                                 <Divider />
                                                                 <div className="d-flex align-items-center">
-                                                                    <p className="card-text"><strong>Nombre:</strong></p>
+                                                                    <p className="card-text"><strong>Servicio:</strong></p>
                                                                     <div className="input-group ml-3" style={{ padding: '2%' }}>
-                                                                        <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={name} onChange={handleNameChange} />
+                                                                        <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                                                                     </div>
                                                                     <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} 
-                                                                    onClick={() => { handleBrandsEdit(brand.idBrand); }}>
+                                                                    onClick={() => { handleBrandsEdit(serviceV.idService); }}>
                                                                         Modificar
                                                                     </button>
                                                                 </div>
@@ -221,4 +218,4 @@ function PartsForm({ refreshParent , closeForm}) {
     );
 }
 
-export default PartsForm
+export default ServicesForm;

@@ -5,11 +5,7 @@ import { Modal } from 'react-bootstrap';
 import PartsForm from '../../forms/PartsForm';
 import BrandsForm from '../../forms/BrandsForm';
 
-import axios from 'axios';
-/*<div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
-                        </div>*/
-const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
+const SearchFiltersPartsAdmin = ({brand,dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
@@ -38,7 +34,12 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
         setSearch(event.target.value);
         //console.log(search);
     }
-    
+    useEffect(() => {
+        if (brand !== 'No') {
+          setSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+          setTempSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+        }
+      }, [brand]);
     return (
 
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
@@ -83,7 +84,7 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <PartsForm refreshParent={handleResults}/>
+                        <PartsForm refreshParent={handleResults} closeForm = {handleClose}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>
@@ -93,7 +94,7 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
                     <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Header>
                     <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                        <BrandsForm refreshParent={handleResults}/>
+                        <BrandsForm refreshParent={handleResults} closeForm = {handleClose}/>
                     </Modal.Body>
                     <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                     </Modal.Footer>
@@ -104,4 +105,4 @@ const SearchFiltersParts = ({dropdowns, setSelectedItems, handleResults,setSearc
     );
 };
 
-export default SearchFiltersParts;
+export default SearchFiltersPartsAdmin;

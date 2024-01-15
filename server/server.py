@@ -12,6 +12,7 @@ from model.CarUser import *
 from model.Service import *
 from model.Appointment import *
 from model.CarSell import *
+from model.Favorite import *
 
 app = Flask(__name__)
 CORS(app)
@@ -117,12 +118,6 @@ def getCarPart():
         'Result': result
     })
 
-@app.route("/carPartFilter",methods=['GET'])
-def readCarPart():
-    result = mainController.readCarPart(cursor)
-    return jsonify({
-        'Result': result
-    })
 
 #CarSell
 @app.route("/carSell",methods=['POST'])
@@ -422,13 +417,13 @@ def readAppointment():
 def updateAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    start = data['start']
-    finish = data['finish']
+    date = data['date']
+    hour = data['hour']
     idCarUser = data['idCarUser']
     idUser = data['idUser']
     idService = data['idService']
     id = data['idAppointment']
-    appointment = Appointment(id=id,start=start,finish=finish,idCarUser=idCarUser,idUser=idUser,idService=idService)
+    appointment = Appointment(id=id,date=date,hour=hour,idCarUser=idCarUser,idUser=idUser,idService=idService)
     result = mainController.updateAppointment(appointment,cursor,connection)
     return jsonify({
         'Result': result
@@ -446,5 +441,61 @@ def deleteAppointment():
         'Result': result
     })
 
+@app.route("/appointmentID",methods=['GET'])
+def getAppointmentId():
+    date = request.args.get('date')
+    hour = request.args.get('hour')
+    idUser = request.args.get('idUser')
+    result = mainController.getAppointmentId(date,hour,idUser,cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
+#favorite
+@app.route("/favorites",methods=['POST'])
+def addFavorite():
+    data = request.get_json()
+    idUser = data['idUser']
+    idProduct = data['idProduct']
+    status = data['status']
+    #print('hola')
+    favorite = Favorite(idUser=idUser,idProduct=idProduct, status=status)
+    result = mainController.addFavorite(favorite,connection,cursor)
+    
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/favorites",methods=['GET'])
+def readFavorite():
+    idUser = int(request.args.get('idUser'))
+    status = int(request.args.get('status'))
+    
+    favorite = Favorite(idUser=idUser, status=status)
+    result = mainController.readFavorite(connection,favorite,cursor)
+    #print(result)
+    return jsonify({
+        'Result': result
+    })
+@app.route("/favorites/<int:idUser>/<int:idProduct>/<int:status>",methods=['DELETE'])
+def deleteFavorite(idUser,idProduct,status):
+    favorite = Favorite(idUser=idUser,idProduct=idProduct, status=status)
+    result = mainController.deleteFavorite(favorite,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/Userfavorites",methods=['GET'])
+def getfavoritesPart():
+    idUser = int(request.args.get('idUser'))
+    status = int(request.args.get('status'))
+    
+    favorite = Favorite(idUser=idUser, status=status)
+    result = mainController.getfavoritesPart(connection,favorite,cursor)
+    #print(result)
+    return jsonify({
+        'Result': result
+    })
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

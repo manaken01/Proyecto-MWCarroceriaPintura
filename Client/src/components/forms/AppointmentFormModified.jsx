@@ -8,8 +8,10 @@ import UserProfile from '../resources/UserProfile';
 import { formatDate } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
-function AppointmentForm({date}) {
+function AppointmentFormModified({date,hourM}) {
     
+    const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
+    const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
     var [responseDataService, setResponseService] = useState([]);
@@ -129,60 +131,61 @@ function AppointmentForm({date}) {
         return true;
     };
 
-    const handleAppointment = async () => {
+    const handleAppointmentUpdate = async () => {
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar este carrro?");
+        if (confirmEdit) {
 
-        if (!validateInputs()) {
-            return;
-        }
-
-        const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
-
-        const getAppointmentId = async () => {
-            try {
-
-                const response = await axios.get('http://localhost:8080/appointmentID', {
-                    params: {
-                        date: formattedDateForm,
-                        hour: hour
-                    }
-                });
-                return response.data
-            } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
-            }
-        };
-
-        const [appointmentID] = await Promise.all([
-            getAppointmentId(),
-        ]);
-
-        if (!appointmentID.Result.length === 0) {
-            alert('Ya se encuentra una cita asignada a esa hora');
-            return
-        }
-
-        const createAppointment = async () => {
-            try {
-                const response = await axios.post('http://localhost:8080/appointment', {
-                    date: date,
-                    hour: hour,
-                    idCarUser: idCarUser,
-                    idUser: UserProfile.getId(),
-                    idService: idReason
-                });
-                alert('Se ha agendado la cita de manera correcta');
-                resetInputs();
-                setResponse(response.data);
-                if (response.status === 200) {
-                    window.location.reload();
+            if (!validateInputs()) {
+                return;
+            }    
+    
+            const getAppointmentId = async () => {
+                try {
+    
+                    const response = await axios.get('http://localhost:8080/appointmentID', {
+                        params: {
+                            date: formattedDateForm,
+                            hour: hourM,
+                        }
+                    });
+                    return response.data
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
                 }
-            } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
-            }
-        };
+            };
 
-        createAppointment();
+            const [appointmentID] = await Promise.all([
+                getAppointmentId(),
+            ]);
 
+            const getData = async () => {
+                console.log(appointmentID)
+                    try {
+                        const response = await axios.put(`http://localhost:8080/appointment`,
+                        {
+                            date: formattedDateForm,
+                            hour: hour,
+                            idCarUser: idCarUser,
+                            idUser: UserProfile.getId(),
+                            idService: idReason,
+                            idAppointment: appointmentID.Result[0].idAppointment,
+                        });
+                        alert('Se ha modificado la cita de forma correcta');
+                        resetInputs();
+                        setResponse(response.data);
+                        if (response.status === 200) {
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        console.error('Error al realizar la solicitud:', error);
+                    }
+                };
+                getData();
+
+        } else {
+            alert('La cita no ha sido modificada');
+        }
+        
     }
 
     return (
@@ -191,11 +194,11 @@ function AppointmentForm({date}) {
                 <div className="row g-0">
                     <div className="card-body">
 
-                        <h4 className="card-title" style={{ color: '#000000' }} >Agendar cita</h4>
+                        <h4 className="card-title" style={{ color: '#000000' }} >Modificar cita</h4>
 
 
                         <Divider />
-                        <p className="card-text" style={{ fontSize: '1.1em', marginBottom: '0', marginTop: '5%', color: '#000000' }}><strong>Dia: {date}</strong></p>
+                        <p className="card-text" style={{ fontSize: '1.1em', marginBottom: '0', marginTop: '5%', color: '#000000' }}><strong>Dia: {formattedDate}</strong></p>
                         <div className="col">
                             {dropdowns.map((dropdown, index) => (
                                 <div className="col" key={index}>
@@ -220,7 +223,7 @@ function AppointmentForm({date}) {
                             <button type="button" className="btn btn-danger" onClick={handleShow}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Agregar carro
                             </button>
-                            <button type="button" className="btn btn-danger" onClick={handleAppointment}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
+                            <button type="button" className="btn btn-danger" onClick={handleAppointmentUpdate}  style={{ marginTop: '10%', backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}>
                                 Confirmar
                             </button>
                         </div>
@@ -240,4 +243,4 @@ function AppointmentForm({date}) {
     );
 }
 
-export default AppointmentForm;
+export default AppointmentFormModified;

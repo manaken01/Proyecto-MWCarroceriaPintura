@@ -12,7 +12,7 @@ function Reviews() {
         <div>
         <div className="container d-flex justify-content-center align-items-center" >
             <div className='row'>{
-                reviews.map(review => (
+                reviews.slice(-4).map(review => (
                     <div className='col-md-100' key={review.id}>
                         <Review user={review.user} calification={review.calification} comment={review.comment} date={review.date}/>
                     </div>

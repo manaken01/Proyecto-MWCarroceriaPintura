@@ -9,7 +9,6 @@ const StarRating = ({rating}) => {
       {[...Array(5)].map((_, index) => (
         <FaStar
           key={index}
-          onClick={() => handleStarClick(index)}
           color={index < rating ? '#C80B16' : '#9C9C9C'}
           size={24}
         />
