@@ -7,32 +7,76 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import PartsUpdateForm from '../../forms/PartsUpdateForm';
 import axios from 'axios';
-function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
-    const allProps = {id,  name, car, price, category, stock, bodyshape, brand, version, gen, pic,idBrand };
+import UserProfile from '../../resources/UserProfile';
+function CardPartAdmin({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
+    const allProps = { id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand };
+    //const [isFirstRender, setIsFirstRender] = useState(true);
 
     const [showPartModal, setshowPartModal] = useState(false);
+    const [isLiked, setIsLiked] = useState(Liked);
 
+    const handleLikeClick = () => {
+        if (UserProfile.getId() !== 0) {
+            const newIsLiked = !isLiked;
+            setIsLiked(newIsLiked);
+            if (newIsLiked) {
+                handleAddFavorite();
+            } else {
+                handleDeleteFavorite();
+            }
+        } else {
+            alert("Debe iniciar sesión para realizar acciones");
+        }
+    };
     const handleClose = () => {
         setshowPartModal(false);
     };
 
     const handleshowPartModal = () => setshowPartModal(true);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (window.confirm('¿Está seguro que desea eliminar este repuesto?')) {
-            axios.delete(`http://localhost:8080/carPart/${id}`)
-                .then(response => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        refreshParent();
-                        alert('Se ha eliminado el repuesto de forma correcta');
-                    }
-                })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+            try {
+                const response = await axios.delete(`http://localhost:8080/carPart/${id}`)
+                if (response.status === 200) {
+                    refreshParent();
+                    alert('Se ha eliminado el repuesto de forma correcta');
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
         }
     };
+
+    const handleAddFavorite = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/favorites', {
+                idUser: UserProfile.getId(),
+                idProduct: id,
+                status: 1
+            });
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
+
+    const handleDeleteFavorite = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/favorites/${UserProfile.getId()}/${id}/${1}`)
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
+
+    useEffect(() => {
+        setIsLiked(Liked);
+    }, [Liked]);
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
@@ -41,7 +85,7 @@ function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand
                         {pic.map((imagen, index) => {
                             return (
                                 <CarouselItem key={`${id}-${index}`} >
-                                    <img src={imagen} alt={`Slide ${index + 1}`}  style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
+                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
                                 </CarouselItem>
                             );
                         })}
@@ -55,7 +99,7 @@ function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand
                                 <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.8%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesomeIcon icon={faTrash} style={{ fontSize: '20px' }} />
                                 </button>
-                                <HeartButton />
+                                <HeartButton isLiked={isLiked} handleLikeClick={handleLikeClick} />
                             </div>
                         </div>
                         <Divider />
@@ -74,7 +118,7 @@ function CardPartAdmin({ id, name, car, price, category, stock, bodyshape, brand
                             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Header>
                             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <PartsUpdateForm carPart={allProps} refreshParent={refreshParent} closeForm={handleClose}/>
+                                <PartsUpdateForm carPart={allProps} refreshParent={refreshParent} closeForm={handleClose} pic={pic} />
                             </Modal.Body>
                             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                             </Modal.Footer>

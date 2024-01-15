@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap';
 import PartsForm from '../../forms/PartsForm';
 import BrandsForm from '../../forms/BrandsForm';
 
-const SearchFiltersPartsAdmin = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
+const SearchFiltersPartsAdmin = ({brand,dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
@@ -34,7 +34,12 @@ const SearchFiltersPartsAdmin = ({dropdowns, setSelectedItems, handleResults,set
         setSearch(event.target.value);
         //console.log(search);
     }
-    
+    useEffect(() => {
+        if (brand !== 'No') {
+          setSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+          setTempSelectedItems([brand, 'Seleccione', 'Seleccione', 'Seleccione']);
+        }
+      }, [brand]);
     return (
 
         <div className="container" style={{ marginBottom: '4%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>

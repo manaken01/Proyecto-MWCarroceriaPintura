@@ -3,7 +3,9 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-function PartsUpdateForm({ carPart, refreshParent, closeForm }) {
+
+
+function PartsUpdateForm({ carPart, refreshParent, closeForm, pic }) {
 
     var [photo, setPhoto] = useState([]);
     const [dropdowns, setDropdowns] = useState([]);
@@ -39,16 +41,13 @@ function PartsUpdateForm({ carPart, refreshParent, closeForm }) {
     //const [imageList, setImageList] = useState([]);
 
     const handleImageListChange = (newImageList) => {
-        //setImageList(newImageList);
-
-        // Perform additional actions with the JSON list here
-        const jsonList = newImageList.map((image) => ({
-            base64: image.base64
-        }));
-        console.log(jsonList);
+        const newPhotos = newImageList.map((image) => {
+            return {
+                base64: image.base64
+            }
+        });
+        const jsonList = [...newPhotos];
         setPhoto(jsonList);
-        // For demonstration purposes, log the JSON list to the console
-
     };
 
     const handleSelect = (index, value) => {
@@ -165,7 +164,7 @@ function PartsUpdateForm({ carPart, refreshParent, closeForm }) {
                 setResponseMessage(response.data);
                 console.log(response.data);
                 resetInputs();
-                alert('Se ha agregado el repuesto de forma correcta');
+                alert('Se ha modificado el repuesto de forma correcta');
                 if (response.status === 200) {
                     refreshParent();
                     closeForm();
@@ -263,7 +262,7 @@ function PartsUpdateForm({ carPart, refreshParent, closeForm }) {
                     </div>
                     <div>
 
-                        <ImageUploader onImageListChange={handleImageListChange} />
+                        <ImageUploader onImageListChange={handleImageListChange} initialImages={pic}/>
 
 
                     </div>
