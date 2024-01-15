@@ -7,14 +7,12 @@ import axios from 'axios';
 /*<div className="input-group-append">
                             <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
                         </div>*/
-const SearchFilters = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
+const SearchFiltersAdmin = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));
     
 
     const [showRepuestoModal, setShowRepuestoModal] = useState(false);
-    const [showMarcaModal, setShowMarcaModal] = useState(false);
-
     const handleClose = () => {
         setShowRepuestoModal(false);
         setShowMarcaModal(false);
@@ -92,4 +90,4 @@ const SearchFilters = ({dropdowns, setSelectedItems, handleResults,setSearch, se
     );
 };
 
-export default SearchFilters;
+export default SearchFiltersAdmin;

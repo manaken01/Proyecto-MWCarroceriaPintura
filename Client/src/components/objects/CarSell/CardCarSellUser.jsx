@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
-function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
+function CardCarSellUser({ refreshFavorites, Liked, id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
 
     const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };
 
@@ -29,26 +29,7 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
             alert("Debe iniciar sesión para realizar acciones");
         }
     };
-    const handleClose = () => {
-        setShowCarModal(false);
-    };
 
-    const handleShowCarModal = () => setShowCarModal(true);
-
-    const handleDelete = () => {
-        if (window.confirm('¿Está seguro que desea eliminar este carro?')) {
-            axios.delete(`http://localhost:8080/carSell/${id}`)
-                .then(response => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        refreshParent();
-                    }
-                })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
-        }
-    };
     const handleAddFavorite = async () => {
         try {
             const response = await axios.post('http://localhost:8080/favorites', {
@@ -78,7 +59,7 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
     useEffect(() => {
         setIsLiked(Liked);
     }, [Liked]);
-    
+
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
@@ -98,9 +79,6 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
                         <div className="d-flex justify-content-between align-items-center">
                             <h5 className="card-title" style={{ color: '#000000' }}>{brand} {name} {year}</h5>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.8%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <FontAwesomeIcon icon={faTrash} style={{ fontSize: '20px' }} />
-                                </button>
                                 <HeartButton isLiked={isLiked} handleLikeClick={handleLikeClick} />
                             </div>
                         </div>
@@ -112,19 +90,10 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Versión: {version}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Pasajeros: {passangers}</strong></p>
 
-                        <button type="button" onClick={handleShowCarModal} className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
-                            Modificar
+                        <button type="button" className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
+                            <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
+                            Preguntar vía Whatsapp
                         </button>
-
-                        <Modal show={showCarModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
-                            <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
-                            </Modal.Header>
-                            <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                                <CarSellUpdateForm carSell={allProps} refreshParent={refreshParent} closeForm={handleClose} pic={pic}  />
-                            </Modal.Body>
-                            <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
-                            </Modal.Footer>
-                        </Modal>
 
                     </div>
                 </div>
@@ -133,4 +102,4 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
     );
 }
 
-export default CardCarSell;
+export default CardCarSellUser;
