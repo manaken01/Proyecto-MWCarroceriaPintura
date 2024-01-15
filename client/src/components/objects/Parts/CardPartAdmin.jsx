@@ -8,7 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import PartsUpdateForm from '../../forms/PartsUpdateForm';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
-function CardPartAdmin({refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
+function CardPartAdmin({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
     const allProps = { id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand };
     //const [isFirstRender, setIsFirstRender] = useState(true);
 
@@ -17,36 +17,34 @@ function CardPartAdmin({refreshFavorites, Liked, id, name, car, price, category,
 
     const handleLikeClick = () => {
         if (UserProfile.getId() !== 0) {
-          const newIsLiked = !isLiked;
-          setIsLiked(newIsLiked);
-          if (newIsLiked) {
-            handleAddFavorite();
-          } else {
-            handleDeleteFavorite();
-          }
+            const newIsLiked = !isLiked;
+            setIsLiked(newIsLiked);
+            if (newIsLiked) {
+                handleAddFavorite();
+            } else {
+                handleDeleteFavorite();
+            }
         } else {
-          alert("Debe iniciar sesión para realizar acciones");
+            alert("Debe iniciar sesión para realizar acciones");
         }
-      };
+    };
     const handleClose = () => {
         setshowPartModal(false);
     };
 
     const handleshowPartModal = () => setshowPartModal(true);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (window.confirm('¿Está seguro que desea eliminar este repuesto?')) {
-            axios.delete(`http://localhost:8080/carPart/${id}`)
-                .then(response => {
-                    //console.log(response);
-                    if (response.status === 200) {
-                        refreshParent();
-                        alert('Se ha eliminado el repuesto de forma correcta');
-                    }
-                })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+            try {
+                const response = await axios.delete(`http://localhost:8080/carPart/${id}`)
+                if (response.status === 200) {
+                    refreshParent();
+                    alert('Se ha eliminado el repuesto de forma correcta');
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
         }
     };
 
@@ -66,21 +64,19 @@ function CardPartAdmin({refreshFavorites, Liked, id, name, car, price, category,
     }
 
     const handleDeleteFavorite = async () => {
-        axios.delete(`http://localhost:8080/favorites/${UserProfile.getId()}/${id}/${1}`)
-        .then(response => {
-            //console.log(response);
+        try {
+            const response = await axios.delete(`http://localhost:8080/favorites/${UserProfile.getId()}/${id}/${1}`)
             if (response.status === 200) {
                 refreshFavorites();
             }
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-        });
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
     }
 
     useEffect(() => {
         setIsLiked(Liked);
-      }, [Liked]);
+    }, [Liked]);
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">

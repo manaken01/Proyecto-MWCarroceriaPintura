@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState,useEffect  } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const SearchFiltersPartsUser = ({brand,dropdowns, setSelectedItems,setSearch, search}) => {

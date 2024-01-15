@@ -4,8 +4,53 @@ import React, { useState, useEffect } from 'react';
 import HeartButton from '../../decoration/HeartButton';
 import Divider from '../../decoration/Divider';
 import whatsapp from '../../../assets/whatsapp.png';
-function CardPartUser({ id, name, car, price, category, stock, bodyshape, brand, version, gen, pic }) {
-    
+import UserProfile from '../../resources/UserProfile';
+import axios from 'axios';
+function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic }) {
+    const [isLiked, setIsLiked] = useState(Liked);
+    const handleLikeClick = () => {
+        if (UserProfile.getId() !== 0) {
+            const newIsLiked = !isLiked;
+            setIsLiked(newIsLiked);
+            if (newIsLiked) {
+                handleAddFavorite();
+            } else {
+                handleDeleteFavorite();
+            }
+        } else {
+            alert("Debe iniciar sesión para realizar acciones");
+        }
+    };
+
+    const handleAddFavorite = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/favorites', {
+                idUser: UserProfile.getId(),
+                idProduct: id,
+                status: 1
+            });
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
+
+    const handleDeleteFavorite = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/favorites/${UserProfile.getId()}/${id}/${1}`)
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
+
+    useEffect(() => {
+        setIsLiked(Liked);
+    }, [Liked]);
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
@@ -14,7 +59,7 @@ function CardPartUser({ id, name, car, price, category, stock, bodyshape, brand,
                         {pic.map((imagen, index) => {
                             return (
                                 <CarouselItem key={`${id}-${index}`} >
-                                    <img src={imagen} alt={`Slide ${index + 1}`}  style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
+                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
                                 </CarouselItem>
                             );
                         })}
@@ -25,7 +70,7 @@ function CardPartUser({ id, name, car, price, category, stock, bodyshape, brand,
                         <div className="d-flex justify-content-between align-items-center">
                             <h5 className="card-title" style={{ color: '#000000' }}>{brand} {name}</h5>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <HeartButton />
+                                <HeartButton isLiked={isLiked} handleLikeClick={handleLikeClick} />
                             </div>
                         </div>
                         <Divider />
