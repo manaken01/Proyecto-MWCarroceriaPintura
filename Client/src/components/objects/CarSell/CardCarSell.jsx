@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel, CarouselItem, Button, Modal } from 'react-bootstrap';
 import whatsapp from '../../../assets/whatsapp.png';
@@ -9,13 +8,27 @@ import CarSellUpdateForm from '../../forms/CarSellUpdateForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
-function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
+import UserProfile from '../../resources/UserProfile';
+function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
 
     const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };
 
     const [showCarModal, setShowCarModal] = useState(false);
+    const [isLiked, setIsLiked] = useState(Liked);
 
+    const handleLikeClick = () => {
+        if (UserProfile.getId() !== 0) {
+            const newIsLiked = !isLiked;
+            setIsLiked(newIsLiked);
+            if (newIsLiked) {
+                handleAddFavorite();
+            } else {
+                handleDeleteFavorite();
+            }
+        } else {
+            alert("Debe iniciar sesión para realizar acciones");
+        }
+    };
     const handleClose = () => {
         setShowCarModal(false);
     };
@@ -36,7 +49,36 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                 });
         }
     };
+    const handleAddFavorite = async () => {
+        try {
+            const response = await axios.post('http://localhost:8080/favorites', {
+                idUser: UserProfile.getId(),
+                idProduct: id,
+                status: 2
+            });
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
 
+    const handleDeleteFavorite = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:8080/favorites/${UserProfile.getId()}/${id}/${2}`)
+            if (response.status === 200) {
+                refreshFavorites();
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
+    }
+
+    useEffect(() => {
+        setIsLiked(Liked);
+    }, [Liked]);
+    
     return (
         <div className="card mb-3 " style={{ cursor: "pointer", maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
             <div className="row g-0 ">
@@ -59,7 +101,7 @@ function CardCarSell({ id, name, year, price, transmission, plate, bodyshape, ve
                                 <button onClick={handleDelete} className="btn" style={{ marginBottom: '2.8%', marginRight: '5%', color: 'red', backgroundColor: 'transparent', width: '5%', height: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <FontAwesomeIcon icon={faTrash} style={{ fontSize: '20px' }} />
                                 </button>
-                                <HeartButton />
+                                <HeartButton isLiked={isLiked} handleLikeClick={handleLikeClick} />
                             </div>
                         </div>
                         <Divider />

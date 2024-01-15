@@ -118,12 +118,6 @@ def getCarPart():
         'Result': result
     })
 
-@app.route("/carPartFilter",methods=['GET'])
-def readCarPart():
-    result = mainController.readCarPart(connection,cursor)
-    return jsonify({
-        'Result': result
-    })
 
 #CarSell
 @app.route("/carSell",methods=['POST'])
@@ -492,5 +486,16 @@ def deleteFavorite(idUser,idProduct,status):
         'Result': result
     })
 
+@app.route("/Userfavorites",methods=['GET'])
+def getfavoritesPart():
+    idUser = int(request.args.get('idUser'))
+    status = int(request.args.get('status'))
+    
+    favorite = Favorite(idUser=idUser, status=status)
+    result = mainController.getfavoritesPart(connection,favorite,cursor)
+    #print(result)
+    return jsonify({
+        'Result': result
+    })
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)
