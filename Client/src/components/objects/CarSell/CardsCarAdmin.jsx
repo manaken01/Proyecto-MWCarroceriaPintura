@@ -1,7 +1,7 @@
 import React from 'react';
-import CardCarSell from './CardCarSell';
+import CardCarSellAdmin from './CardCarSellAdmin';
 
-const CardsCar = ({refreshFavorites, favorites,cards, filters, search, refreshParent}) => {
+const CardsCarAdmin = ({refreshFavorites, favorites,cards, filters, search, refreshParent}) => {
     const filteredCards = cards.filter(card => 
         (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.carSell.year === filters[1]) &&
@@ -28,7 +28,7 @@ const CardsCar = ({refreshFavorites, favorites,cards, filters, search, refreshPa
                     var isLiked = favorites.includes(card.carSell.idCarSell);
                     return (
                         <div className='col-md-6' key={card.carSell.idCarSell}>
-                            <CardCarSell 
+                            <CardCarSellAdmin 
                                 id={card.carSell.idCarSell}
                                 name={card.carSell.model} 
                                 year={card.carSell.year} 
@@ -57,4 +57,4 @@ const CardsCar = ({refreshFavorites, favorites,cards, filters, search, refreshPa
     );
 }
 
-export default CardsCar;
+export default CardsCarAdmin;

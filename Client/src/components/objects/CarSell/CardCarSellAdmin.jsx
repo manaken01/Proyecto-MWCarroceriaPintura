@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
-function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
+function CardCarSellAdmin({ refreshFavorites, Liked,id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
 
     const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };
 
@@ -133,4 +133,4 @@ function CardCarSell({ refreshFavorites, Liked,id, name, year, price, transmissi
     );
 }
 
-export default CardCarSell;
+export default CardCarSellAdmin;

@@ -12,7 +12,7 @@ import Information from './components/full screens MW/Information';
 import PartsScreenUser from './components/full screens MW/PartsScreenUser';
 import PartsScreenAdmin from './components/full screens MW/PartsScreenAdmin';
 import StartScreen from './components/full screens MW/StartScreen';
-import CarSellScreen from './components/full screens MW/CarSellScreen';
+import CarSellScreenAdmin from './components/full screens MW/CarSellScreenAdmin';
 import CalendarAdmin from './components/full screens MW/CalendarAdmin';
 import UserProfile from './components/resources/UserProfile'; 
 import UserScreenAdmin from './components/full screens MW/UserScreenAdmin';
@@ -29,7 +29,7 @@ function App() {
 
   const manageUsers = UserProfile.getType() === 1 ? <ManageUsers /> : null;
 
-  const CarSellScreen = UserProfile.getType() === 0 ? <CarSellScreen /> : <CarSellScreenUser />;
+  const CarSellScreen = UserProfile.getType() === 1 ? <CarSellScreenAdmin /> : <CarSellScreenUser />;
 
 
   return (

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../objects/Navbar';
-import SearchFilters from '../objects/CarSell/SearchFilters';
-import CardsCar from '../objects/CarSell/CardsCar';
+import SearchFilters from '../objects/CarSell/SearchFiltersAdmin';
+import CardsCar from '../objects/CarSell/CardsCarAdmin';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
-function CarSellScreen() {
+function CarSellScreenAdmin() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -83,4 +83,4 @@ function CarSellScreen() {
   );
 }
 
-export default CarSellScreen
+export default CarSellScreenAdmin
