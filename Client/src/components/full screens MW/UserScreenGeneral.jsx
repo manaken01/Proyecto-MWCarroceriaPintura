@@ -5,13 +5,12 @@ import CardsPartFavorite from '../objects/Favorites/CardsPartFavorites'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const UserScreenAdmin = () => {
+const UserScreenGeneral = () => {
     const navigate = useNavigate();
     const [cards, setCards] = useState([]);
     const linkStyle = { color: '#C80B16', textDecoration: 'none', display: 'inline-block', width: '100%', height: 'auto', fontWeight: 600 };
     const manageLogOut = () => {
         UserProfile.deleteCookies();
-        location.reload();
     }
 
     const handleCardFavorites = async () => {
@@ -59,11 +58,8 @@ const UserScreenAdmin = () => {
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
-                        <li className="nav-item active" style={{ listStyle: 'none' }}>
+                        <li className="nav-item active" style={{ listStyle: 'none',  marginRight: '20%'  }}>
                             <Link className="nav-link" to="/" style={linkStyle} href="#">Ver mis carros</Link>
-                        </li>
-                        <li className="nav-item active" style={{ listStyle: 'none', marginRight: '20%' }}>
-                            <Link className="nav-link" to="/manageUsers" style={linkStyle} href="#">Manejar usuarios</Link>
                         </li>
                     </ul>
                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-1.5%', marginBottom: '-2%' }}>
@@ -79,4 +75,5 @@ const UserScreenAdmin = () => {
     );
 };
 
-export default UserScreenAdmin;
+
+export default UserScreenGeneral;

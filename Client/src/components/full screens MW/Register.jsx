@@ -159,6 +159,8 @@ const Register = () => {
                     cellphone: phone,
                     password: hashedPassword
                 });
+                alert('Usuario registrado exitosamente');
+                navigateToLogin();
                 return response.data; // Retornar solo los datos
             } catch (error) {
                 console.error('Error al realizar la solicitud:', error);

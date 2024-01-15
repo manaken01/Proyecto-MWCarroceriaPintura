@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../objects/Navbar';
-import SearchFilters from '../objects/CarSell/SearchFilters';
-import CardsCar from '../objects/CarSell/CardsCar';
+import SearchFiltersUser from '../objects/CarSell/SearchFiltersUser';
+import CardsCarUser from '../objects/CarSell/CardsCarUser';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
@@ -74,9 +74,9 @@ function CarSellScreen() {
       <div className="col-12 flex justify-content-center text-center" style={{ paddingTop: '80px', paddingBottom: '3%' }}>
         <h1>Carros en venta</h1>
       </div>
-      <SearchFilters handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search={search} setSearch={setSearch} />
+      <SearchFiltersUser handleResults={handleResults} dropdowns={dropdowns} setSelectedItems={setSelectedItems} search={search} setSearch={setSearch} />
 
-      <CardsCar refreshFavorites={handleFavorites} favorites={favorites} cards={cards} filters={selectedItems} search={search} refreshParent={handleResults} />
+      <CardsCarUser refreshFavorites={handleFavorites} favorites={favorites} cards={cards} filters={selectedItems} search={search} refreshParent={handleResults} />
 
 
     </div>

@@ -17,9 +17,21 @@ import CalendarAdmin from './components/full screens MW/CalendarAdmin';
 import UserProfile from './components/resources/UserProfile'; 
 import UserScreenAdmin from './components/full screens MW/UserScreenAdmin';
 import ManageUsers from './components/full screens MW/ManageUsers';
+import UserScreenGeneral from './components/full screens MW/UserScreenGeneral';
+import CarSellScreenUser from './components/full screens MW/CarSellScreenUser';
 
 function App() {
-  const PartsScreen = UserProfile.getId() !== 1 ? <PartsScreenUser /> : <PartsScreenAdmin />;
+  const PartsScreen = UserProfile.getType() !== 1 ? <PartsScreenUser /> : <PartsScreenAdmin />;
+
+  const UserScreen = UserProfile.getType() === 0 ? <LogIn /> :
+                     UserProfile.getType() === 1 ? <UserScreenAdmin /> : 
+                     <UserScreenGeneral />;
+
+  const manageUsers = UserProfile.getType() === 1 ? <ManageUsers /> : null;
+
+  const CarSellScreen = UserProfile.getType() === 0 ? <CarSellScreen /> : <CarSellScreenUser />;
+
+
   return (
     <BrowserRouter>
       <div>
@@ -32,9 +44,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/parts/:brand" element={PartsScreen} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/cars" element={<CarSellScreen />} />
-          <Route path="/user" element={< UserScreenAdmin/>} />
-          <Route path="/manageUsers" element={< ManageUsers/>} />
+          <Route path="/cars" element={CarSellScreen} />
+          <Route path="/user" element={UserScreen} />
+          <Route path="/manageUsers" element={manageUsers} />
         </Routes>
     </div>
     </BrowserRouter>

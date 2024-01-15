@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SHA256 } from 'crypto-js';
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,9 @@ const LogIn = () => {
                 if (response.data.Result != 0){
                     UserProfile.setProfile(response.data.Result.Username, response.data.Result.email, response.data.Result.idUser, response.data.Result.userType);
                     UserProfile.saveToCookies();
+                    alert("Bienvenido " + UserProfile.getUsername());
                     navigate("/");
+                    location.reload();
                     
                 }
                 else{
@@ -57,6 +59,17 @@ const LogIn = () => {
 
 
     }
+
+    useEffect(() => {
+        const verify = async () => {
+            if (UserProfile.getType() !== 0) {
+                alert("Ya ha iniciado sesión");
+                navigate('/');
+            }
+        };
+        verify();
+        
+    }, []);
 
     return (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ paddingTop:'200px'}}>
