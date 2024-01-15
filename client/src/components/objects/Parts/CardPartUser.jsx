@@ -82,7 +82,7 @@ function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category,
                         <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Versión: </strong>{version}</p>
                         <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Generación: </strong>{gen}</p>
 
-                        <button type="button" className="btn btn-danger" style={{ textAlign: 'left', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
+                        <button type="button" className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
                             <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
                             Preguntar vía Whatsapp
                         </button>
