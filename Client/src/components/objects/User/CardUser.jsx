@@ -22,18 +22,17 @@ function CardUser({ name, email, phone, type, id, typeName ,refreshParent }) {
 
     const handleShowUserModal = () => setShowUserModal(true);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (window.confirm('¿Está seguro que desea eliminar este usuario?')) {
-            axios.delete(`http://localhost:8080/user/${id}`)
-                .then(response => {
+            try {
+                const response = await axios.delete(`http://localhost:8080/user/${id}`)
                     console.log(response);
                     if (response.status === 200) {
                         refreshParent();
                     }
-                })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
         }
     };
 

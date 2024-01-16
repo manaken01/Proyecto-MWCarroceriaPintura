@@ -8,6 +8,7 @@ from controller.adminAppointment import *
 from controller.adminCarSell import *
 from controller.adminUserType import *
 from controller.adminFavorite import *
+from controller.adminReview import *
 
 class mainController:
     #Brand
@@ -138,3 +139,7 @@ class mainController:
     
     def getfavoritesPart(connection,favorite, cursor):
         return (adminFavorite.getfavoritesPart(connection,favorite, cursor))
+    
+    #review
+    def addReview(review,connection,cursor):
+        return (adminReview.addReview(review,connection,cursor))

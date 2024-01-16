@@ -497,5 +497,19 @@ def getfavoritesPart():
     return jsonify({
         'Result': result
     })
+
+#review
+@app.route("/review",methods=['POST'])
+def addReview():
+    data = request.get_json()
+    idUser = data['idUser']
+    comment = data['comment']
+    stars = data['stars']
+    date = data['date']
+    review = Review(idUser=idUser,comment=comment,stars=stars,date=date)
+    result = mainController.addReview(review,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

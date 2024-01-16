@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`review` (
   `idReview` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(100) NOT NULL,
   `stars` TINYINT(1) NOT NULL,
+  `date` DATE NOT NULL,
   `idUser` INT NOT NULL,
   PRIMARY KEY (`idReview`),
   INDEX `fk_review_User1_idx` (`idUser` ASC) VISIBLE,

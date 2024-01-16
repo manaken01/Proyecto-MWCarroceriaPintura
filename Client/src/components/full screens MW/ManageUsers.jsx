@@ -13,13 +13,12 @@ const ManageUsers = () => {
     const linkStyle = { color: '#C80B16', textDecoration: 'none', display: 'inline-block', width: '100%', height: 'auto', fontWeight: 600 };
 
     const handleResults = async () => {
-        axios.get('http://localhost:8080/user')
-            .then(response => {
-                setCards(response.data.Result);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        try {
+            const response = await axios.get('http://localhost:8080/user')
+            setCards(response.data.Result);
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+        }
     }
     useEffect(() => {
         handleResults();
