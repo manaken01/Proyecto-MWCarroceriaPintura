@@ -264,6 +264,27 @@ async def getUserNames():
         'Result': result
     })
 
+@app.route("/changePass",methods=['PUT'])
+def changePass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    idUser = data['idUser']
+    oldPassword = data['oldPassword']
+    newPassword = data['newPassword']
+    result = mainController.changePassword(oldPassword, newPassword, idUser, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/resetPass",methods=['PUT'])
+def resetPass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    email = data['email']
+    result = mainController.resetPassword(email, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
 
 #UserType
 @app.route("/userType",methods=['GET'])
@@ -273,6 +294,7 @@ def getUserTypes():
     return jsonify({
         'Result': result
     })
+
 
 #CarUser
 @app.route("/carUser",methods=['POST'])
@@ -510,6 +532,20 @@ def getfavoritesPart():
     favorite = Favorite(idUser=idUser, status=status)
     result = mainController.getfavoritesPart(connection,favorite,cursor)
     #print(result)
+    return jsonify({
+        'Result': result
+    })
+
+#review
+@app.route("/review",methods=['POST'])
+def addReview():
+    data = request.get_json()
+    idUser = data['idUser']
+    comment = data['comment']
+    stars = data['stars']
+    date = data['date']
+    review = Review(idUser=idUser,comment=comment,stars=stars,date=date)
+    result = mainController.addReview(review,connection,cursor)
     return jsonify({
         'Result': result
     })

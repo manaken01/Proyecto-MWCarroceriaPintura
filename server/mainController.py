@@ -8,6 +8,7 @@ from controller.adminAppointment import *
 from controller.adminCarSell import *
 from controller.adminUserType import *
 from controller.adminFavorite import *
+from controller.adminReview import *
 
 class mainController:
     #Brand
@@ -73,6 +74,12 @@ class mainController:
     
     async def getUserNames(userName,cursor):
         return (await adminUser.getUserNames(userName,cursor))
+    
+    def changePassword(oldPassword, newPassword, idUser, connection, cursor):
+        return (adminUser.changePassword(oldPassword, newPassword, idUser, connection, cursor))
+    
+    def resetPassword(email, connection, cursor):
+        return (adminUser.resetPassword(email, connection, cursor))
     
     #UserType
 
@@ -144,3 +151,7 @@ class mainController:
     
     def getfavoritesPart(connection,favorite, cursor):
         return (adminFavorite.getfavoritesPart(connection,favorite, cursor))
+    
+    #review
+    def addReview(review,connection,cursor):
+        return (adminReview.addReview(review,connection,cursor))

@@ -35,18 +35,18 @@ function CardCarSellAdmin({ refreshFavorites, Liked,id, name, year, price, trans
 
     const handleShowCarModal = () => setShowCarModal(true);
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
         if (window.confirm('¿Está seguro que desea eliminar este carro?')) {
-            axios.delete(`http://localhost:8080/carSell/${id}`)
-                .then(response => {
-                    console.log(response);
-                    if (response.status === 200) {
-                        refreshParent();
-                    }
-                })
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+            try {
+                const response = await axios.delete(`http://localhost:8080/carSell/${id}`)
+                
+                console.log(response);
+                if (response.status === 200) {
+                    refreshParent();
+                }
+                } catch (error) {
+                    console.error('Error al realizar la solicitud:', error);
+                }
         }
     };
     const handleAddFavorite = async () => {
@@ -111,6 +111,7 @@ function CardCarSellAdmin({ refreshFavorites, Liked,id, name, year, price, trans
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Body Shape: {bodyshape}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Versión: {version}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Pasajeros: {passangers}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Color: {color}</strong></p>
 
                         <button type="button" onClick={handleShowCarModal} className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
                             Modificar

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+
 import { FaStar } from 'react-icons/fa';
 
-const StarRatingSet = () => {
-  const [rating, setRating] = useState(0);
+const StarRatingSet = ({rating, setRating}) => {
 
   const handleStarClick = (index) => {
     setRating(index + 1);

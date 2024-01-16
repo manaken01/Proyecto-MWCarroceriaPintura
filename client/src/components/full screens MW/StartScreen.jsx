@@ -1,7 +1,7 @@
 import Navbar from '../objects/Navbar';
 import Brands from '../objects/Brand/Brands';
 import CardsStart from '../objects/Parts/CardsStart';
-import Reviews from '../objects/Review/ReviewsStart';
+import Reviews from '../objects/Review/ReviewsFull';
 import Divider from '../decoration/Divider'
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';

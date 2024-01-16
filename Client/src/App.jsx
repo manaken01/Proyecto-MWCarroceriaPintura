@@ -21,6 +21,8 @@ import ManageUsers from './components/full screens MW/ManageUsers';
 import MyCars from './components/full screens MW/MyCars';
 import UserScreenGeneral from './components/full screens MW/UserScreenGeneral';
 import CarSellScreenUser from './components/full screens MW/CarSellScreenUser';
+import ChangePassword from './components/full screens MW/changePassword';
+import ResetPassword from './components/full screens MW/ResetPassword';
 
 function App() {
   console.log(UserProfile.getType());
@@ -35,6 +37,8 @@ function App() {
   const manageUsers = UserProfile.getType() === 1 ? <ManageUsers /> : null;
 
   const CarSellScreen = UserProfile.getType() === 1 ? <CarSellScreenAdmin /> : <CarSellScreenUser />;
+
+  const ChangePasswordScreen = UserProfile.getType() !== 0 ? <ChangePassword /> : null;
 
 
   return (
@@ -54,6 +58,9 @@ function App() {
           <Route path="/cars" element={CarSellScreen} />
           <Route path="/user" element={UserScreen} />
           <Route path="/manageUsers" element={manageUsers} />
+          <Route path="/changePassword" element={ChangePasswordScreen} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
+
         </Routes>
     </div>
     </BrowserRouter>
