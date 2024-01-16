@@ -18,7 +18,7 @@ class adminCarUser:
     
     async def readCarUser(idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT carUser.idCarUser, carUser.year, carUser.licensePlate, brand.name FROM carUser INNER JOIN brand ON carUser.idBrand = brand.idBrand WHERE carUser.User_idUser = %s and carUser.active = 1" 
+            sql = "SELECT carUser.idCarUser, carUser.year, carUser.licensePlate, brand.nameBrand FROM carUser INNER JOIN brand ON carUser.idBrand = brand.idBrand WHERE carUser.User_idUser = %s and carUser.active = 1" 
             val = (idUser,)
             cursor.execute(sql,val)
             result = cursor.fetchall()

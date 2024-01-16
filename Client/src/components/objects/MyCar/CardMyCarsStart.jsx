@@ -5,7 +5,7 @@ import CardMyCars from './CardMyCars';
 function CardMyCarsStart ({carsUsers,filters, search}) {
 
     const filteredCards = carsUsers.filter(card =>
-        (filters[0] === 'Seleccione' || card.name.toUpperCase() === filters[0]) &&
+        (filters[0] === 'Seleccione' || card.nameBrand.toUpperCase() === filters[0]) &&
         (filters[1] === 'Seleccione' || parseInt(card.year,10) >= parseInt(filters[1],10)) &&
 
         (( search && (card.licensePlate.toLowerCase().includes(search.toLowerCase()) ||
