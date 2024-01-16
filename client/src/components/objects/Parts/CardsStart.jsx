@@ -11,7 +11,8 @@ function CardsStart() {
   const handleResults = async () => {
     try {
       const response = await axios.get('http://localhost:8080/carPart');
-          setCards(response.data.Result);
+      if(response.data.Result === undefined || response.data.Result === null ) return;
+      setCards(response.data.Result);
         
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -28,6 +29,7 @@ function CardsStart() {
             status: 1
           }
         });
+        if(response.data.Result === undefined || response.data.Result === null ) return;
         const fav = [...new Set(response.data.Result.map(item => item.idPart))];
         setFavorites(fav);
       } catch (error) {

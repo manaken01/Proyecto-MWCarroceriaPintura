@@ -8,7 +8,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 function Contact() {
     return (
         <div>
-            <div class="container p-4 pb-0 text-center">
+            <div className="container p-4 pb-0 text-center">
                 <div style={{ 
                         fontSize: '2.3em', 
                         fontWeight: '600', 
@@ -18,7 +18,7 @@ function Contact() {
                     }}>
                         Contacto
                 </div>
-                <section class="mb-4" >
+                <section className="mb-4" >
                         <a
                         className="btn btn-primary btn-lg btn-floating"
                         style={{
@@ -73,8 +73,8 @@ function Contact() {
                         </a>
                     </section>
                 </div>
-            <div class="row w-100" style={{marginTop: '3%'}}>
-                <div class="col-lg-6 my-4 d-flex align-items-center text-center"  >
+            <div className="row w-100" style={{marginTop: '3%'}}>
+                <div className="col-lg-6 my-4 d-flex align-items-center text-center"  >
                     <div style={{ marginLeft: 'auto', marginRight: 'auto'}}>
                         <a
                             style={{color: "#BF360C", width: 'auto', height: 'auto', fontSize: '3em'}}
@@ -89,10 +89,10 @@ function Contact() {
                         <p style={{ fontSize: '1.5em' }}>+506 8480 0640</p>
                     </div>
                 </div>
-                <div class="col-lg-6 my-4" >
+                <div className="col-lg-6 my-4" >
                     <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1965.172333504467!2d-84.07012198125592!3d9.905224840070254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc754bdb5612b2e70!2zOcKwNTQnMTguOCJOIDg0wrAwNCcwOC41Ilc!5e0!3m2!1ses!2ses!4v1641634043363!5m2!1ses!2ses"
-                    class="w-100" height="400" allowFullScreen="" loading="lazy"></iframe>
+                    className="w-100" height="400" allowFullScreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>

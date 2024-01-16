@@ -77,12 +77,12 @@ function ReviewsFull() {
                         </div>
                     ))
                 }<div className='col-md-100'>
-                        <div class="card mb-3" style={{ maxWidth: '100%' }}>
-                            <div class="row no-gutters">
+                        <div className="card mb-3" style={{ maxWidth: '100%' }}>
+                            <div className="row no-gutters">
 
-                                <div class="col-md-100">
+                                <div className="col-md-100">
 
-                                    <div class="card-body">
+                                    <div className="card-body">
                                         <StarRatingSet rating={rating} setRating={setRating} />
                                         <input type="text" style={{ minHeight: '100px' }} className="form-control" value={comment} onChange={handleCommentChange} placeholder="Comparte detalles sobre tu experiencia en este lugar" aria-label="searchCar" aria-describedby="basic-addon1" />
 

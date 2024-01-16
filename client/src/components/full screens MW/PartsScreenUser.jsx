@@ -17,7 +17,7 @@ function PartsScreenUser() {
   const handleResults = async () => {
     try {
       const response = await axios.get('http://localhost:8080/carPart');
-  
+      if(response.data.Result === undefined || response.data.Result === null ) return;
           setCards(response.data.Result);
           const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
           const brands = [...new Set([...initialBrands, ...response.data.Result.map(item => item.parts.nameBrand)])];
@@ -54,6 +54,7 @@ function PartsScreenUser() {
             status: 1
           }
         });
+        if(response.data.Result === undefined || response.data.Result === null ) return;
         const fav = [...new Set(response.data.Result.map(item => item.idPart))];
         setFavorites(fav);
       } catch (error) {
