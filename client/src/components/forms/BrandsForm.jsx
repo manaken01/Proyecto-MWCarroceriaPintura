@@ -82,7 +82,7 @@ function PartsForm({ refreshParent , closeForm}) {
 
             const getData = async () => {
                 try {
-                    console.log(idBrand);
+                    //console.log(idBrand);
                     const response = await axios.delete(`http://localhost:8080/brand/${idBrand}`);
                     setResponseMessage(response.data);
                     handleResultsBrands();
@@ -108,7 +108,7 @@ function PartsForm({ refreshParent , closeForm}) {
             if (!doesExist) {
                 const getData = async () => {
                     try {
-                        console.log(idBrand);
+                        //console.log(idBrand);
                         const response = await axios.put(`http://localhost:8080/brand`,
                         {
                             name: name.toUpperCase(),

@@ -26,7 +26,7 @@ function CardUser({ name, email, phone, type, id, typeName ,refreshParent }) {
         if (window.confirm('¿Está seguro que desea eliminar este usuario?')) {
             try {
                 const response = await axios.delete(`http://localhost:8080/user/${id}`)
-                    console.log(response);
+                    //console.log(response);
                     if (response.status === 200) {
                         refreshParent();
                     }

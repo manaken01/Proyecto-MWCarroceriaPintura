@@ -13,7 +13,7 @@ function AppointmentsDateList({appointments,date}) {
         if (confirmDelete) {
 
             const getData = async () => {
-                console.log(idAppointment)
+                //console.log(idAppointment)
                 try {
                     const response = await axios.delete('http://localhost:8080/appointment', {
                         data: {

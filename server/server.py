@@ -35,7 +35,7 @@ def createBrand():
 @app.route("/brand",methods=['GET'])
 def readBrand():
     result = mainController.readBrand(cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })
@@ -310,7 +310,7 @@ async def readCarUser():
     cursor = connection.cursor(dictionary=True)
     idUser = request.args.get('idUser')
     result = await mainController.readCarUser(idUser,cursor)
-    print(result)
+    #print(result)
     cursor.close()
     return jsonify({
         'Result': result
@@ -378,7 +378,7 @@ def createService():
 @app.route("/service",methods=['GET'])
 async def readServices():
     result = await mainController.readServices(cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })
@@ -424,7 +424,7 @@ def createAppointment():
 def readAppointment():
     idUser = request.args.get('idUser')
     result = mainController.readAppointment(idUser,cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })
@@ -462,7 +462,7 @@ def getAppointmentId():
     hour = request.args.get('hour')
     idUser = request.args.get('idUser')
     result = mainController.getAppointmentId(date,hour,idUser,cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })
@@ -470,7 +470,7 @@ def getAppointmentId():
 @app.route("/appointmentAdmin",methods=['GET'])
 def readAppointmentAdmin():
     result = mainController.readAppointmentAdmin(cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })
@@ -479,7 +479,7 @@ def readAppointmentAdmin():
 def readAppointmentForm():
     idUser = request.args.get('idUser')
     result = mainController.readAppointmentForm(idUser,cursor)
-    print(result)
+    #print(result)
     return jsonify({
         'Result': result
     })

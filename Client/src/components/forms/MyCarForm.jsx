@@ -110,7 +110,7 @@ function MyCarForm() {
 
         const getPlate = async () => {
             try {
-                console.log(plate.toUpperCase())
+                //console.log(plate.toUpperCase())
 
                 const response = await axios.get('http://localhost:8080/plate', {
                     params: {
@@ -142,7 +142,7 @@ function MyCarForm() {
                     idUser: UserProfile.getId()
                 });
 
-                console.log(response.data);
+                //console.log(response.data);
                 alert('Se ha agregado el carro de forma correcta');
                 resetInputs();
                 if (response.status === 200) {

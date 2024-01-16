@@ -2,7 +2,7 @@
 import Card from './CardPartAdmin';
 
 function CardPartAdmin({ refreshFavorites, favorites, cards, filters, search, refreshParent }) {
-    console.log(cards);
+    
     const filteredCards = cards ? cards.filter(card =>
         (filters[0] === 'Seleccione' || card.parts.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.parts.car === filters[1]) &&
