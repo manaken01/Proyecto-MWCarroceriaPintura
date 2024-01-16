@@ -134,7 +134,7 @@ function ServicesForm({ }) {
                             idService: idService
                         });
                         setReason('');
-                        alert('Se ha modificado la marca de forma correcta');
+                        alert('Se ha modificado el servicio de forma correcta');
                         setResponse(response.data);
                         if (response.status === 200) {
                             window.location.reload();

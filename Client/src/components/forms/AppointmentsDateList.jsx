@@ -5,7 +5,7 @@ import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
 //acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
-function AppointmentsDateList({appointments}) {
+function AppointmentsDateList({appointments,date}) {
 
 
     const handleAppointmentDelete = async (idAppointment) => {
@@ -43,7 +43,10 @@ function AppointmentsDateList({appointments}) {
         <div className="card mb-3" style={{ border: '0px', backgroundColor: "#F9F9F9" }} >
             <div className="row g-0">
                 <div className="card-body">
+                    <h4 className="card-title" style={{ color: '#000000' }} >Citas del: {date} </h4>
 
+
+                    <Divider />
                     <div style={{ maxHeight: '200px', overflowY: 'scroll' }}>
 
                     <ul className="list-group list-group-horizontal">

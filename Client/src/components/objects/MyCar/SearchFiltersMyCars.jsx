@@ -1,7 +1,10 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Button, Modal } from 'react-bootstrap';
+import PartsForm from '../../forms/PartsForm';
+import { useNavigate } from "react-router-dom";
 import MyCarForm from '../../forms/MyCarForm';
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
 
 function SearchFiltersMyCars({dropdowns, setSelectedItems,setSearch, search}) {
     
@@ -9,7 +12,6 @@ function SearchFiltersMyCars({dropdowns, setSelectedItems,setSearch, search}) {
     
     const handleCarChange = (event) => {
         setSearch(event.target.value);
-        //console.log(search);
     }
 
     const handleSelect = (index, value) => {

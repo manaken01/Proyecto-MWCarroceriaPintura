@@ -21,7 +21,7 @@ function AppointmentForm({date}) {
     const handleShow = () => setShow(true);
 
 
-    const getDropdownsCars = async () => {
+    const getDropdowns = async () => {
         try {
             const response = await axios.get('http://localhost:8080/appointmentForm', {
                     params: {
@@ -40,7 +40,7 @@ function AppointmentForm({date}) {
     const handleResults = async () => {
         try {
             const [dropdownItemsCars] = await Promise.all([
-                getDropdownsCars()
+                getDropdowns()
             ]);
 
             const filteredServices = dropdownItemsCars.filter(dropdown => {

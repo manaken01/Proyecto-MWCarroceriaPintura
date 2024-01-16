@@ -18,11 +18,11 @@ function CalendarAdmin() {
   const [initialEvents, setInitialEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [showServices, setShowServices] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState("");
   const [appointments, setAppointments] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = (selectInfo) => {
-    console.log(selectInfo.start)
+
     const filteredAppointments = appointments.filter(appointment => {
       
       const appointmentDate = new Date(appointment.date).toISOString().replace(/T.*$/, '')
@@ -31,9 +31,10 @@ function CalendarAdmin() {
     });
 
     // Ahora, filteredAppointments contiene solo los elementos cuya fecha coincide con selectInfo.start
-    console.log(filteredAppointments);
     // Puedes guardar o utilizar la lista filtrada según tus necesidades
+    const formattedDate = new Date(selectInfo.start).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
     setFilteredAppointments(filteredAppointments);
+    setSelectedDate(formattedDate)
     setShow(true); // Muestra el modal
   };
   const handleShowServicesClose = () => setShowServices(false);
@@ -102,7 +103,7 @@ function CalendarAdmin() {
             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
             </Modal.Header>
             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                <AppointmentsDateList appointments={filteredAppointments}/>
+                <AppointmentsDateList appointments={filteredAppointments} date={selectedDate}/>
             </Modal.Body>
             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
             </Modal.Footer>
