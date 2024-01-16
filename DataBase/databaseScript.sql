@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`brand` (
   `idBrand` INT NOT NULL AUTO_INCREMENT,
-  `nameBrand` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
   `active` TINYINT NOT NULL,
   PRIMARY KEY (`idBrand`))
 ENGINE = InnoDB;
@@ -201,8 +201,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`appointment` (
   `idAppointment` INT NOT NULL AUTO_INCREMENT,
-  `start` DATE NOT NULL,
-  `finish` DATE NOT NULL,
+  `date` DATE NOT NULL,
+  `hour` VARCHAR(45) NOT NULL,
   `active` TINYINT NOT NULL,
   `idCarUser` INT NOT NULL,
   `User_idUser` INT NOT NULL,
