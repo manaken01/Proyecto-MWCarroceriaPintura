@@ -67,7 +67,7 @@ class AdminCarSell:
             print(cursor.rowcount, "record(s) updated.")
 
             # Fetch the last inserted ID
-            print(carSell.photos)
+            #print(carSell.photos)
 
             if carSell.photos != []:
                 sql = "DELETE FROM carPhoto WHERE idCarSell = %s"

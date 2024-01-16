@@ -84,7 +84,7 @@ class adminAppointment:
     def getAppointmentId(date,hour,idUser, cursor):
         try: #recupera solo las del usuario
             sql = "SELECT * FROM appointment WHERE DATE(date) >= %s and hour = %s" 
-            print(date)
+            #print(date)
             now = datetime.now()
             formatted_date = now.strftime('%Y-%m-%d')
             val = (formatted_date,hour)

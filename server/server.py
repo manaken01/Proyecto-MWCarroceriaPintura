@@ -543,5 +543,21 @@ def addReview():
     return jsonify({
         'Result': result
     })
+
+@app.route("/review",methods=['GET'])
+def readReview():
+    result = mainController.readReview(connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/review/<int:idReview>",methods=['DELETE'])
+def deleteReview(idReview):
+    review = Review(idReview=idReview)
+    result = mainController.deleteReview(review,connection,cursor)
+    return jsonify({
+        'Result': result
+    })
+
 if __name__ == "__main__":
     app.run(debug=True, port = 8080)

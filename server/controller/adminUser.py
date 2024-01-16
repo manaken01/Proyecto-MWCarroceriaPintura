@@ -29,7 +29,7 @@ class adminUser:
             result = cursor.fetchall()
             if len(result) == 0:
                 return 0
-            print(result)
+            #print(result)
             return {"email":result[0]['email'],"Username":result[0]['Username'],"idUser":result[0]['idUser'],"userType":result[0]['idUserType']}
         
         except mysql.connector.Error as error:
@@ -42,7 +42,7 @@ class adminUser:
             val = (email,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
-            print(result)
+            #print(result)
             if len(result) != 0:
                 return False
             return True
@@ -56,7 +56,7 @@ class adminUser:
             val = (cellphone)
             cursor.execute(sql,(val,))
             result = cursor.fetchall()
-            print(result)
+            #print(result)
             if len(result) != 0:
                 return False
             return True
@@ -143,7 +143,7 @@ class adminUser:
                 return False
             
             randomPassword = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
-            print(randomPassword)
+            #print(randomPassword)
             smtp_server = 'smtp.gmail.com'
             smtp_port = 587
             smtp_username = 'rsismosmad@gmail.com'

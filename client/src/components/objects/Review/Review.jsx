@@ -3,7 +3,7 @@ import StarRating from '../../decoration/StarRating'
 
 
 
-function Review({ user,calification, comment,date }) {
+function Review({handleReviews, id, user,calification, comment,date }) {
   return (
     <div className="card mb-3" style={{ maxWidth: '100%', backgroundColor: "#F9F9F9", boxShadow: "#E3E3E3 3px 3px 3px" }}>
       <div className="row no-gutters">
