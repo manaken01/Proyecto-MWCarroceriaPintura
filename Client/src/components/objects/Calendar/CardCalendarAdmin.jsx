@@ -40,14 +40,14 @@ function CardCalendarAdmin({date,hour,reason,car,appointmentID}) {
 
     return (
 
-        <div class="list-group list-group-flush border-bottom scrollarea">
-            <a href="#" class="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
-                <div class="d-flex w-100 align-items-center justify-content-between">
-                    <strong class="mb-1" style={{marginRight:'1%'}}>Hora: {hour}</strong>
+        <div className="list-group list-group-flush border-bottom scrollarea">
+            <a href="#" className="list-group-item list-group-item-action py-3 lh-tight" aria-current="true">
+                <div className="d-flex w-100 align-items-center justify-content-between">
+                    <strong className="mb-1" style={{marginRight:'1%'}}>Hora: {hour}</strong>
                     <strong>{formattedDate}</strong>
                 </div>
-                <div class="col-10 mb-1 ">Razón: {reason}</div>
-                <div class="col-10 mb-1 "><strong>Carro: {car}</strong></div>
+                <div className="col-10 mb-1 ">Razón: {reason}</div>
+                <div className="col-10 mb-1 "><strong>Carro: {car}</strong></div>
                 <button type="button" className="btn btn-danger" onClick={handleAppointmentDelete} style={{ backgroundColor: '#C80B16' }}>Eliminar</button>
             </a>
         </div>
