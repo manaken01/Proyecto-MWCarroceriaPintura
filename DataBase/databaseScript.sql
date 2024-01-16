@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`brand` (
   `idBrand` INT NOT NULL AUTO_INCREMENT,
-  `nameBrand` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
   `active` TINYINT NOT NULL,
   PRIMARY KEY (`idBrand`))
 ENGINE = InnoDB;
