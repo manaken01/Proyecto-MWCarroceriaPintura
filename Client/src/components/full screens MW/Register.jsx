@@ -99,7 +99,6 @@ const Register = () => {
         };
 
         if (!validateEmail()) {
-            console.log('Correo electrónico fallido')
             alert('Correo electrónico inválido');
             return;
         }
