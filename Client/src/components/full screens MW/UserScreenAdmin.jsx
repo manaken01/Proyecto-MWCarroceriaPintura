@@ -79,9 +79,6 @@ const UserScreenAdmin = () => {
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
-                        <li className="nav-item active" style={{ listStyle: 'none' }}>
-                            <Link className="nav-link" to="/myCar" style={linkStyle} href="#">Ver mis carros</Link>
-                        </li>
                         <li className="nav-item active" style={{ listStyle: 'none', marginRight: '20%' }}>
                             <Link className="nav-link" to="/manageUsers" style={linkStyle} href="#">Manejar usuarios</Link>
                         </li>
