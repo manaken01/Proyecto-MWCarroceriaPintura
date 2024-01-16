@@ -2,26 +2,31 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Button, Modal } from 'react-bootstrap';
 import PartsForm from '../../forms/PartsForm';
-import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import MyCarForm from '../../forms/MyCarForm';
+import { useState , useEffect } from 'react'
 
-function SearchFiltersMyCars() {
-    const dropdowns = [
-        { label: 'Marca:', items: ['Toyota', 'Honda', 'Ford', 'Chevrolet'] },
-        { label: 'Año:', items: ['2000', '2005', '2010', '2015'] },
-    ];
+function SearchFiltersMyCars({dropdowns, setSelectedItems,setSearch, search}) {
+    
+    const [tempSelectedItems, setTempSelectedItems] = useState(Array(2).fill('Seleccione'));
+    
+    const handleCarChange = (event) => {
+        setSearch(event.target.value);
+    }
+
+    const handleSelect = (index, value) => {
+        const newTempSelectedItems = [...tempSelectedItems];
+        newTempSelectedItems[index] = value;
+        setTempSelectedItems(newTempSelectedItems);
+    };
+    const handleFilter = () => {
+        setSelectedItems(tempSelectedItems);
+    };
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const navigate = useNavigate();
-
-    function navigateToForm() {
-        navigate("/form");
-    }
 
     return (
 
@@ -32,10 +37,7 @@ function SearchFiltersMyCars() {
                         <div className="input-group-prepend">
                             <span className="input-group-text" id="basic-addon1">🔍</span>
                         </div>
-                        <input type="text" className="form-control" placeholder="Buscar carro" aria-label="searchCar" aria-describedby="basic-addon1" />
-                        <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
-                        </div>
+                        <input type="text" className="form-control" placeholder="Buscar carro por placa"  value={search} onChange={handleCarChange} aria-label="searchCar" aria-describedby="basic-addon1" />
                     </div>
                 </div>
             </div>
@@ -45,12 +47,12 @@ function SearchFiltersMyCars() {
                         <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>{dropdown.label}</p>
                         <Dropdown>
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic" style={{ width: '100%' }}>
-                                Seleccione
+                                {tempSelectedItems[index]}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 {dropdown.items.map((item, itemIndex) => (
-                                    <Dropdown.Item href="#" key={itemIndex}>{item}</Dropdown.Item>
+                                    <Dropdown.Item href="#" key={itemIndex} onClick={() => handleSelect(index, item)} >{item}</Dropdown.Item>
                                 ))}
                             </Dropdown.Menu>
                         </Dropdown>
@@ -59,7 +61,7 @@ function SearchFiltersMyCars() {
             </div>
             <div className="row mt-3 mb-3" style={{ paddingBottom: '2%' }}>
                 <div className="col d-flex justify-content-start">
-                    <button className="btn btn-outline-secondary" style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
+                    <button className="btn btn-outline-secondary" onClick={handleFilter} style={{ width: '10%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', minWidth: '100px' }}>Filtrar</button>
                 </div>
                 <div className="col d-flex justify-content-end">
                     <button className="btn btn-outline-secondary" onClick={handleShow} style={{ backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }} >Agregar nuevo carro</button>
