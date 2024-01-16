@@ -117,7 +117,7 @@ function MyCarFormModified({ idCar, initialPlate }) {
 
                 const getPlate = async () => {
                     try {
-                        console.log(plate.toUpperCase())
+                        //console.log(plate.toUpperCase())
         
                         const response = await axios.get('http://localhost:8080/plate', {
                             params: {
@@ -143,7 +143,7 @@ function MyCarFormModified({ idCar, initialPlate }) {
     
             const getData = async () => {
                     try {
-                        console.log(idBrand);
+                        //console.log(idBrand);
                         const response = await axios.put(`http://localhost:8080/carUser`,
                         {
                             idCar: idCar,

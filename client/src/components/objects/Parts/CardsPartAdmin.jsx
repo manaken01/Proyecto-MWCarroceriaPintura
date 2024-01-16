@@ -2,12 +2,13 @@
 import Card from './CardPartAdmin';
 
 function CardPartAdmin({ refreshFavorites, favorites, cards, filters, search, refreshParent }) {
-    const filteredCards = cards.filter(card =>
+    
+    const filteredCards = cards ? cards.filter(card =>
         (filters[0] === 'Seleccione' || card.parts.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.parts.car === filters[1]) &&
         (filters[2] === 'Seleccione' || card.parts.category === filters[2]) &&
         (filters[3] === 'Seleccione' || card.parts.name === filters[3]) &&
-
+    
         ((search && (card.parts.name.toLowerCase().includes(search.toLowerCase()) ||
             card.parts.car.toLowerCase().includes(search.toLowerCase()) ||
             card.parts.price.toString().includes(search.toLowerCase()) ||
@@ -17,9 +18,9 @@ function CardPartAdmin({ refreshFavorites, favorites, cards, filters, search, re
             card.parts.bodyShape.toLowerCase().includes(search.toLowerCase()) ||
             card.parts.version.toLowerCase().includes(search.toLowerCase()) ||
             card.parts.generation.toLowerCase().includes(search.toLowerCase())))
-
+    
             || (search === undefined || search === ''))
-    );
+    ) : [];
     return (
         <div>
             <div className="container flex justify-content-center align-items-center" >

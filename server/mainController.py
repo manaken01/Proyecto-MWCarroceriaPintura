@@ -155,3 +155,9 @@ class mainController:
     #review
     def addReview(review,connection,cursor):
         return (adminReview.addReview(review,connection,cursor))
+     
+    def readReview(connection,cursor):
+        return (adminReview.readReview(connection,cursor))
+    
+    def deleteReview(review,connection,cursor):
+        return (adminReview.deleteReview(review,connection,cursor))

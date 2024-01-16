@@ -139,7 +139,7 @@ function CarSellForm({refreshParent, closeForm}) {
             return;
         }
         const getData = async () => {
-            console.log(idBrand);
+            //console.log(idBrand);
             try {
                 const response = await axios.post('http://localhost:8080/carSell', {
                     model: model,

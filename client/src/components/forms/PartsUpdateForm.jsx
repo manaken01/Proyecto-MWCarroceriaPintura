@@ -145,7 +145,7 @@ function PartsUpdateForm({ carPart, refreshParent, closeForm, pic }) {
             return;
         }
         const getData = async () => {
-            console.log(idBrand);
+            //console.log(idBrand);
             try {
                 const response = await axios.put('http://localhost:8080/carPart', {
                     idCarPart: carPart.id,
@@ -162,7 +162,7 @@ function PartsUpdateForm({ carPart, refreshParent, closeForm, pic }) {
                 });
 
                 setResponseMessage(response.data);
-                console.log(response.data);
+                //console.log(response.data);
                 resetInputs();
                 alert('Se ha modificado el repuesto de forma correcta');
                 if (response.status === 200) {

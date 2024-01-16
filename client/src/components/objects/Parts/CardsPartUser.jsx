@@ -4,7 +4,7 @@ import Card from './CardPartUser';
 
 
 function CardsPartUser({ refreshFavorites, favorites, cards, filters, search }) {
-    const filteredCards = cards.filter(card =>
+    const filteredCards = cards ? cards.filter(card =>
         (filters[0] === 'Seleccione' || card.parts.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.parts.car === filters[1]) &&
         (filters[2] === 'Seleccione' || card.parts.category === filters[2]) &&
@@ -21,11 +21,11 @@ function CardsPartUser({ refreshFavorites, favorites, cards, filters, search }) 
             card.parts.generation.toLowerCase().includes(search.toLowerCase())))
 
             || (search === undefined || search === ''))
-    );
+    ) : [];
     return (
         <div>
             <div className="container flex justify-content-center align-items-center" >
-            <div className='row'>{
+                <div className='row'>{
                     filteredCards.map(card => {
                         var isLiked = favorites.includes(card.parts.idPart);
                         return (

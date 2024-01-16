@@ -57,7 +57,7 @@ class adminCarUser:
             val = (licensePlate,)
             cursor.execute(sql,val)
             result = cursor.fetchall()
-            print(result)
+            #sprint(result)
             if len(result) != 0:
                 return False
             return True

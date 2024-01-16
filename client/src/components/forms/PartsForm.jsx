@@ -45,7 +45,7 @@ function PartsForm({ refreshParent, closeForm }) {
         const jsonList = newImageList.map((image) => ({
             base64: image.base64
         }));
-        console.log(jsonList);
+        //console.log(jsonList);
         setPhoto(jsonList);
         // For demonstration purposes, log the JSON list to the console
 
@@ -128,7 +128,7 @@ function PartsForm({ refreshParent, closeForm }) {
             return;
         }
         const getData = async () => {
-            console.log(idBrand);
+            //console.log(idBrand);
             try {
                 const response = await axios.post('http://localhost:8080/carPart', {
                     name: name,
@@ -144,7 +144,7 @@ function PartsForm({ refreshParent, closeForm }) {
                 });
 
                 setResponseMessage(response.data);
-                console.log(response.data);
+                //console.log(response.data);
                 refreshParent();
                 resetInputs();
                 alert('Se ha agregado el repuesto de forma correcta');

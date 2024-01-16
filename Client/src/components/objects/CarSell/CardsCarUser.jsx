@@ -2,7 +2,7 @@ import React from 'react';
 import CardCarSellUser from './CardCarSellUser';
 
 const CardsCarUser = ({refreshFavorites, favorites,cards, filters, search, refreshParent}) => {
-    const filteredCards = cards.filter(card => 
+    const filteredCards = cards ? cards.filter(card =>
         (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&
         (filters[1] === 'Seleccione' || card.carSell.year === filters[1]) &&
         (filters[2] === 'Seleccione' || card.carSell.bodyShape === filters[2]) &&
@@ -18,7 +18,7 @@ const CardsCarUser = ({refreshFavorites, favorites,cards, filters, search, refre
         card.carSell.color.toLowerCase().includes(search.toLowerCase())))
     
         || (search === undefined || search === ''))
-    );
+        ) : [];
 
     return (
         <div>

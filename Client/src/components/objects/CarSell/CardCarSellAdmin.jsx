@@ -40,7 +40,7 @@ function CardCarSellAdmin({ refreshFavorites, Liked,id, name, year, price, trans
             try {
                 const response = await axios.delete(`http://localhost:8080/carSell/${id}`)
                 
-                console.log(response);
+                //console.log(response);
                 if (response.status === 200) {
                     refreshParent();
                 }

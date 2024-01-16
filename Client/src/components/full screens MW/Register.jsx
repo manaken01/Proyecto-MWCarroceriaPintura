@@ -170,7 +170,7 @@ const Register = () => {
             registerUser()
         ]);
 
-        console.log(responseMessage)
+        //console.log(responseMessage)
     };
   
 
