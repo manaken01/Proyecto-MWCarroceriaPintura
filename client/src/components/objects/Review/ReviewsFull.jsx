@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Review from './Review';
+import ReviewUser from './Review';
 import ReviewAdmin from './ReviewAdmin';
 import StarRatingSet from '../../decoration/StarRatingSet';
 import axios from 'axios';
