@@ -117,7 +117,7 @@ const UserUpdateForm = ({ user, refreshParent, closeForm }) => {
                 });
 
                 setResponseMessage(response.data);
-                alert('Se ha modificado el carro.');
+                alert('Se ha modificado el usuario.');
                 resetInputs();
                 if (response.status === 200) {
                     refreshParent();

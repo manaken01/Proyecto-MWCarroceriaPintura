@@ -196,7 +196,6 @@ def deleteUser(idUser):
 
 @app.route("/user",methods=['POST'])
 def createUser():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     userName = data['userName']
     email = data['email']
@@ -210,7 +209,6 @@ def createUser():
 
 @app.route("/user",methods=['PUT'])
 def updateUser():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     userName = data['name']
     email = data['email']
@@ -226,7 +224,6 @@ def updateUser():
 
 @app.route("/login",methods=['GET'])
 def logIn():
-    cursor = connection.cursor(dictionary=True)
     email = request.args.get('email')
     password = request.args.get('password')
     result = mainController.logIn(email,password,cursor)
@@ -266,7 +263,6 @@ async def getUserNames():
 
 @app.route("/changePass",methods=['PUT'])
 def changePass():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     idUser = data['idUser']
     oldPassword = data['oldPassword']
@@ -278,7 +274,6 @@ def changePass():
 
 @app.route("/resetPass",methods=['PUT'])
 def resetPass():
-    cursor = connection.cursor(dictionary=True)
     data = request.get_json()
     email = data['email']
     result = mainController.resetPassword(email, connection, cursor)
@@ -290,7 +285,6 @@ def resetPass():
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
     result = mainController.getUserTypes(connection,cursor)
-    print(result)
     return jsonify({
         'Result': result
     })
