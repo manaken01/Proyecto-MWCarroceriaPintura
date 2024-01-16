@@ -77,6 +77,9 @@ class mainController:
     def changePassword(oldPassword, newPassword, idUser, connection, cursor):
         return (adminUser.changePassword(oldPassword, newPassword, idUser, connection, cursor))
     
+    def resetPassword(email, connection, cursor):
+        return (adminUser.resetPassword(email, connection, cursor))
+    
     #UserType
 
     def getUserTypes(connection,cursor):

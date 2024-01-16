@@ -25,7 +25,20 @@ const ChangePassword = () => {
         setRepeatNewPassword(event.target.value);
     }
 
+    const validatePassword = () => {
+        // Aquí defines tu expresión regular
+        const regex = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
+        return regex.test(newPassword);
+    };
+
+
     const handleChangePassword = async () => {
+
+        if (!validatePassword()) {
+            alert('Contraseña inválida: debe tener entre 8 y 16 caracteres, al menos una letra mayúscula, una letra minúscula y un número')
+            return;
+        }
+
         if (newPassword !== repeatNewPassword) {
             alert("La contraseña nueva no coincide con la repetición.");
             return;

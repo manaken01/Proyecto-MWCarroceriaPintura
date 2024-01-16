@@ -11,16 +11,16 @@ const ResetPassword = () => {
 
     const handleResetPassword = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/resetPassword', {
+            const response = await axios.put('http://localhost:8080/resetPass', {
                 email: email
             });
 
             setResponseMessage(response.data);
             if (response.data.Result === true) {
-                alert("Password reset link sent to your email.");
+                alert("Link con la contraseña temporal enviado.");
             }
             else {
-                alert("Error sending password reset link.");
+                alert("No se encontró ninguna cuenta asociada a ese correo electrónico.");
             }
         } catch (error) {
             console.error('Error during the request:', error);

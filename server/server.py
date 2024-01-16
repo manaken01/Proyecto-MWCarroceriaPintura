@@ -276,6 +276,16 @@ def changePass():
         'Result': result
     })
 
+@app.route("/resetPass",methods=['PUT'])
+def resetPass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    email = data['email']
+    result = mainController.resetPassword(email, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
+
 #UserType
 @app.route("/userType",methods=['GET'])
 def getUserTypes():
