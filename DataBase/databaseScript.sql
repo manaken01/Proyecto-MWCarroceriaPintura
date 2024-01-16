@@ -192,6 +192,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`service` (
   `idService` INT NOT NULL AUTO_INCREMENT,
   `service` VARCHAR(50) NOT NULL,
+  `active` TINYINT NOT NULL,
   PRIMARY KEY (`idService`))
 ENGINE = InnoDB;
 
