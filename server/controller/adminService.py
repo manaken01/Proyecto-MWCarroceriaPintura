@@ -38,10 +38,10 @@ class adminService:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
-    def deleteService(service, cursor,connection):
+    def deleteService(idService, cursor,connection):
         try: #recupera solo las del usuario
             sql = "UPDATE service SET active = %s WHERE idService = %s"
-            val = (0,service.id)
+            val = (0,idService)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record deleted.")

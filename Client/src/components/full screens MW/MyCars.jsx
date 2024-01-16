@@ -2,8 +2,8 @@ import React from 'react';
 import Navbar from '../objects/Navbar';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchFiltersMyCars from '../objects/SearchFiltersMyCars';
-import CardMyCarsStart from '../objects/CardMyCarsStart';
+import SearchFiltersMyCars from '../objects/MyCar/SearchFiltersMyCars';
+import CardMyCarsStart from '../objects/MyCar/CardMyCarsStart';
 
 function MyCars() {
   return (

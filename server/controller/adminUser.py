@@ -2,6 +2,9 @@ import mysql.connector
 from mysql.connector import Error
 from model.User import *
 from model.UserType import *
+import smtplib
+import random, string
+import hashlib
 import json 
 
 class adminUser:
@@ -115,3 +118,61 @@ class adminUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+        
+    def changePassword(oldPassword, newPassword, idUser, connection, cursor):
+        try:
+            cursor = connection.cursor(dictionary=True)
+            sql = "SELECT * FROM user WHERE idUser = %s AND password = %s"
+            val = (idUser, oldPassword)
+            cursor.execute(sql, val)
+            result = cursor.fetchall()
+            if len(result) == 0:
+                return False
+            sql = "UPDATE user SET password = %s WHERE idUser = %s AND password = %s"
+            val = (newPassword, idUser, oldPassword)
+            cursor.execute(sql, val)
+            connection.commit()
+            cursor.close()
+            cursor = connection.cursor(dictionary=True)
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+        
+    def resetPassword(email, connection, cursor):
+        try:
+            cursor = connection.cursor(dictionary=True)
+            sql = "SELECT * FROM user WHERE email = %s"
+            val = (email,)
+            cursor.execute(sql, val)
+            result = cursor.fetchall()
+            if len(result) == 0:
+                return False
+            
+            randomPassword = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))
+            print(randomPassword)
+            smtp_server = 'smtp.gmail.com'
+            smtp_port = 587
+            smtp_username = 'rsismosmad@gmail.com'
+            smtp_password = 'docr ewae ezhr simq'
+
+            from_email = 'rsismosmad@gmail.com'
+            to_email = email
+            subject = 'MW Contraseña temporal.'
+            body = 'La contraseña temporal es: ' + randomPassword
+
+            message = f'Subject: {subject}\n\n{body}'
+            message = message.encode('utf-8')
+
+            with smtplib.SMTP(smtp_server, smtp_port) as smtp:
+                smtp.starttls()
+                smtp.login(smtp_username, smtp_password)
+                smtp.sendmail(from_email, to_email, message)
+            hashedPassword = hashlib.sha256(randomPassword.encode('utf-8')).hexdigest()
+            sql = "UPDATE user SET password = %s WHERE email = %s"
+            val = (hashedPassword, email)
+            cursor.execute(sql, val)
+            return True
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False    

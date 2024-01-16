@@ -75,6 +75,12 @@ class mainController:
     async def getUserNames(userName,cursor):
         return (await adminUser.getUserNames(userName,cursor))
     
+    def changePassword(oldPassword, newPassword, idUser, connection, cursor):
+        return (adminUser.changePassword(oldPassword, newPassword, idUser, connection, cursor))
+    
+    def resetPassword(email, connection, cursor):
+        return (adminUser.resetPassword(email, connection, cursor))
+    
     #UserType
 
     def getUserTypes(connection,cursor):
@@ -108,8 +114,8 @@ class mainController:
     def updateService(service,cursor,connection):
         return (adminService.updateService(service,cursor,connection))
     
-    def deleteService(service,cursor,connection):
-        return (adminService.deleteService(service,cursor,connection))
+    def deleteService(idService,cursor,connection):
+        return (adminService.deleteService(idService,cursor,connection))
     
     #appointment
     def createAppointment(appointment,connection,cursor):
@@ -117,6 +123,12 @@ class mainController:
     
     def readAppointment(idUser,cursor):
         return (adminAppointment.readAppointment(idUser,cursor))
+    
+    def readAppointmentAdmin(cursor):
+        return (adminAppointment.readAppointmentAdmin(cursor))
+    
+    def readAppointmentForm(idUser,cursor):
+        return (adminAppointment.readAppointmentForm(idUser,cursor))
     
     def updateAppointment(appointment,cursor,connection):
         return (adminAppointment.updateAppointment(appointment,cursor,connection))

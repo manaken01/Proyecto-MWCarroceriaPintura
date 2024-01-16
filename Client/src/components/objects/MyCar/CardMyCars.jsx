@@ -2,50 +2,35 @@ import React from 'react';
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Divider from '../decoration/Divider';
-import MyCarFormModified from '../forms/MyCarFormModified';
+import Divider from '../../decoration/Divider';
+import MyCarFormModified from '../../forms/MyCarFormModified';
 import axios from 'axios';
-import UserProfile from '../resources/UserProfile';
+import UserProfile from '../../resources/UserProfile';
 
-function CardMyCars({car,year,plate}) {
+function CardMyCars({idCarUser,car,year,plate}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const handleMyCarsDelete = async () => {
-        const confirmDelete = window.confirm("¿Seguro que deseas eliminar esta marca?");
+        const confirmDelete = window.confirm("¿Seguro que deseas eliminar este carro?");
         if (confirmDelete) {
 
-            const getPlateId = async () => {
-                try {
-                    console.log(plate.toUpperCase())
-    
-                    const response = await axios.get('http://localhost:8080/plateId', {
-                        params: {
-                            licensePlate: plate.toUpperCase()
-                        }
-                    });
-                    return response.data
-                } catch (error) {
-                    console.error('Error al realizar la solicitud:', error);
-                }
-            };
-
-            const [plateId] = await Promise.all([
-                getPlateId(),
-            ]);
 
             const getData = async () => {
                 try {
                     const response = await axios.delete('http://localhost:8080/carUser', {
                         data: {
-                            id: plateId.Result[0].idCarUser,
+                            id: idCarUser,
                             idUser: UserProfile.getId()
                         }
                     });
                  
-                    alert('Se ha eliminado la marca de forma correcta');
+                    alert('Se ha eliminado el carro de forma correcta');
+                    if (response.status === 200) {
+                        window.location.reload();
+                    }
 
                 } catch (error) {
                     console.error('Error al realizar la solicitud:', error);
@@ -55,7 +40,7 @@ function CardMyCars({car,year,plate}) {
             getData();
 
         } else {
-            alert('La marca no ha sido eliminada');
+            alert('El carro no ha sido eliminado');
         }
     }
     
@@ -76,7 +61,7 @@ function CardMyCars({car,year,plate}) {
                         <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
                         </Modal.Header>
                         <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                            <MyCarFormModified initialPlate={plate}/>
+                            <MyCarFormModified initialPlate={plate} idCar={idCarUser}/>
                         </Modal.Body>
                         <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
                         </Modal.Footer>

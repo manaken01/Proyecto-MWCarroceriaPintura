@@ -8,7 +8,7 @@ import UserProfile from '../resources/UserProfile';
 import { formatDate } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
-function AppointmentFormModified({date,hourM}) {
+function AppointmentFormModified({date,hourM,appointmentID}) {
     
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
     const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
@@ -25,38 +25,43 @@ function AppointmentFormModified({date,hourM}) {
 
     const getDropdownsCars = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/carUser', {
+            const response = await axios.get('http://localhost:8080/appointmentForm', {
                     params: {
                         idUser: UserProfile.getId(),
                     }
             });
-            setResponse(response.data.Result);
-            return response.data.Result.map((result) => result.licensePlate);
+      
+            return response.data.Result;
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             return []; // Return an empty array or handle the error gracefully
         }
     };
 
-    const getDropdownServices = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/service');
-            setResponseService(response.data.Result);
-            return response.data.Result.map((result) => result.service);
-        } catch (error) {
-            console.error('Error al realizar la solicitud:', error);
-            return []; // Return an empty array or handle the error gracefully
-        }
-    };
 
     const handleResults = async () => {
         try {
-            const dropdownItemsCars = await getDropdownsCars();
-            const dropdownItemsServices = await getDropdownServices();
+            const [dropdownItemsCars] = await Promise.all([
+                getDropdownsCars()
+            ]);
+
+            const filteredServices = dropdownItemsCars.filter(dropdown => {
+                return dropdown.tipo === 'Service';
+            });
+
+            
+
+            const filteredCars = dropdownItemsCars.filter(dropdown => {
+                return dropdown.tipo === 'CarUser';
+            });
+
+            setResponse(filteredCars)
+            setResponseService(filteredServices)
+    
             setDropdowns([
                 { label: 'Hora:', items: ['12:00 - 13:00', '13:00 - 14:00', '14:00 - 15:00', '15:00 - 16:00', '16:00 - 17:00', '17:00 - 18:00'] },
-                { label: 'Razón:', items: dropdownItemsServices },
-                { label: 'Carro:', items: dropdownItemsCars },
+                { label: 'Razón:', items: filteredServices.map((result) => result.licensePlate)},
+                { label: 'Carro:', items: filteredCars.map((result) => result.licensePlate) },
                 
             ]);
         } catch (error) {
@@ -118,9 +123,9 @@ function AppointmentFormModified({date,hourM}) {
         return carUser ? carUser.idCarUser : null;
     };
 
-    const getIdReason = (service) => {
-        const reason = responseDataService.find((item) => item.service === service);
-        return reason ? reason.idService : null;
+    const getIdReason = (licensePlate) => {
+        const reason = responseDataService.find((item) => item.licensePlate === licensePlate);
+        return reason ? reason.idCarUser : null;
     };
     
     const validateInputs = () => {
@@ -132,20 +137,20 @@ function AppointmentFormModified({date,hourM}) {
     };
 
     const handleAppointmentUpdate = async () => {
-        const confirmEdit = window.confirm("¿Seguro que deseas modificar este carrro?");
+        const confirmEdit = window.confirm("¿Seguro que deseas modificar esta cita?");
         if (confirmEdit) {
 
             if (!validateInputs()) {
                 return;
             }    
-    
+
             const getAppointmentId = async () => {
                 try {
     
                     const response = await axios.get('http://localhost:8080/appointmentID', {
                         params: {
                             date: formattedDateForm,
-                            hour: hourM,
+                            hour: hour
                         }
                     });
                     return response.data
@@ -153,13 +158,17 @@ function AppointmentFormModified({date,hourM}) {
                     console.error('Error al realizar la solicitud:', error);
                 }
             };
-
-            const [appointmentID] = await Promise.all([
+    
+            const [appointmentID2] = await Promise.all([
                 getAppointmentId(),
             ]);
-
+    
+            if (appointmentID2.Result.length !== 0) {
+                alert('Ya se encuentra una cita asignada a esa hora');
+                return
+            }
+    
             const getData = async () => {
-                console.log(appointmentID)
                     try {
                         const response = await axios.put(`http://localhost:8080/appointment`,
                         {
@@ -168,7 +177,7 @@ function AppointmentFormModified({date,hourM}) {
                             idCarUser: idCarUser,
                             idUser: UserProfile.getId(),
                             idService: idReason,
-                            idAppointment: appointmentID.Result[0].idAppointment,
+                            idAppointment: appointmentID
                         });
                         alert('Se ha modificado la cita de forma correcta');
                         resetInputs();
