@@ -70,7 +70,6 @@ class adminUser:
             val = (userName)
             cursor.execute(sql,(val,))
             result = cursor.fetchall()
-            print(result)
             if len(result) != 0:
                 return False
             return True
@@ -80,12 +79,9 @@ class adminUser:
         
     def getUsers(connection, cursor):
         try: 
-            cursor = connection.cursor(dictionary=True)
             sql = "Select * FROM user INNER JOIN userType ON user.idUserType = userType.idUserType WHERE active = 1"
             cursor.execute(sql)
             result = cursor.fetchall()
-            cursor.close()
-            cursor = connection.cursor(dictionary=True)
             return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
@@ -121,7 +117,6 @@ class adminUser:
         
     def changePassword(oldPassword, newPassword, idUser, connection, cursor):
         try:
-            cursor = connection.cursor(dictionary=True)
             sql = "SELECT * FROM user WHERE idUser = %s AND password = %s"
             val = (idUser, oldPassword)
             cursor.execute(sql, val)
@@ -132,8 +127,6 @@ class adminUser:
             val = (newPassword, idUser, oldPassword)
             cursor.execute(sql, val)
             connection.commit()
-            cursor.close()
-            cursor = connection.cursor(dictionary=True)
             return True
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
@@ -141,7 +134,7 @@ class adminUser:
         
     def resetPassword(email, connection, cursor):
         try:
-            cursor = connection.cursor(dictionary=True)
+
             sql = "SELECT * FROM user WHERE email = %s"
             val = (email,)
             cursor.execute(sql, val)
@@ -168,6 +161,7 @@ class adminUser:
                 smtp.starttls()
                 smtp.login(smtp_username, smtp_password)
                 smtp.sendmail(from_email, to_email, message)
+
             hashedPassword = hashlib.sha256(randomPassword.encode('utf-8')).hexdigest()
             sql = "UPDATE user SET password = %s WHERE email = %s"
             val = (hashedPassword, email)

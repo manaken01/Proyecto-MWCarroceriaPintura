@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SHA256 } from 'crypto-js';
 import { useNavigate } from "react-router-dom";
 import UserProfile from '../resources/UserProfile';
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
 
@@ -103,8 +104,14 @@ const LogIn = () => {
                     <div className="col-12 d-flex justify-content-center">
                         <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
-                                <p style={{ color: 'red', marginBottom: '15%' }}>¿Olvidaste la contraseña?</p>
+                                <Link to='/resetPassword' style={{textDecoration: 'none', color: 'red', marginBottom: '15%' }}>¿Olvidaste la contraseña?</Link>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row mt-3 mb-3">
+                    <div className="col-12 d-flex justify-content-center">
+                        <div className="col-12 col-md-6 d-flex justify-content-center flex-column align-items-center">
                             <div>
                                 <button className="btn btn-outline-secondary" onClick={handleLogin} style={{ height: '150%' , width: '110%', maxWidth: '150px', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white' }}>Iniciar sesión</button>
                             </div>
