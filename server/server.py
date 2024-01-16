@@ -264,6 +264,27 @@ async def getUserNames():
         'Result': result
     })
 
+@app.route("/changePass",methods=['PUT'])
+def changePass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    idUser = data['idUser']
+    oldPassword = data['oldPassword']
+    newPassword = data['newPassword']
+    result = mainController.changePassword(oldPassword, newPassword, idUser, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/resetPass",methods=['PUT'])
+def resetPass():
+    cursor = connection.cursor(dictionary=True)
+    data = request.get_json()
+    email = data['email']
+    result = mainController.resetPassword(email, connection, cursor)
+    return jsonify({
+        'Result': result
+    })
 
 #UserType
 @app.route("/userType",methods=['GET'])
@@ -273,6 +294,7 @@ def getUserTypes():
     return jsonify({
         'Result': result
     })
+
 
 #CarUser
 @app.route("/carUser",methods=['POST'])
@@ -291,9 +313,11 @@ def createCarUser():
 
 @app.route("/carUser",methods=['GET'])
 async def readCarUser():
+    cursor = connection.cursor(dictionary=True)
     idUser = request.args.get('idUser')
     result = await mainController.readCarUser(idUser,cursor)
     print(result)
+    cursor.close()
     return jsonify({
         'Result': result
     })
@@ -373,17 +397,15 @@ def updateService():
     idService = data['idService']
     serviceO = Service(id=idService,service=service)
     result = mainController.updateService(serviceO,cursor,connection)
+    cursor.close()
     return jsonify({
         'Result': result
     })
 
-@app.route("/service",methods=['DELETE'])
-def deleteService():
+@app.route("/service/<int:idService>",methods=['DELETE'])
+def deleteService(idService):
     cursor = connection.cursor(dictionary=True)
-    data = request.get_json()
-    idService = data['idService']
-    service = Service(id=idService)
-    result = mainController.deleteService(service,cursor,connection)
+    result = mainController.deleteService(idService,cursor,connection)
     return jsonify({
         'Result': result
     })
@@ -433,9 +455,8 @@ def updateAppointment():
 def deleteAppointment():
     cursor = connection.cursor(dictionary=True)
     data = request.get_json()
-    idUser = data['idUser']
     id = data['idAppointment']
-    appointment = Appointment(id=id,idUser=idUser)
+    appointment = Appointment(id=id)
     result = mainController.deleteAppointment(appointment,cursor,connection)
     return jsonify({
         'Result': result
@@ -452,6 +473,23 @@ def getAppointmentId():
         'Result': result
     })
 
+@app.route("/appointmentAdmin",methods=['GET'])
+def readAppointmentAdmin():
+    result = mainController.readAppointmentAdmin(cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+
+@app.route("/appointmentForm",methods=['GET'])
+def readAppointmentForm():
+    idUser = request.args.get('idUser')
+    result = mainController.readAppointmentForm(idUser,cursor)
+    print(result)
+    return jsonify({
+        'Result': result
+    })
+    
 #favorite
 @app.route("/favorites",methods=['POST'])
 def addFavorite():

@@ -89,6 +89,7 @@ function CardCarSellUser({ refreshFavorites, Liked, id, name, year, price, trans
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Body Shape: {bodyshape}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Versión: {version}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Pasajeros: {passangers}</strong></p>
+                        <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Color: {color}</strong></p>
 
                         <button type="button" className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
                             <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />

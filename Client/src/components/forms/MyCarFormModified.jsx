@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
 
-function MyCarFormModified({ initialPlate }) {
+function MyCarFormModified({ idCar, initialPlate }) {
 
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
@@ -141,31 +141,12 @@ function MyCarFormModified({ initialPlate }) {
                 }
             }
     
-            const getPlateId = async () => {
-                try {
-                    console.log(plate.toUpperCase())
-    
-                    const response = await axios.get('http://localhost:8080/plateId', {
-                        params: {
-                            licensePlate: plate.toUpperCase()
-                        }
-                    });
-                    return response.data
-                } catch (error) {
-                    console.error('Error al realizar la solicitud:', error);
-                }
-            };
-
-            const [plateId] = await Promise.all([
-                getPlateId(),
-            ]);
-
             const getData = async () => {
                     try {
                         console.log(idBrand);
                         const response = await axios.put(`http://localhost:8080/carUser`,
                         {
-                            idCar: plateId.Result[0].idCarUser,
+                            idCar: idCar,
                             year: year,
                             licensePlate: plate.toUpperCase(),
                             idBrand: idBrand,

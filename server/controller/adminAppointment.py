@@ -24,7 +24,6 @@ class adminAppointment:
             sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE DATE(appointment.date) >= %s and appointment.User_idUser = %s and appointment.active = 1 ORDER BY appointment.date ASC;" 
             now = datetime.now()
             formatted_date = now.strftime('%Y-%m-%d')
-            print(formatted_date)
             val = (formatted_date,idUser)
             cursor.execute(sql,val)
             result = cursor.fetchall()
@@ -32,6 +31,31 @@ class adminAppointment:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
+    
+    def readAppointmentAdmin(cursor):
+        try: #recupera solo las del usuario
+            sql = "SELECT appointment.idAppointment, appointment.date, appointment.hour, service.service, carUser.licensePlate FROM ((appointment INNER JOIN service  ON appointment.idService = service.idService)  INNER JOIN carUser ON appointment.idCarUser = carUser.idCarUser) WHERE DATE(appointment.date) >= %s and appointment.active = 1 ORDER BY appointment.date ASC;" 
+            now = datetime.now()
+            formatted_date = now.strftime('%Y-%m-%d')
+            val = (formatted_date,)
+            cursor.execute(sql,val)
+            result = cursor.fetchall()
+            return result
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+    
+    def readAppointmentForm(idUser, cursor):
+        try: #recupera solo las del usuario
+            sql = "SELECT 'CarUser' AS tipo, idCarUser, licensePlate FROM carUser WHERE User_idUser = %s AND active = 1 UNION SELECT 'Service' AS active, idService, service FROM service WHERE active = 1;"
+            val = (idUser,)
+            cursor.execute(sql,val)
+            result = cursor.fetchall()
+            return result
+        except mysql.connector.Error as error:
+            print("Failed to execute stored procedure: {}".format(error))
+            return False
+    
     
     def updateAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
@@ -47,8 +71,8 @@ class adminAppointment:
     
     def deleteAppointment(appointment, cursor,connection):
         try: #recupera solo las del usuario
-            sql = "UPDATE appointment SET active = %s WHERE User_idUser = %s and idAppointment = %s" 
-            val = (0,appointment.idUser,appointment.id)
+            sql = "UPDATE appointment SET active = %s WHERE idAppointment = %s" 
+            val = (0,appointment.id)
             cursor.execute(sql,val)
             connection.commit()
             print(cursor.rowcount, "record deleted.")

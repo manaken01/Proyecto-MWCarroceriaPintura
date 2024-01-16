@@ -7,12 +7,17 @@ import axios from 'axios';
 //acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
 function ServicesForm({ }) {
     const [services, setServices] = useState([]);
+    const [idService, setidService] = useState('');
     const [showMarcaModal, setShowMarcaModal] = useState(false);
+    var [responseData, setResponse] = useState([]);
 
     const handleClose = () => {
         setShowMarcaModal(false);
     };
-    const handleShowMarcaModal = () => setShowMarcaModal(true);
+    const handleShowMarcaModal = (idService) => {
+        setidService(idService);
+        setShowMarcaModal(true);
+    };
 
     const getServices = async () => {
         try {
@@ -48,9 +53,21 @@ function ServicesForm({ }) {
         setReason(event.target.value);
     }
 
+    const validateInputs = () => {
+        if (!reason) {
+            alert('Se deben llenar obligatoriamente el campo de servicio');
+            return false;
+        }
+        return true;
+    };
 
 
     const handleServices = () => {
+
+        if (!validateInputs()) {
+            return;
+        }
+
         const doesExist = services.some(serviceV => serviceV.service === reason);
         if (!doesExist) {
             const getData = async () => {
@@ -81,7 +98,6 @@ function ServicesForm({ }) {
 
             const getData = async () => {
                 try {
-                    console.log(idService);
                     const response = await axios.delete(`http://localhost:8080/service/${idService}`);
                     alert('Se ha eliminado el servicio de forma correcta');
                     setResponse(response.data);
@@ -100,7 +116,12 @@ function ServicesForm({ }) {
         }
     }
 
-    const handleServicesEdit = (idService) => {
+    const handleServicesEdit = () => {
+
+        if (!validateInputs()) {
+            return;
+        }
+
         const confirmEdit = window.confirm("¿Seguro que deseas modificar este servicio?");
         if (confirmEdit) {
             const doesExist = services.some(serviceV => serviceV.service === reason);
@@ -113,7 +134,7 @@ function ServicesForm({ }) {
                             idService: idService
                         });
                         setReason('');
-                        alert('Se ha modificado la marca de forma correcta');
+                        alert('Se ha modificado el servicio de forma correcta');
                         setResponse(response.data);
                         if (response.status === 200) {
                             window.location.reload();
@@ -145,7 +166,7 @@ function ServicesForm({ }) {
 
                     <Divider />
                     <div className="d-flex align-items-center">
-                        <p className="card-text"><strong>Nombre:</strong></p>
+                        <p className="card-text"><strong>Servicio:</strong></p>
                         <div className="input-group ml-3" style={{ padding: '2%' }}>
                             <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                         </div>
@@ -170,7 +191,7 @@ function ServicesForm({ }) {
                                                 <img src={DeleteButton} style={{ height: 'auto', width: 'auto' }} alt="Delete" />
                                             </button>
                                             <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }}
-                                                onClick={handleShowMarcaModal}>
+                                                onClick={() => { handleShowMarcaModal(serviceV.idService); }}>
                                                 Modificar
                                             </button>
                                             <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
@@ -191,7 +212,7 @@ function ServicesForm({ }) {
                                                                         <input type="text" id="nombre" className="form-control" aria-label="nombre" aria-describedby="basic-addon1" value={reason} onChange={handleServiceChange} />
                                                                     </div>
                                                                     <button type="button" className="btn btn-danger" style={{ backgroundColor: '#C80B16', width: 'auto', height: 'auto%' }} 
-                                                                    onClick={() => { handleBrandsEdit(serviceV.idService); }}>
+                                                                    onClick={() => { handleServicesEdit() }}>
                                                                         Modificar
                                                                     </button>
                                                                 </div>

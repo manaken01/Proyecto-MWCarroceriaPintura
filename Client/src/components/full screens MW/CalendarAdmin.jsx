@@ -1,66 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { formatDate } from '@fullcalendar/core';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { INITIAL_EVENTS, createEventId } from '../resources/event-utils';
 import esLocale from '@fullcalendar/core/locales/es';
-import CardCalendar from '../objects/CardCalendar';
-import CardCalendarStart from '../objects/CardCalendarStart';
 import AppointmentForm from '../forms/AppointmentForm';
 import { Button, Modal } from 'react-bootstrap';
-import SideBarCalendar from '../objects/SideBarCalendar';
+import SideBarCalendar from '../objects/Calendar/SideBarCalendar';
 import ServicesForm from '../forms/ServicesForm';
+import axios from 'axios';
+import AppointmentsDateList from '../forms/AppointmentsDateList';
+import SideBarCalendarAdmin from '../objects/Calendar/SideBarCalendarAdmin';
 
 function CalendarAdmin() {
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [initialEvents, setInitialEvents] = useState([]);
   const [show, setShow] = useState(false);
   const [showServices, setShowServices] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-
+  const [selectedDate, setSelectedDate] = useState("");
+  const [appointments, setAppointments] = useState([]);
   const handleClose = () => setShow(false);
-  const handleShowServicesClose = () => setShowServices(false);
-  const handleShowServicesOpen = () => setShowServices(true);
   const handleShow = (selectInfo) => {
-    const formattedDate = formatDate(selectInfo.start, { year: 'numeric', month: 'numeric', day: 'numeric', locale: esLocale }); // Formatea la fecha a texto
-    setSelectedDate(formattedDate); // Guarda el día seleccionado en el estado
+
+    const filteredAppointments = appointments.filter(appointment => {
+      
+      const appointmentDate = new Date(appointment.date).toISOString().replace(/T.*$/, '')
+      const selectedDate = selectInfo.start.toISOString().replace(/T.*$/, '')
+      return appointmentDate === selectedDate;
+    });
+
+    // Ahora, filteredAppointments contiene solo los elementos cuya fecha coincide con selectInfo.start
+    // Puedes guardar o utilizar la lista filtrada según tus necesidades
+    const formattedDate = new Date(selectInfo.start).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
+    setFilteredAppointments(filteredAppointments);
+    setSelectedDate(formattedDate)
     setShow(true); // Muestra el modal
   };
+  const handleShowServicesClose = () => setShowServices(false);
+  const handleShowServicesOpen = () => setShowServices(true);
 
-  /*const handleDateSelect = (selectInfo) => {
-    let title = prompt('Please enter a new title for your event');
-    if (title) selectInfo.view.calendar.addEvent({
-      id: createEventId(),
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay
-    });
-  };*/
 
-  const handleEventClick = (clickInfo) => {
-    if (window.confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
-  };
+  const getAppointments = async () => {
+      try {
+          const response = await axios.get('http://localhost:8080/appointmentAdmin');
+          setAppointments(response.data.Result)
+          const events = response.data.Result.map((appointment, index) => ({
+              id: appointment.idAppointment,  // Asegúrate de tener un identificador único para cada evento
+              title: 'Cita: '+appointment.hour,  // Puedes personalizar el título según tus necesidades
+              start: new Date(appointment.date).toISOString().replace(/T.*$/, '')
+          }));
 
-  const handleEvents = (events) => setCurrentEvents(events);
+        // Actualiza los eventos iniciales
+          setInitialEvents(events);
 
-  const renderEventContent = (eventInfo) => (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  );
+          return events;
+      } catch (error) {
+          console.error('Error al realizar la solicitud:', error);
+          return []; // Return an empty array or handle the error gracefully
+      }
+  };    
 
-  const renderSidebarEvent = (event) => (
-    <li key={event.id}>
-      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-      <i>{event.title}</i>
-    </li>
-  );
-
+  useEffect(() => {
+      getAppointments();
+  }, []);
+  
   return (
     <div className='demo-app' style={{ paddingTop: '80px', padding: '3%', display: 'flex', minHeight: '100%', fontFamily: 'Arial, Helvetica Neue, Helvetica, sans-serif', fontSize: '90%' }}>
       <div className='demo-app-main' style={{ flexGrow: '1', padding: '3em' }}>
@@ -68,7 +72,7 @@ function CalendarAdmin() {
           <div style={{ fontSize: '2.3em', fontWeight: '600', color: '#000000', marginBottom: '1%' }}>
             Agendar cita
           </div>
-          <div className='btn btn-link' onClick={handleShowServicesOpen} style={{ backgroundColor: 'transparent',fontSize: '1.6em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'1%'}}>
+          <div className='btn btn-link' onClick={handleShowServicesOpen} style={{ backgroundColor: 'transparent',fontSize: '1.2em', fontWeight: '600', color: '#C80B16', marginLeft:'auto', marginTop:'2%'}}>
             Agregar servicio
           </div>
         </div>
@@ -78,17 +82,15 @@ function CalendarAdmin() {
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: ''
           }}
           initialView='dayGridMonth'
           editable={true}
           selectable={true}
           selectMirror={true}
           dayMaxEvents={true}
-          initialEvents={INITIAL_EVENTS}
+          events={initialEvents}
           select={handleShow}
-          eventClick={handleEventClick}
-          eventsSet={handleEvents}  
           dayCellContent={({ dayNumberText }) => {
             return (
               <span style={{ color: 'black'}}>
@@ -101,7 +103,7 @@ function CalendarAdmin() {
             <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}> 
             </Modal.Header>
             <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
-                <AppointmentForm date={selectedDate}/>
+                <AppointmentsDateList appointments={filteredAppointments} date={selectedDate}/>
             </Modal.Body>
             <Modal.Footer style={{ backgroundColor: '#F9F9F9' }}>
             </Modal.Footer>
@@ -116,7 +118,7 @@ function CalendarAdmin() {
             </Modal.Footer>
         </Modal>
       </div>
-      <SideBarCalendar/>
+      <SideBarCalendarAdmin appointmentsItemsA={appointments}/>
 
     </div>
   );

@@ -71,16 +71,16 @@ const UserScreenAdmin = () => {
                 <div style={{ marginLeft: 'auto', marginRight: '1%' }}>
                     <ul className="d-flex justify-content-between" style={{ marginLeft: 'auto', marginRight: '1%' }}>
                         <li className="nav-item active" style={{ listStyle: 'none', marginLeft: '20%' }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Recuperar contraseña</Link>
+                            <Link className="nav-link" to="/resetPassword" style={linkStyle} href="#">Recuperar contraseña</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Cambiar contraseña</Link>
+                            <Link className="nav-link" to="/changePassword" style={linkStyle} href="#">Cambiar contraseña</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Ver mis carros</Link>
+                            <Link className="nav-link" to="/myCar" style={linkStyle} href="#">Ver mis carros</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none', marginRight: '20%' }}>
                             <Link className="nav-link" to="/manageUsers" style={linkStyle} href="#">Manejar usuarios</Link>
