@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+/**
+ * Display of reset password screen
+ * @returns 
+ */
+
+
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [responseMessage, setResponseMessage] = useState('');

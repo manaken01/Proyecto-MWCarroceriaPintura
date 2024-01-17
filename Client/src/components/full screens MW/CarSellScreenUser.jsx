@@ -6,6 +6,12 @@ import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
+
+/**
+ * Display of car sell screen for users
+ * @returns 
+ */
+
 function CarSellScreen() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);

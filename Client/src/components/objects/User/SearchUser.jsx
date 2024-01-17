@@ -4,9 +4,18 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Modal } from 'react-bootstrap';
 import CarSellForm from '../../forms/CarSellForm';
 import axios from 'axios';
-/*<div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2" style={{ width: '200%', backgroundColor: '#C80B16', borderColor: '#C80B16', color: 'white', marginLeft: '20%' }}>Buscar</button>
-                        </div>*/
+
+/**
+ * Display of searchbar and filters for the user screen
+ * @param {*}
+ * dropdowns: dropdowns to display
+ * setSelectedItems: function to set selected items
+ * handleResults: function to handle results
+ * setSearch: function to set search
+ * search: search to display
+ * @returns 
+ */
+
 const SearchUser = ({dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));

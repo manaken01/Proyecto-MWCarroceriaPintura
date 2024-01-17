@@ -4,6 +4,14 @@ import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 
+/**
+ * 
+ * @param {*}
+ * user: uset to update
+ * refreshParent: function to refresh the parent component
+ * closeForm: function to close the form 
+ * @returns 
+ */
 
 const UserUpdateForm = ({ user, refreshParent, closeForm }) => {
 

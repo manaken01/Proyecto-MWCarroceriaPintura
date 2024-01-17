@@ -4,6 +4,15 @@ import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 
+/**
+ * 
+ * @param {*}
+ *  carSell: Object wich contains the information of the car to be updated.
+ * refreshParent: Function to refresh the parent component.
+ * closeForm: Function to close the form.
+ * pic: Array of objects wich contains the photos of the car to be updated.
+ * @returns 
+ */
 
 const CarSellUpdateForm = ({ carSell, refreshParent, closeForm, pic }) => {
 

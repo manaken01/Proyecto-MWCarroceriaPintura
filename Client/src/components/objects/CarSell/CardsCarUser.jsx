@@ -1,6 +1,18 @@
 import React from 'react';
 import CardCarSellUser from './CardCarSellUser';
 
+/**
+ * Display of cards for car sell for general users
+ * @param {*} 
+ * refreshFavorites: function to refresh favorites
+ * favorites: favorites of the user
+ * cards: cards to display
+ * filters: filters to apply
+ * search: search to apply
+ * refreshParent: function to refresh the parent component
+ * @returns 
+ */
+
 const CardsCarUser = ({refreshFavorites, favorites,cards, filters, search, refreshParent}) => {
     const filteredCards = cards ? cards.filter(card =>
         (filters[0] === 'Seleccione' || card.carSell.nameBrand === filters[0]) &&

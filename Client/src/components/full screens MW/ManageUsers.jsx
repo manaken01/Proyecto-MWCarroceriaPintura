@@ -6,6 +6,12 @@ import CardsUser from '../objects/User/CardsUser';
 import axios from 'axios';
 import { useState, useEffect } from 'react'
 
+/**
+ * Display of manageUsers screen
+ * @returns 
+ */
+
+
 const ManageUsers = () => {
     const [cards, setCards] = useState([]);
     const [search, setSearch] = useState('');

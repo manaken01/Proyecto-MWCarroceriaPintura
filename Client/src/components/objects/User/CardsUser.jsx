@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import CardUser from './CardUser';
 import axios from 'axios';
 
+/**
+ * Display of all the cards of the users
+ * @param {*} 
+ * cards: array of cards
+ * search: string to search
+ * refreshParent: function to refresh the parent component
+ * @returns 
+ */
+
 const CardsUser = ({ cards, search, refreshParent }) => {
     const filteredCards = cards.filter(card =>
 

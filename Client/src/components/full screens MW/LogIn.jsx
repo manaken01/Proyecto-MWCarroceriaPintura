@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 import UserProfile from '../resources/UserProfile';
 import { Link } from "react-router-dom";
 
+/**
+ * Display of log in screen
+ * @returns 
+ */
+
 const LogIn = () => {
 
     const [email, setEmail] = useState('');

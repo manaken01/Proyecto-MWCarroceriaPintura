@@ -3,6 +3,12 @@ import axios from 'axios';
 import { SHA256 } from 'crypto-js';
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Display of register screen
+ * @returns 
+ */
+
+
 const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');

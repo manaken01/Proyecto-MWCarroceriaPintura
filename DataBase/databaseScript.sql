@@ -303,3 +303,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO UserType (name) values ("Administrador");
 INSERT INTO UserType (name) values ("Cliente");
+INSERT INTO user (Username, email, password, cellphone, active, idUserType) VALUES('Admin', 'Admin', '971843c0ab04465ad81bc7d9db857fe48976277cf950141d45314f4333c703c0', '00000000', 1, 1);
+/*
+# Contrasena de admin: 9c2xavG793
+*/

@@ -25,7 +25,7 @@ import ChangePassword from './components/full screens MW/changePassword';
 import ResetPassword from './components/full screens MW/ResetPassword';
 
 function App() {
-  //console.log(UserProfile.getType());
+  
   const CalendarScreen = UserProfile.getType() !== 1 ? <CalendarUser /> : <CalendarAdmin />;
 
   const PartsScreen = UserProfile.getType() !== 1 ? <PartsScreenUser /> : <PartsScreenAdmin />;

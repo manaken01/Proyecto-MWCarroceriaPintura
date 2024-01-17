@@ -6,6 +6,12 @@ import CardsCarFavorites from '../objects/Favorites/CardsCarFavorites'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
+/**
+ * Display of the user profile screen for general users
+ * @returns 
+ */
+
+
 const UserScreenGeneral = () => {
     const navigate = useNavigate();
     const [cards1, setCards1] = useState([]);

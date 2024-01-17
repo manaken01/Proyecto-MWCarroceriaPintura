@@ -4,6 +4,11 @@ import { SHA256 } from 'crypto-js';
 import UserProfile from '../resources/UserProfile';
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Display of change password screen
+ * @returns
+ */
+
 const ChangePassword = () => {
 
     const [currentPassword, setCurrentPassword] = useState('');

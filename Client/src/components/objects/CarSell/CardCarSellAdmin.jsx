@@ -9,6 +9,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
+
+/**
+ * Display of card for car sell for admin
+ * @param {*} 
+ * refreshFavorites: function to refresh favorites
+ * Liked: boolean to know if the car is liked
+ * id: id of the car
+ * name: name of the car
+ * year: year of the car
+ * price: price of the car
+ * transmission: transmission of the car
+ * plate: plate of the car
+ * bodyshape: bodyshape of the car
+ * version: version of the car
+ * passangers: passangers of the car
+ * brand: brand of the car
+ * pic: pictures of the car
+ * color: color of the car
+ * idBrand: id of the brand of the car
+ * refreshParent: function to refresh the parent component
+ * @returns
+ */
+
 function CardCarSellAdmin({ refreshFavorites, Liked,id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand, refreshParent }) {
 
     const allProps = { id, name, year, price, transmission, plate, bodyshape, version, passangers, brand, pic, color, idBrand };

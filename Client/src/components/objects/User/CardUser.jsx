@@ -10,6 +10,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
+/**
+ * Display of card for user
+ * @param {*}
+ * name: name of the user
+ * email: email of the user
+ * phone: phone of the user
+ * type: type of the user
+ * id: id of the user
+ * typeName: name of the type of the user
+ * refreshParent: function to refresh the parent component
+ * @returns
+ */
+
 function CardUser({ name, email, phone, type, id, typeName ,refreshParent }) {
 
     const allProps = { name, email, phone, type, id };

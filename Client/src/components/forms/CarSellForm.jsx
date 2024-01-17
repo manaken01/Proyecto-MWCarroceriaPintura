@@ -3,6 +3,16 @@ import ImageUploader from '../decoration/ImageUploader';
 import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+
+
+/**
+ * Display of form for car sell
+ * @param {*}
+ * refreshParent: function to refresh parent component
+ * closeForm: function to close form
+ * @returns component
+ */
+
 function CarSellForm({refreshParent, closeForm}) {
 
     var [photo, setPhoto] = useState([]);
