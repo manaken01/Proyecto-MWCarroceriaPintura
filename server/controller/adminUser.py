@@ -9,6 +9,15 @@ import json
 
 class adminUser:
 
+
+    """
+    Function: create a user in mysql
+    Params:
+    -user: object user
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def registerUser(user,connection,cursor):
         try: 
             sql = "INSERT INTO user (username, email, password, cellphone, active, idUserType) VALUES (%s, %s, %s, %s, %s, %s)"
@@ -20,7 +29,15 @@ class adminUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+
+    """
+    Function: read all the users in mysql
+    Params:
+    -email: email user
+    -password: password user
+    -cursor: cursor mysql
+    Return: json with the user attributes
+    """
     def logIn(email,password,cursor):
         try: 
             sql = "Select * FROM user WHERE email = %s AND password = %s"
@@ -36,6 +53,13 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
+    """
+    Function: get the user emails and check if the email is already in use
+    Params:
+    -email: email user
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     async def getEmails(email,cursor):
         try: 
             sql = "Select * FROM user WHERE email = %s"
@@ -50,6 +74,13 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
+    """
+    Function: get the user cellphones and check if the cellphone is already in use
+    Params:
+    -cellphone: cellphone user
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     async def getCellphones(cellphone,cursor):
         try: 
             sql = "Select * FROM user WHERE cellphone = %s"
@@ -64,6 +95,13 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
     
+    """
+    Function: get the user names and check if the name is already in use
+    Params:
+    -userName: userName user
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     async def getUserNames(userName,cursor):
         try: 
             sql = "Select * FROM user WHERE userName = %s"
@@ -76,7 +114,14 @@ class adminUser:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+
+    """
+    Function: get all the users in mysql
+    Params:
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Array with all users
+    """
     def getUsers(connection, cursor):
         try: 
             sql = "Select * FROM user INNER JOIN userType ON user.idUserType = userType.idUserType WHERE active = 1"
@@ -87,6 +132,14 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
+    """
+    Function: update an user in mysql
+    Params:
+    -user: object user
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def updateUser(user, connection, cursor):
         try:
             sql = "UPDATE user SET userName = %s, email = %s, cellphone = %s, idUserType = %s WHERE idUser = %s"
@@ -101,6 +154,14 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
+    """
+    Function: delete an user in mysql
+    Params:
+    -idUser: id user
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def deleteUser(idUser, connection, cursor):
         try:
             sql = "UPDATE user SET active = 0 WHERE idUser = %s"
@@ -115,6 +176,16 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
         
+    """
+    Function: change the password of an user in mysql
+    Params:
+    -oldPassword: user old password
+    -newPassword: user new password
+    -idUser: id user
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def changePassword(oldPassword, newPassword, idUser, connection, cursor):
         try:
             sql = "SELECT * FROM user WHERE idUser = %s AND password = %s"
@@ -132,6 +203,14 @@ class adminUser:
             print("Failed to execute stored procedure: {}".format(error))
             return False
         
+    """
+    Function: reset the password of an user in mysql and send an email with the new password
+    Params:
+    -email: user email
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def resetPassword(email, connection, cursor):
         try:
 

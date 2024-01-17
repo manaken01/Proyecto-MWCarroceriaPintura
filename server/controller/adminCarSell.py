@@ -5,6 +5,14 @@ import base64
 
 class AdminCarSell:
 
+    """
+    Function: Add a car in mysql
+    Params:
+    -carSell: object carsell
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def createCarSell(carSell, connection, cursor):
         try:
             sql = "INSERT INTO carSell (year, color, transmission, licensePlate, bodyShape, version, passangers, model, price, active, idBrand) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
@@ -27,6 +35,14 @@ class AdminCarSell:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
+
+    """
+    Function: Get all cars in mysql
+    Params:
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: List of cars
+    """
     def getCarSell(connection, cursor):
         try:
             sql = "SELECT * FROM carSell INNER JOIN brand ON carSell.idBrand = brand.idBrand INNER JOIN carPhoto ON carSell.idCarSell = carPhoto.idCarSell WHERE carSell.active = 1"
@@ -57,6 +73,14 @@ class AdminCarSell:
             return None
     
 
+    """
+    Function: update a car in mysql by id
+    Params:
+    -carSell: object carsell
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def updateCarSell(carSell, connection, cursor):
         try:
             sql = "UPDATE carSell SET year = %s, color = %s, transmission = %s, licensePlate = %s, bodyShape = %s, version = %s, passangers = %s, model = %s, price = %s, active = %s, idBrand = %s WHERE idCarSell = %s"
@@ -85,6 +109,13 @@ class AdminCarSell:
             print("Failed to execute stored procedure: {}".format(error))
             return False
 
+    """
+    Function: delete a car in mysql by id
+    Params:
+    -idCarSell: id car
+    -connection: connection mysql
+    -cursor: cursor mysql
+    """
     def deleteCarSell(idCarSell, connection, cursor):
         try:
             sql = "UPDATE carSell SET active = 0 WHERE idCarSell = %s"

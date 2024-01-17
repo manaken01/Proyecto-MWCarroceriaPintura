@@ -4,6 +4,13 @@ from model.UserType import *
 import json 
 
 class adminUserType:
+    
+    """
+    Function: read all the userTypes in mysql
+    Params:
+    -cursor: cursor mysql
+    Return: json array with the userTypes attributes
+    """
     def getUserTypes(connection,cursor):
         try: 
             sql = "Select * FROM userType"
