@@ -1,5 +1,9 @@
 import React from 'react';
-
+/**
+ * Component of decoration divider
+ * @param {*} 
+ * @returns component
+ */ 
 const Divider = () => {
   return (
     <div

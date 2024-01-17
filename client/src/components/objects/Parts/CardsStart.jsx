@@ -1,6 +1,13 @@
 import React from 'react';
 import Card from './CardPartUser';
-
+/**
+ * Group of last 4 parts.
+ * @param {*} 
+ * cards: list of all parts from database
+ * handleFavorites: Function to update the list of favorites
+ * favorites: list of all favorites from database
+ * @returns component
+ */
 function CardsStart({handleFavorites, cards, favorites}) {
     
     return (

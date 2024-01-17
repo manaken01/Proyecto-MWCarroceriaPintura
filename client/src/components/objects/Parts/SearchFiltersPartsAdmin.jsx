@@ -4,7 +4,17 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { Modal } from 'react-bootstrap';
 import PartsForm from '../../forms/PartsForm';
 import BrandsForm from '../../forms/BrandsForm';
-
+/**
+ * Component that displays the filters for the parts. Include the add part button and the add brand button for the admin
+ * @param {*} 
+ * brand: brand to filter
+ * dropdowns: list of dropdowns to filter
+ * setSelectedItems: function to update the list of selected items
+ * handleResults: function to update the list of parts
+ * setSearch: function to update the search bar
+ * search: input of the search bar
+ * @returns component
+ */
 const SearchFiltersPartsAdmin = ({brand,dropdowns, setSelectedItems, handleResults,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));

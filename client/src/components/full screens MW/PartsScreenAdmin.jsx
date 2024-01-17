@@ -7,7 +7,11 @@ import UserProfile from '../resources/UserProfile';
 import axios from 'axios';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+/**
+ * Display of the parts screen for the admin
+ * @param {*} 
+ * @returns component
+ */
 function PartsScreenAdmin() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);

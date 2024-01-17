@@ -3,6 +3,14 @@ from mysql.connector import Error
 from model.Favorite import *
 
 class adminFavorite:
+    """
+    Function: add a favoritepart or favoritecar in mysql
+    Params:
+    -favorite: object favorite
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def addFavorite(favorite,connection,cursor):
         try: 
             sql = ''
@@ -20,7 +28,14 @@ class adminFavorite:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-    
+    """
+    Function: get all favoritepart or favoritecar in mysql
+    Params:
+    -favorite: object favorite
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """  
     def readFavorite(connection,favorite,cursor):
         try:
             
@@ -38,7 +53,14 @@ class adminFavorite:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+    """
+    Function: delete a favoritepart or favoritecar in mysql
+    Params:
+    -favorite: object favorite
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """  
     def deleteFavorite(favorite,connection,cursor):
         try:
             sql = ''
@@ -55,7 +77,14 @@ class adminFavorite:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-    
+    """
+    Function: get all part or carSell that got a favorite in mysql, also get the photos
+    Params:
+    -favorite: object favorite
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: json
+    """
     def getfavoritesPart(connection,favorite, cursor):
         try:
             sql = ''

@@ -1,6 +1,13 @@
 
 import { FaStar } from 'react-icons/fa';
 
+/**
+ * Component of an start rating for reviews. It can be setted.
+ * @param {*} 
+ * rating: number of stars
+ * setRating: function to set the rating
+ * @returns component
+ */ 
 const StarRatingSet = ({rating, setRating}) => {
 
   const handleStarClick = (index) => {

@@ -1,6 +1,12 @@
 import React from 'react';
 import CardCarSellUser from '../CarSell/CardCarSellUser';
-
+/**
+ * Group of carSells that are favorites.
+ * @param {*} 
+ * refreshFavorites: Function to update the list of favorites
+ * cards: list of favorite carSells from database
+ * @returns component
+ */
 const CardsCarFavorites = ({refreshFavorites,cards}) => {
     
     return (

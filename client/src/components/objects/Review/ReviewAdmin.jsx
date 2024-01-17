@@ -3,7 +3,17 @@ import StarRating from '../../decoration/StarRating'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+/**
+ * Component of an individual review. Include delete button for the admin
+ * @param {*} 
+ * handleReviews: Function to update the list of reviews
+ * id: id of the review
+ * user: user that made the review
+ * calification: calification of the review
+ * comment: comment of the review
+ * date: date of the review
+ * @returns component
+ */
 function Review({ handleReviews,id, user, calification, comment, date }) {
   const handleDeleteReview = async () => {
     try {

@@ -8,6 +8,27 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import PartsUpdateForm from '../../forms/PartsUpdateForm';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
+
+/**
+ * Component of an individual part. Include delete button and update button for the admin
+ * @param {*} 
+ * refreshFavorites: Function to update the list of favorites
+ * Liked: Boolean that indicates if the part is liked or not
+ * id: id of the part
+ * name: name of the part
+ * car: car of the part
+ * price: price of the part
+ * category: category of the part
+ * stock: stock of the part
+ * bodyshape: bodyshape of the part
+ * brand: brand of the part
+ * version: version of the part
+ * gen: generation of the part
+ * pic: list of photos of the part
+ * idBrand: id of the brand of the part
+ * refreshParent: function to update the list of parts
+ * @returns component
+ */
 function CardPartAdmin({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand, refreshParent }) {
     const allProps = { id, name, car, price, category, stock, bodyshape, brand, version, gen, pic, idBrand };
     //const [isFirstRender, setIsFirstRender] = useState(true);

@@ -4,14 +4,15 @@ import ReviewAdmin from './ReviewAdmin';
 import StarRatingSet from '../../decoration/StarRatingSet';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
-// const reviews = [
-//     { id: 1, user: "Mariangeles Carranza Varela 1", calification: 3, comment: 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.', date: '12/03/2014' },
-//     { id: 2, user: "Mario Chinchilla Castro 2", calification: 2, comment: 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.', date: '12/03/2014' },
-//     { id: 3, user: "Mariangeles Carranza Varela  3", calification: 5, comment: 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.', date: '02/03/2014' },
-//     { id: 4, user: "Mario Chinchilla Castro 4", calification: 4, comment: 'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.', date: '02/03/2014' },
-// ]
+/**
+ * Group of all reviews. Include the form to add a new review
+ * @param {*} 
+ * reviews: list of all reviews from database
+ * handleReviews: Function to update the list of reviews
+ * @returns component
+ */
 function ReviewsFull({reviews,handleReviews}) {
-    //falta cambiar la paginacion
+    
     const PartsScreen = (props) => UserProfile.getType() !== 1 ? <ReviewUser {...props} /> : <ReviewAdmin {...props} />;
     const [rating, setRating] = useState(0);
     

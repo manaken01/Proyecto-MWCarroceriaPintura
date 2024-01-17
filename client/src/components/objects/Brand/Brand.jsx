@@ -2,7 +2,13 @@
 
 import { useNavigate } from "react-router-dom";
 
-
+/**
+ * Component of a brand from the start.
+ * @param {*} 
+ * brand: name of the brand
+ * pic: picture of the brand
+ * @returns component
+ */ 
 function Brand({brand, pic}) {
   const navigate = useNavigate();
   function navigateToParts() {

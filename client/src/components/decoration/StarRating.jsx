@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-
+/**
+ * Component of an start rating for reviews. It cannot be setted.
+ * @param {*} 
+ * rating: number of stars
+ * @returns component
+ */ 
 const StarRating = ({rating}) => {
-  
 
   return (
     <div>

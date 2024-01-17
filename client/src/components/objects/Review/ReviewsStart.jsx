@@ -2,7 +2,13 @@ import React from 'react';
 import ReviewUser from './Review';
 import ReviewAdmin from './ReviewAdmin';
 import UserProfile from '../../resources/UserProfile';
-
+/**
+ * Group of last 4 reviews. Doesnt include the form to add a new review
+ * @param {*} 
+ * reviews: list of all reviews from database
+ * handleReviews: Function to update the list of reviews
+ * @returns component
+ */
 function Reviews({reviews,handleReviews}) {
     const PartsScreen = (props) => UserProfile.getType() !== 1 ? <ReviewUser {...props} /> : <ReviewAdmin {...props} />;
 

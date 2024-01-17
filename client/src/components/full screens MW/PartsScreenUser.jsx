@@ -7,7 +7,11 @@ import UserProfile from '../resources/UserProfile';
 import axios from 'axios';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+/**
+ * Display of the parts screen for general users
+ * @param {*} 
+ * @returns component
+ */
 function PartsScreenUser() {
   const [cards, setCards] = useState([]);
   const [dropdowns, setDropdowns] = useState([]);

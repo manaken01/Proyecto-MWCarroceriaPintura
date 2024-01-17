@@ -1,7 +1,16 @@
 import React from 'react';
 import { useState,useEffect  } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+/**
+ * Component that displays the filters for the parts. Doesnt include the add part button and the add brand button
+ * @param {*} 
+ * brand: brand to filter
+ * dropdowns: list of dropdowns to filter
+ * setSelectedItems: function to update the list of selected items
+ * setSearch: function to update the search bar
+ * search: input of the search bar
+ * @returns component
+ */
 const SearchFiltersPartsUser = ({brand,dropdowns, setSelectedItems,setSearch, search}) => {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(4).fill('Seleccione'));

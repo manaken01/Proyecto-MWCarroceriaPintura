@@ -1,7 +1,16 @@
 import React from 'react';
 import Card from './CardPartUser';
 
-
+/**
+ * Group of parts. Also filter the cards by the filters and search bar
+ * @param {*} 
+ * refreshFavorites: Function to update the list of favorites
+ * favorites: list of all favorites from database
+ * cards: list of all parts from database
+ * filters: list of selectec filters
+ * search: input of the search bar
+ * @returns component
+ */
 
 function CardsPartUser({ refreshFavorites, favorites, cards, filters, search }) {
     const filteredCards = cards ? cards.filter(card =>

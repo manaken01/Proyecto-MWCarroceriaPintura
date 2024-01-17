@@ -6,6 +6,25 @@ import Divider from '../../decoration/Divider';
 import whatsapp from '../../../assets/whatsapp.png';
 import UserProfile from '../../resources/UserProfile';
 import axios from 'axios';
+
+/**
+ * Component of an individual part. Doesnt include delete button and update button, is for general users
+ * @param {*} 
+ * refreshFavorites: Function to update the list of favorites
+ * Liked: Boolean that indicates if the part is liked or not
+ * id: id of the part
+ * name: name of the part
+ * car: car of the part
+ * price: price of the part
+ * category: category of the part
+ * stock: stock of the part
+ * bodyshape: bodyshape of the part
+ * brand: brand of the part
+ * version: version of the part
+ * gen: generation of the part
+ * pic: list of photos of the part
+ * @returns component
+ */ 
 function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic }) {
     const [isLiked, setIsLiked] = useState(Liked);
     const handleLikeClick = () => {

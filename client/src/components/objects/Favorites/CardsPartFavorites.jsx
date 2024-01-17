@@ -2,7 +2,13 @@ import React from 'react';
 import Card from '../Parts/CardPartUser';
 
 
-
+/**
+ * Group of parts that are favorites.
+ * @param {*} 
+ * refreshFavorites: Function to update the list of favorites
+ * cards: list of favorite parts from database
+ * @returns component
+ */
 function CardsPartUser({ refreshFavorites, cards}) {
     
     return (

@@ -8,7 +8,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect     } from 'react'
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
-
+/**
+ * Display of the start screen
+ * @param {*} 
+ * @returns component
+ */
 function StartScreen() {
   const [cards, setCards] = useState([]);
   const [favorites, setFavorites] = useState([]);

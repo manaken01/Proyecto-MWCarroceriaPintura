@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+/**
+ * Component of an image uploader used on partsForm,PartsUpdateForm, CarSellForm and CarSellUpdateForm.
+ * @param {*} 
+ * onImageListChange: function to update the list of images
+ * initialImages: list of images that are already uploaded
+ * @returns component
+ */ 
 const ImageUploader = ({ onImageListChange, initialImages = [] }) => {
   const [images, setImages] = useState([]);
   const [base64Images, setBase64Images] = useState([]);

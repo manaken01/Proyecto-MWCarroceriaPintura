@@ -3,7 +3,14 @@ from mysql.connector import Error
 from model.CarPart import *
 
 class adminCarPart:
-
+    """
+    Function: create a part in mysql, also insert the photos of a part in mysql
+    Params:
+    -CarPart: object CarPart
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def createCarPart(CarPart,connection,cursor):
         try:
             sql = "INSERT INTO part (name, car,price, category, stock, bodyShape, version, generation, active, idBrand) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,1,%s)"
@@ -26,7 +33,14 @@ class adminCarPart:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+    """
+    Function: delete a part in mysql (set active to 0)
+    Params:
+    -CarPart: object CarPart
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """  
     def deleteCarPart(CarPart,connection,cursor):
         try:
             sql = "UPDATE part SET active = 0 WHERE idPart = %s"
@@ -39,7 +53,14 @@ class adminCarPart:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return False
-        
+   
+    """
+    Function: get all parts in mysql
+    Params:
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: json
+    """
     def getCarPart(connection, cursor):
         try:
             sql = "SELECT * FROM part INNER JOIN brand ON part.idBrand = brand.idBrand INNER JOIN partphoto ON part.idPart = partphoto.idPart WHERE part.active = 1"
@@ -68,6 +89,15 @@ class adminCarPart:
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))
             return None
+        
+    """
+    Function: update a part in mysql
+    Params:
+    -CarPart: object CarPart
+    -connection: connection mysql
+    -cursor: cursor mysql
+    Return: Boolean
+    """
     def updateCarPart(CarPart,connection,cursor):
         try:
             sql = "UPDATE part SET name = %s, car = %s, price = %s, category = %s, stock = %s, bodyShape = %s, version = %s, generation = %s, active = %s, idBrand = %s WHERE idPart = %s"

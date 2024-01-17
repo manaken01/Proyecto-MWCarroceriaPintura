@@ -11,6 +11,11 @@ import cheimg from '../../../assets/brands/chevroletIMG.png';
 import mazimg from '../../../assets/brands/mazdaIMG.png';
 import susimg from '../../../assets/brands/susukiIMG.png';
 
+/**
+ * Group of brands from the start.
+ * @param {*} 
+ * @returns component
+ */ 
 const brands = [{ id: 1, brand: "TOYOTA", pic: toyimg },
 { id: 2, brand: "HYUNDAI", pic: hyuimg },
 { id: 3, brand: "NISSAN", pic: nisimg },
