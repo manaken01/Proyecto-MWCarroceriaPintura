@@ -1,5 +1,6 @@
 #.\env\Scripts\activate
 #python .\server.py    
+#npm install 
 #python -m pip install mysql-connector-python
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -14,10 +15,10 @@ from model.Appointment import *
 from model.CarSell import *
 from model.Favorite import *
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__) #start of server
+CORS(app) #permissions 
 
-connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306')
+connection = mysql.connector.connect(user='root', password='12345',host='localhost',database='mydb',port='3306') #connection to mysql
 cursor = connection.cursor(dictionary=True)
 connection.autocommit = True
 
@@ -290,7 +291,7 @@ def getUserTypes():
     })
 
 
-#CarUser
+#Routes of carUser
 @app.route("/carUser",methods=['POST'])
 def createCarUser():
     cursor = connection.cursor(dictionary=True)
@@ -363,7 +364,7 @@ async def getPlateId():
         'Result': result
     })
 
-#services
+#Routes of services
 @app.route("/service",methods=['POST'])
 def createService():
     cursor = connection.cursor(dictionary=True)
@@ -404,7 +405,7 @@ def deleteService(idService):
         'Result': result
     })
 
-#appointment
+#Routes of appointment
 @app.route("/appointment",methods=['POST'])
 def createAppointment():
     cursor = connection.cursor(dictionary=True)
@@ -470,7 +471,6 @@ def getAppointmentId():
 @app.route("/appointmentAdmin",methods=['GET'])
 def readAppointmentAdmin():
     result = mainController.readAppointmentAdmin(cursor)
-    #print(result)
     return jsonify({
         'Result': result
     })
@@ -560,4 +560,4 @@ def deleteReview(idReview):
     })
 
 if __name__ == "__main__":
-    app.run(debug=True, port = 8080)
+    app.run(debug=True, port = 8080) #port 8080

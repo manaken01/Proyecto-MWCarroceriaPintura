@@ -10,7 +10,9 @@ from controller.adminUserType import *
 from controller.adminFavorite import *
 from controller.adminReview import *
 
+#Object mainController
 class mainController:
+
     #Brand
     def createBrand(brand,connection,cursor):
         return (adminBrand.createBrand(brand,connection,cursor))
@@ -82,10 +84,10 @@ class mainController:
         return (adminUser.resetPassword(email, connection, cursor))
     
     #UserType
-
     def getUserTypes(connection,cursor):
         return (adminUserType.getUserTypes(connection,cursor))
-    #CarUser
+    
+    #functions of carUser
     def createCarUser(carUser,connection,cursor):
         return (adminCarUser.createCarUser(carUser,connection,cursor))
     
@@ -104,7 +106,7 @@ class mainController:
     async def getPlateId(licensePlate,cursor):
         return (await adminCarUser.getPlateId(licensePlate,cursor))
     
-    #services
+    #functions of services
     def createService(service,connection,cursor):
         return (adminService.createService(service,connection,cursor))
     
@@ -117,7 +119,7 @@ class mainController:
     def deleteService(idService,cursor,connection):
         return (adminService.deleteService(idService,cursor,connection))
     
-    #appointment
+    #functions of appointment
     def createAppointment(appointment,connection,cursor):
         return (adminAppointment.createAppointment(appointment,connection,cursor))
     

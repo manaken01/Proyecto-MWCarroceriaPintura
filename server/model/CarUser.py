@@ -1,3 +1,4 @@
+#Object carUser
 class CarUser():
     def __init__(self, id=None, year=None, licensePlate=None, active=None, idBrand = None, idUser = None):
         self.id = id
