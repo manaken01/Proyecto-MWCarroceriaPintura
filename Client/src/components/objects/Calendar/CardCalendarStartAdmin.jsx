@@ -5,6 +5,12 @@ import UserProfile from '../../resources/UserProfile';
 import { useState, useEffect} from 'react';
 import CardCalendarAdmin from './CardCalendarAdmin';
 
+/**
+ * start of cards appointments admin
+ * @param {*} 
+ * appointmentsItemsA: appointments to load
+ * @returns component
+ */
 function CardCalendarStartAdmin ({appointmentsItems}) {
     return (
         <div>{

@@ -1,6 +1,11 @@
 import React from 'react';
 import car from '../../assets/informationCar.png';
 
+/**
+ * Display of information second
+ * @param {*} 
+ * @returns component
+ */
 function InformationSecond() {
     return (
         <div>

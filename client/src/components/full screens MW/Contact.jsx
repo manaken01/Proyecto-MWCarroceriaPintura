@@ -5,6 +5,11 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * Display of contact
+ * @param {*} 
+ * @returns component
+ */
 function Contact() {
     return (
         <div>
@@ -49,8 +54,10 @@ function Contact() {
                             marginRight: '1%',
                             fontSize: '1.7em'
                         }}
-                        href="#!"
+                        href="https://www.instagram.com/mwcarroceriapintura/"
                         role="button"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         >
                         <FontAwesomeIcon icon={faInstagram} />
                         </a>
@@ -81,17 +88,17 @@ function Contact() {
                             >
                             <FontAwesomeIcon icon={faMapMarkerAlt} />
                         </a>
-                        <h2><strong>MW Carroceria y pintura San José</strong></h2>
-                        <p style={{ fontSize: '1.5em' }}>200 metros norte la universal Avenida Central. 
+                        <h2><strong>MW Carroceria y pintura</strong></h2>
+                        <p style={{ fontSize: '1.5em' }}>1 kilometro oeste del cementerio y 50 sur Alajuela Palmares, 20701. 
                             </p>
-                        <p style={{ fontSize: '1.5em' }}>10106 San José</p>
-                        <p style={{ fontSize: '1.5em' }}>Provincia de San José, Costa Rica</p>
-                        <p style={{ fontSize: '1.5em' }}>+506 8480 0640</p>
+                        <p style={{ fontSize: '1.5em' }}>11001 Alajuela</p>
+                        <p style={{ fontSize: '1.5em' }}>Provincia de Alajuelta, Costa Rica</p>
+                        <p style={{ fontSize: '1.5em' }}>+506 8828 4808</p>
                     </div>
                 </div>
                 <div className="col-lg-6 my-4" >
                     <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1965.172333504467!2d-84.07012198125592!3d9.905224840070254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xc754bdb5612b2e70!2zOcKwNTQnMTguOCJOIDg0wrAwNCcwOC41Ilc!5e0!3m2!1ses!2ses!4v1641634043363!5m2!1ses!2ses"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2777.9650159673015!2d-84.43941690421104!3d10.046881819469844!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa05b829d82877d%3A0x6973e7d19a9e351c!2sMW%20Carrocer%C3%ADa%20y%20Pintura!5e0!3m2!1ses!2scr!4v1705465619632!5m2!1ses!2scr"
                     className="w-100" height="400" allowFullScreen="" loading="lazy"></iframe>
                 </div>
             </div>

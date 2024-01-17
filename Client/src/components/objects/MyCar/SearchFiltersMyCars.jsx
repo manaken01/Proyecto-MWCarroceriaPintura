@@ -6,6 +6,15 @@ import { useNavigate } from "react-router-dom";
 import MyCarForm from '../../forms/MyCarForm';
 import { useState , useEffect } from 'react'
 
+/**
+ * Component to display filters search of car user
+ * @param {*} 
+ * dropdowns: dropdowns to load
+ * setSelectedItems: selected items of the dropdowns
+ * setSearch: function to set search
+ * search: the car user that is searching the user
+ * @returns component
+ */
 function SearchFiltersMyCars({dropdowns, setSelectedItems,setSearch, search}) {
     
     const [tempSelectedItems, setTempSelectedItems] = useState(Array(2).fill('Seleccione'));

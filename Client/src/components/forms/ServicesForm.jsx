@@ -4,7 +4,11 @@ import Divider from '../decoration/Divider';
 import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 
-//acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
+/**
+ * Display form of service
+ * @param {*} 
+ * @returns component
+ */
 function ServicesForm({ }) {
     const [services, setServices] = useState([]);
     const [idService, setidService] = useState('');

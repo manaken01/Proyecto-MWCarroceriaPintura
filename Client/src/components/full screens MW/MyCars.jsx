@@ -9,6 +9,11 @@ import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
 import { useParams } from "react-router-dom";
 
+/**
+ * Display of my cars user
+ * @param {*} 
+ * @returns component
+ */
 function MyCars() {
 
   const [carsUsers, setCarsUsers] = useState([]);

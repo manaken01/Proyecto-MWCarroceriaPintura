@@ -3,6 +3,12 @@ import CardCalendarStart from './CardCalendarStart';
 import axios from 'axios';
 import CardCalendarStartAdmin from './CardCalendarStartAdmin';
 
+/**
+ * Siderbar of calendar admin
+ * @param {*} 
+ * appointmentsItemsA: appointments to load
+ * @returns component
+ */
 function SideBarCalendarAdmin({appointmentsItemsA}) {
     return (
     <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style= {{maxWidth: '100%'}}>

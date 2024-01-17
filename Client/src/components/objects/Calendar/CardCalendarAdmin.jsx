@@ -6,6 +6,16 @@ import AppointmentFormModified from '../../forms/AppointmentFormModified';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
 
+/**
+ * Each card of an appointment admin
+ * @param {*} 
+ * date: date of the appointment
+ * hour: hour of the appointment
+ * reason: service of the appointment
+ * car: brand of the car user of the appointment
+ * appointmentID: id of the appointment
+ * @returns component
+ */
 function CardCalendarAdmin({date,hour,reason,car,appointmentID}) {
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
 

@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import CardCalendarStart from './CardCalendarStart';
 import axios from 'axios';
 
+/**
+ * Siderbar of calendar user
+ * @param {*} 
+ * appointmentsItemsA: appointments to load
+ * @returns component
+ */
 function SideBarCalendar({appointmentsItemsA}) {
     return (
     <div className="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style= {{maxWidth: '100%'}}>

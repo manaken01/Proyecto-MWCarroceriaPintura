@@ -1,7 +1,14 @@
 import React from 'react';
 import CardMyCars from './CardMyCars';
 
-
+/**
+ * Component to start the carUsers of an User
+ * @param {*} 
+ * carUsers: Json of all carUsers of and user
+ * filters: filters of the carUser
+ * search: search a specific car
+ * @returns component
+ */
 function CardMyCarsStart ({carsUsers,filters, search}) {
 
     const filteredCards = carsUsers.filter(card =>

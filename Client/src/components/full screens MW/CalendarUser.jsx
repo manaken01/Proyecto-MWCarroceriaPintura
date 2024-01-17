@@ -11,6 +11,11 @@ import SideBarCalendar from '../objects/Calendar/SideBarCalendar';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
 
+/**
+ * Display of calendar user
+ * @param {*} 
+ * @returns component
+ */
 function CalendarUser() {
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);

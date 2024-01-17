@@ -4,7 +4,14 @@ import Divider from '../decoration/Divider';
 import DeleteButton from '../../assets/DeleteButton.png';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
-//acordarse que hace falta refrescar los filtros despues de agregar marca o repuesto
+
+/**
+ * Display of date list by date
+ * @param {*} 
+ * date: date selected by user
+ * appointments: appointments to show
+ * @returns component
+ */
 function AppointmentsDateList({appointments,date}) {
 
 

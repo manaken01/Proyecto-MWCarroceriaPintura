@@ -7,6 +7,15 @@ import MyCarFormModified from '../../forms/MyCarFormModified';
 import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
 
+/**
+ * Component to display a car user
+ * @param {*} 
+ * idCarUser: id of a carUser
+ * car: brand of car
+ * year: year of car
+ * plate: licensePlate of a car
+ * @returns component
+ */
 function CardMyCars({idCarUser,car,year,plate}) {
     const [show, setShow] = useState(false);
 

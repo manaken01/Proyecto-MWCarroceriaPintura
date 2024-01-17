@@ -4,6 +4,12 @@ import axios from 'axios';
 import UserProfile from '../../resources/UserProfile';
 import { useState, useEffect} from 'react';
 
+/**
+ * start of cards appointments user
+ * @param {*} 
+ * appointmentsItemsA: appointments to load
+ * @returns component
+ */
 function CardCalendarStart ({appointmentsItems}) {
     return (
         <div>{

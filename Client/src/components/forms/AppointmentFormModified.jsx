@@ -8,6 +8,13 @@ import UserProfile from '../resources/UserProfile';
 import { formatDate } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
+/**
+ * Display of form for appointment
+ * @param {*} 
+ * date: date selected by user
+ * appointmentID: id of the appointment to modify
+ * @returns component
+ */
 function AppointmentFormModified({date,hourM,appointmentID}) {
     
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });

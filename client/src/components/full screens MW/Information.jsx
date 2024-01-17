@@ -6,6 +6,12 @@ import Divider from '../decoration/Divider';
 import Reviews from '../objects/Review/ReviewsFull';
 import { useState, useEffect     } from 'react';
 import axios from 'axios';
+
+/**
+ * Display of all information
+ * @param {*} 
+ * @returns component
+ */
 function Information() {
     const [reviews, setReviews] = useState([]);
 

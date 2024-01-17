@@ -3,6 +3,12 @@ import Divider from '../decoration/Divider';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
+
+/**
+ * Display form of car user
+ * @param {*} 
+ * @returns component
+ */
 function MyCarForm() {
 
     const [dropdowns, setDropdowns] = useState([]);

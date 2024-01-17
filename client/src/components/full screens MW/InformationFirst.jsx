@@ -1,6 +1,11 @@
 import React from 'react';
 import car from '../../assets/informationCar.png';
 
+/**
+ * Display of information first
+ * @param {*} 
+ * @returns component
+ */
 function InformationFirst() {
     return (
         <div style={{ paddingTop:'4%'}}>

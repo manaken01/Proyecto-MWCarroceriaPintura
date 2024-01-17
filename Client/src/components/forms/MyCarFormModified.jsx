@@ -4,6 +4,13 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import UserProfile from '../resources/UserProfile';
 
+/**
+ * Display form of car user to modify
+ * @param {*} 
+ * idCar: id of car user
+ * initialPlate: plate written by user
+ * @returns component
+ */
 function MyCarFormModified({ idCar, initialPlate }) {
 
     const [dropdowns, setDropdowns] = useState([]);

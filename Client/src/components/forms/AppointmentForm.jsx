@@ -8,6 +8,12 @@ import UserProfile from '../resources/UserProfile';
 import { formatDate } from '@fullcalendar/core';
 import esLocale from '@fullcalendar/core/locales/es';
 
+/**
+ * Display of form for appointment
+ * @param {*} 
+ * date: date selected by user
+ * @returns component
+ */
 function AppointmentForm({date}) {
     
     const [dropdowns, setDropdowns] = useState([]);

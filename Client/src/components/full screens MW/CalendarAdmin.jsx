@@ -13,6 +13,11 @@ import axios from 'axios';
 import AppointmentsDateList from '../forms/AppointmentsDateList';
 import SideBarCalendarAdmin from '../objects/Calendar/SideBarCalendarAdmin';
 
+/**
+ * Display of calendar admin
+ * @param {*} 
+ * @returns component
+ */
 function CalendarAdmin() {
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [initialEvents, setInitialEvents] = useState([]);
