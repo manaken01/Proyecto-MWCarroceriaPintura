@@ -27,7 +27,7 @@ function CardMyCarsStart ({carsUsers,filters, search}) {
             <div className='row'>{
                 filteredCards.map((carData, index) => (
                     <div className='col-md-6' key={index}>
-                        <CardMyCars idCarUser = {carData.idCarUser} car={carData.name} year={carData.year} plate={carData.licensePlate} />
+                        <CardMyCars idCarUser = {carData.idCarUser} car={carData.nameBrand} year={carData.year} plate={carData.licensePlate} />
                     </div>
                 ))
             }
