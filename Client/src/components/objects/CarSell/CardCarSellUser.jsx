@@ -114,10 +114,14 @@ function CardCarSellUser({ refreshFavorites, Liked, id, name, year, price, trans
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Pasajeros: {passangers}</strong></p>
                         <p className="card-text" style={{ marginBottom: '5%', color: '#000000' }}><strong>Color: {color}</strong></p>
 
-                        <button type="button" className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
+                        <a href="https://wa.me/50688284808"
+                            target="_blank"
+                            className="btn btn-danger"
+                            style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}
+                            role="button">
                             <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
                             Preguntar vía Whatsapp
-                        </button>
+                        </a>
 
                     </div>
                 </div>
