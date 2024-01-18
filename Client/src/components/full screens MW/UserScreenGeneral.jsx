@@ -77,15 +77,15 @@ const UserScreenGeneral = () => {
                 <div style={{ marginLeft: 'auto', marginRight: '1%' }}>
                     <ul className="d-flex justify-content-between" style={{ marginLeft: 'auto', marginRight: '1%' }}>
                         <li className="nav-item active" style={{ listStyle: 'none', marginLeft: '20%' }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Recuperar contraseña</Link>
+                            <Link className="nav-link" to="/resetPassword" style={linkStyle} href="#">Recuperar contraseña</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
-                            <Link className="nav-link" to="/" style={linkStyle} href="#">Cambiar contraseña</Link>
+                            <Link className="nav-link" to="/changePassword" style={linkStyle} href="#">Cambiar contraseña</Link>
                         </li>
                         <li className="nav-item active" style={{ listStyle: 'none' }}>
                             <Link className="nav-link" onClick={manageLogOut} to="/login" style={linkStyle} href="#">Cerrar sesión</Link>
                         </li>
-                        <li className="nav-item active" style={{ listStyle: 'none',  marginRight: '20%'  }}>
+                        <li className="nav-item active" style={{ listStyle: 'none', marginRight: '20%' }}>
                             <Link className="nav-link" to="/myCar" style={linkStyle} href="#">Ver mis carros</Link>
                         </li>
                     </ul>
@@ -94,11 +94,11 @@ const UserScreenGeneral = () => {
                     </div>
                 </div>
             </div>
-            
-            <h1 style={{ marginLeft: '10%' , marginTop: '3%', marginBottom: '2%' }}>Repuestos favoritos</h1>
+
+            <h1 style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '2%' }}>Repuestos favoritos</h1>
             <CardsPartFavorite refreshFavorites={handleCardFavoritesParts} cards={cards1} />
 
-            <h1 style={{ marginLeft: '10%' , marginTop: '3%', marginBottom: '2%' }}>Carros favoritos</h1>
+            <h1 style={{ marginLeft: '10%', marginTop: '3%', marginBottom: '2%' }}>Carros favoritos</h1>
             <CardsCarFavorites refreshFavorites={handleCardFavoritesCars} cards={cards2} />
 
         </div>
