@@ -48,9 +48,18 @@ function PartsForm({ refreshParent , closeForm}) {
         setName(event.target.value);
     }
 
-
+    const validateInputs = () => {
+        if (!name) {
+            alert('Se deben llenar obligatoriamente el nombre de la marca');
+            return false;
+        }
+        return true;
+    };
 
     const handleBrands = () => {
+        if (!validateInputs()) {
+            return;
+        }
         const doesExist = brands.some(brand => brand.nameBrand === name.toUpperCase());
         if (!doesExist) {
             const getData = async () => {
