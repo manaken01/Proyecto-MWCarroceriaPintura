@@ -19,6 +19,7 @@ const UserScreenGeneral = () => {
     const linkStyle = { color: '#C80B16', textDecoration: 'none', display: 'inline-block', width: '100%', height: 'auto', fontWeight: 600 };
     const manageLogOut = () => {
         UserProfile.deleteCookies();
+        location.reload();
     }
 
     const handleCardFavoritesParts = async () => {
