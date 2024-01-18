@@ -23,7 +23,7 @@ function PartsScreenUser() {
       const response = await axios.get('http://localhost:8080/carPart');
       if(response.data.Result === undefined || response.data.Result === null ) return;
           setCards(response.data.Result);
-          const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUSUKI'];
+          const initialBrands = ['Seleccione', 'TOYOTA', 'HYUNDAI', 'NISSAN', 'HONDA', 'KIA', 'MITSUBISHI', 'CHEVROLET', 'MAZDA', 'SUZUKI'];
           const brands = [...new Set([...initialBrands, ...response.data.Result.map(item => item.parts.nameBrand)])];
 
           const cars = [...new Set(response.data.Result.map(item => item.parts.car))];

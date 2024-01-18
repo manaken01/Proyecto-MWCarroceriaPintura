@@ -24,7 +24,7 @@ const brands = [{ id: 1, brand: "TOYOTA", pic: toyimg },
 { id: 6, brand: "MITSUBISHI", pic: mitimg },
 { id: 7, brand: "CHEVROLET", pic: cheimg },
 { id: 8, brand: "MAZDA", pic: mazimg },
-{ id: 9, brand: "SUSUKI", pic: susimg }
+{ id: 9, brand: "SUZUKI", pic: susimg }
 ]
 function Brands() {
     return (
