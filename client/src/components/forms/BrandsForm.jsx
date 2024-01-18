@@ -185,7 +185,7 @@ function PartsForm({ refreshParent , closeForm}) {
                                                 onClick={handleShowMarcaModal}>
                                                 Modificar
                                             </button>
-                                            <Modal show={showMarcaModal} onHide={handleClose} style={{ backgroundColor: 'transparent' }}>
+                                            <Modal show={showMarcaModal} onHide={handleClose} backdrop={false} style={{ backgroundColor: 'transparent' }}>
                                                 <Modal.Header closeButton style={{ backgroundColor: '#F9F9F9' }}>
                                                 </Modal.Header>
                                                 <Modal.Body style={{ backgroundColor: '#F9F9F9' }}>
