@@ -24,11 +24,9 @@ const SearchFiltersAdmin = ({dropdowns, setSelectedItems, handleResults,setSearc
     const [showRepuestoModal, setShowRepuestoModal] = useState(false);
     const handleClose = () => {
         setShowRepuestoModal(false);
-        setShowMarcaModal(false);
     };
 
     const handleShowRepuestoModal = () => setShowRepuestoModal(true);
-    const handleShowMarcaModal = () => setShowMarcaModal(true);
 
     const handleSelect = (index, value) => {
         const newTempSelectedItems = [...tempSelectedItems];
