@@ -73,8 +73,10 @@ function Contact() {
                             justifyContent: "center",     // Para centrar horizontalmente el ícono
                             fontSize: '1.7em'
                         }}
-                        href="#!"
+                        href="https://wa.me/50688284808"
                         role="button"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         >
                         <FontAwesomeIcon icon={faWhatsapp} />
                         </a>
