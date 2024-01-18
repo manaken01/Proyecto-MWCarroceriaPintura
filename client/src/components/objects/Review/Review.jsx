@@ -24,7 +24,7 @@ function Review({handleReviews, id, user,calification, comment,date }) {
             <StarRating rating={calification}/>
             <h5 className="card-title">{user}</h5>
             <p className="card-text">{comment}</p>
-            <p className="card-text"><small className="text-muted"></small>{date}</p>
+            <p className="card-text"><small className="text-muted"></small>{new Date(date).toLocaleDateString('es-ES', { timeZone: 'UTC', year: 'numeric', month: 'long', day: '2-digit' })}</p>
           </div>
         </div>
       </div>
