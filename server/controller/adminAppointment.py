@@ -135,12 +135,11 @@ class adminAppointment:
     """
     def getAppointmentId(date,hour,idUser, cursor):
         try: #recupera solo las del usuario
-            sql = "SELECT * FROM appointment WHERE DATE(date) >= %s and hour = %s" 
-            now = datetime.now()
-            formatted_date = now.strftime('%Y-%m-%d')
-            val = (formatted_date,hour)
+            sql = "SELECT * FROM appointment WHERE DATE(date) = %s and hour = %s" 
+            val = (date,hour)
             cursor.execute(sql,val)
             result = cursor.fetchall()
+            print(result)
             return result
         except mysql.connector.Error as error:
             print("Failed to execute stored procedure: {}".format(error))

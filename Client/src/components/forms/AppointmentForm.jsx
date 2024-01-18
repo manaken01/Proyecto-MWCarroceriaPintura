@@ -145,15 +145,18 @@ function AppointmentForm({date}) {
         if (!validateInputs()) {
             return;
         }
+        
 
-        const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
+        const dateParts = date.split('/'); // Dividir la cadena en partes
+        const isoDateString = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+        console.log(isoDateString)
 
         const getAppointmentId = async () => {
             try {
 
                 const response = await axios.get('http://localhost:8080/appointmentID', {
                     params: {
-                        date: formattedDateForm,
+                        date: isoDateString,
                         hour: hour
                     }
                 });
@@ -166,6 +169,8 @@ function AppointmentForm({date}) {
         const [appointmentID] = await Promise.all([
             getAppointmentId(),
         ]);
+
+        console.log(appointmentID.Result)
 
         if (appointmentID.Result.length !== 0) {
             alert('Ya se encuentra una cita asignada a esa hora');

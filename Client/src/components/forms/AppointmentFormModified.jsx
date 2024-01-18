@@ -18,7 +18,9 @@ import esLocale from '@fullcalendar/core/locales/es';
 function AppointmentFormModified({date,hourM,appointmentID}) {
     
     const formattedDate = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric',timeZone: 'UTC' });
-    const formattedDateForm = new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'numeric', day: 'numeric',timeZone: 'UTC' });
+    const dateParts = date.split('/'); // Dividir la cadena en partes
+    const formattedDateForm = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+    
     const [dropdowns, setDropdowns] = useState([]);
     var [responseData, setResponse] = useState([]);
     var [responseDataService, setResponseService] = useState([]);
