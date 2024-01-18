@@ -307,3 +307,13 @@ INSERT INTO user (Username, email, password, cellphone, active, idUserType) VALU
 /*
 # Contrasena de admin: 9c2xavG793
 */
+
+INSERT INTO brand (nameBrand, active) VALUES('TOYOTA', 1);
+INSERT INTO brand (nameBrand, active) VALUES('HYUNDAI', 1);
+INSERT INTO brand (nameBrand, active) VALUES('NISSAN', 1);
+INSERT INTO brand (nameBrand, active) VALUES('HONDA', 1);
+INSERT INTO brand (nameBrand, active) VALUES('KIA', 1);
+INSERT INTO brand (nameBrand, active) VALUES('MITSUBISHI', 1);
+INSERT INTO brand (nameBrand, active) VALUES('CHEVROLET', 1);
+INSERT INTO brand (nameBrand, active) VALUES('MAZDA', 1);
+INSERT INTO brand (nameBrand, active) VALUES('SUZUKI', 1);
