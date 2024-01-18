@@ -24,7 +24,7 @@ import axios from 'axios';
  * gen: generation of the part
  * pic: list of photos of the part
  * @returns component
- */ 
+ */
 function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category, stock, bodyshape, brand, version, gen, pic }) {
     const [isLiked, setIsLiked] = useState(Liked);
     const handleLikeClick = () => {
@@ -78,7 +78,7 @@ function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category,
                         {pic.map((imagen, index) => {
                             return (
                                 <CarouselItem key={`${id}-${index}`} >
-                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100"  />
+                                    <img src={imagen} alt={`Slide ${index + 1}`} style={{ minWidth: '100%', maxHeight: '350px' }} className="d-block h-100" />
                                 </CarouselItem>
                             );
                         })}
@@ -101,11 +101,14 @@ function CardPartUser({ refreshFavorites, Liked, id, name, car, price, category,
                         <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Versión: </strong>{version}</p>
                         <p className="card-text" style={{ marginBottom: '3%', color: '#000000' }}><strong>Generación: </strong>{gen}</p>
 
-                        <button href="https://wa.me/50688284808"
-                        target="_blank"  type="button" className="btn btn-danger" style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}>
+                        <a href="https://wa.me/50688284808"
+                            target="_blank"
+                            className="btn btn-danger"
+                            style={{ textAlign: 'center', backgroundColor: '#C80B16', width: '100%', height: '5%' }}
+                            role="button">
                             <img src={whatsapp} style={{ height: 'auto%', width: 'auto', marginRight: '4%' }} alt="WhatsApp" />
                             Preguntar vía Whatsapp
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
